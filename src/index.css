@@ -1,0 +1,1960 @@
+@import "tailwindcss";
+
+/*
+ * Kota Karier — Design System
+ * Retro pixel-art aesthetic: gradient sky, dark panels, cyan borders,
+ * scanline overlay, pixel font for headings, clean sans-serif for body.
+ *
+ * Palette: ~24 colors, limited and cohesive.
+ */
+
+/* ============================================================
+   CUSTOM PROPERTIES (Design Tokens)
+   ============================================================ */
+
+:root {
+  /* --- Core palette --- */
+  --color-bg-dark: #0a0e1a;
+  --color-bg-panel: #111827;
+  --color-bg-panel-hover: #1a2236;
+  --color-border-cyan: #22d3ee;
+  --color-border-subtle: #1e293b;
+  --color-accent-cyan: #22d3ee;
+  --color-accent-green: #4ade80;
+  --color-accent-yellow: #fbbf24;
+  --color-accent-red: #f87171;
+  --color-accent-purple: #a78bfa;
+  --color-accent-orange: #fb923c;
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+
+  /* --- Sky gradient colors --- */
+  --sky-top: #0f172a;
+  --sky-middle: #1e1b4b;
+  --sky-bottom: #312e81;
+
+  /* --- Spacing scale --- */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* --- Font stacks --- */
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
+
+  /* --- Tap target minimum --- */
+  --min-tap: 44px;
+
+  /* --- Transition --- */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+}
+
+/* ============================================================
+   GLOBAL RESETS & BASE STYLES
+   ============================================================ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Pixel-rendered images */
+img[data-pixel],
+.pixel-art {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* ============================================================
+   PIXEL FONT (headings & buttons only)
+   ============================================================ */
+
+h1,
+h2,
+h3,
+.pixel-text {
+  font-family: var(--font-pixel);
+  letter-spacing: 1px;
+  line-height: 1.4;
+}
+
+/* ============================================================
+   PANEL COMPONENT
+   ============================================================ */
+
+.panel {
+  background: var(--color-bg-panel);
+  border: 2px solid var(--color-border-cyan);
+  border-radius: 4px;
+  padding: var(--space-md);
+  box-shadow:
+    0 0 8px rgba(34, 211, 238, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.panel--hover:hover {
+  background: var(--color-bg-panel-hover);
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.25);
+  transition: all var(--transition-normal);
+}
+
+/* ============================================================
+   BUTTON COMPONENT
+   ============================================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  font-family: var(--font-pixel);
+  font-size: 0.7rem;
+  padding: var(--space-sm) var(--space-md);
+  min-height: var(--min-tap);
+  min-width: var(--min-tap);
+  border: 2px solid var(--color-border-cyan);
+  border-radius: 4px;
+  background: var(--color-bg-panel);
+  color: var(--color-accent-cyan);
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--color-accent-cyan);
+  color: var(--color-bg-dark);
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  background: var(--color-accent-cyan);
+  color: var(--color-bg-dark);
+  font-weight: 700;
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: #06b6d4;
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
+}
+
+.btn--ghost {
+  border-color: transparent;
+  background: transparent;
+}
+
+.btn--ghost:hover:not(:disabled) {
+  border-color: var(--color-border-cyan);
+  background: rgba(34, 211, 238, 0.1);
+  color: var(--color-accent-cyan);
+  box-shadow: none;
+  transform: none;
+}
+
+/* ============================================================
+   SCANLINE OVERLAY
+   ============================================================ */
+
+.scanlines::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.08) 2px,
+      rgba(0, 0, 0, 0.08) 4px);
+}
+
+/* Respect user preference */
+@media (prefers-reduced-motion: reduce) {
+  .scanlines::after {
+    display: none;
+  }
+}
+
+/* Settings-based disable */
+.no-scanlines .scanlines::after {
+  display: none;
+}
+
+.no-animations * {
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+}
+
+/* ============================================================
+   GLOW EFFECTS
+   ============================================================ */
+
+.glow-cyan {
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.3),
+    0 0 20px rgba(34, 211, 238, 0.15);
+}
+
+.glow-green {
+  box-shadow: 0 0 10px rgba(74, 222, 128, 0.3),
+    0 0 20px rgba(74, 222, 128, 0.15);
+}
+
+.glow-yellow {
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.3),
+    0 0 20px rgba(251, 191, 36, 0.15);
+}
+
+/* ============================================================
+   SEGERA DIBUKA (Coming Soon) STATE
+   ============================================================ */
+
+.segera-dibuka {
+  opacity: 0.5;
+  filter: grayscale(50%);
+  cursor: not-allowed !important;
+  position: relative;
+}
+
+.segera-dibuka::after {
+  content: '🔒 Segera dibuka';
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  color: var(--color-accent-yellow);
+  white-space: nowrap;
+  text-shadow: 0 0 4px rgba(251, 191, 36, 0.5);
+}
+
+/* ============================================================
+   PAGE TRANSITIONS
+   ============================================================ */
+
+.page-enter {
+  animation: fadeSlideIn 300ms ease forwards;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   SCROLLBAR STYLING
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-cyan);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-cyan);
+}
+
+/* ============================================================
+   RESPONSIVE UTILITIES
+   ============================================================ */
+
+.container {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+/* ============================================================
+   ACCESSIBILITY
+   ============================================================ */
+
+/* Visible focus rings for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--color-accent-cyan);
+  outline-offset: 2px;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-md);
+  background: var(--color-accent-cyan);
+  color: var(--color-bg-dark);
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-pixel);
+  font-size: 0.7rem;
+  z-index: 10000;
+  border-radius: 4px;
+}
+
+.skip-link:focus {
+  top: var(--space-md);
+}
+
+/* ============================================================
+   PRINT / PDF EXPORT STYLES
+   ============================================================ */
+
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #111827 !important;
+    font-size: 11pt !important;
+  }
+
+  .scanlines::after,
+  nav,
+  header,
+  .no-print,
+  .btn,
+  button {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .panel {
+    background: #ffffff !important;
+    border: 1px solid #d1d5db !important;
+    color: #111827 !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    margin-bottom: 12pt !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  .pixel-text {
+    font-family: var(--font-body) !important;
+    color: #111827 !important;
+  }
+}
+
+@media screen {
+  .print-only {
+    display: none !important;
+  }
+}
+
+/* ============================================================
+   KOTA KARIER — NATURAL BORDERLESS BUILDINGS & DROP-SHADOWS
+   ============================================================ */
+
+.building-hotspot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  user-select: none;
+  min-width: 140px;
+  max-width: 180px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Hover & Keyboard Focus: lift up without box outlines */
+.building-hotspot:hover,
+.building-hotspot:focus-visible {
+  transform: translateY(-6px);
+  outline: none !important;
+}
+
+/* Info container above the building */
+.building-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 10px;
+  pointer-events: none;
+  width: 100%;
+  padding: 0 4px;
+}
+
+.building-title {
+  font-family: var(--font-pixel);
+  font-size: 0.48rem;
+  letter-spacing: 0.5px;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 0, 0, 0.8);
+  margin-bottom: 3px;
+  line-height: 1.3;
+}
+
+.building-title--gold {
+  color: var(--color-accent-yellow);
+}
+
+.building-title--cyan {
+  color: var(--color-accent-cyan);
+}
+
+.building-title--locked {
+  color: var(--color-text-muted);
+}
+
+.building-desc {
+  font-size: 0.62rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+  line-height: 1.25;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95);
+  margin-bottom: 4px;
+}
+
+/* Action hint/button without borders */
+.building-action {
+  font-family: var(--font-pixel);
+  font-size: 0.48rem;
+  letter-spacing: 0.5px;
+  text-align: center;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  padding: 2px 6px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.building-action--gold {
+  color: var(--color-accent-yellow);
+  text-shadow: 0 0 8px rgba(251, 191, 36, 0.6);
+}
+
+.building-hotspot:hover .building-action--gold,
+.building-hotspot:focus-visible .building-action--gold {
+  color: #fef08a;
+  text-shadow: 0 0 14px rgba(251, 191, 36, 0.95);
+}
+
+.building-action--cyan {
+  color: var(--color-accent-cyan);
+  text-shadow: 0 0 8px rgba(34, 211, 238, 0.6);
+}
+
+.building-hotspot:hover .building-action--cyan,
+.building-hotspot:focus-visible .building-action--cyan {
+  color: #a5f3fc;
+  text-shadow: 0 0 14px rgba(34, 211, 238, 0.95);
+}
+
+.building-action--locked {
+  color: var(--color-text-muted);
+  font-size: 0.44rem;
+  opacity: 0.8;
+}
+
+/* Recommendation badge (borderless, glowing) */
+.building-badge-rec {
+  background: rgba(34, 211, 238, 0.2);
+  color: var(--color-accent-cyan);
+  font-family: var(--font-pixel);
+  font-size: 0.42rem;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  margin-bottom: 5px;
+  text-shadow: 0 0 6px rgba(34, 211, 238, 0.8);
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.35);
+  animation: pulseBadge 2s infinite ease-in-out;
+}
+
+@keyframes pulseBadge {
+
+  0%,
+  100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* Building Graphic Wrapper and Drop Shadows */
+.building-sprite-wrapper {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  pointer-events: auto;
+}
+
+.building-sprite {
+  display: block;
+  transition: filter 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  vertical-align: bottom;
+}
+
+/* 1. Pusat Informasi (Yellow/Gold Drop-Shadow conforming to silhouette) */
+.building-sprite--gold {
+  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.45)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+}
+
+.building-hotspot:hover .building-sprite--gold,
+.building-hotspot:focus-visible .building-sprite--gold {
+  filter: drop-shadow(0 0 16px rgba(251, 191, 36, 0.9)) drop-shadow(0 0 28px rgba(251, 191, 36, 0.5)) drop-shadow(0 6px 14px rgba(0, 0, 0, 0.7));
+}
+
+/* 2. Active Buildings (Cyan Drop-Shadow conforming to silhouette) */
+.building-sprite--cyan {
+  filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.4)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+}
+
+.building-hotspot:hover .building-sprite--cyan,
+.building-hotspot:focus-visible .building-sprite--cyan {
+  filter: drop-shadow(0 0 16px rgba(34, 211, 238, 0.9)) drop-shadow(0 0 30px rgba(34, 211, 238, 0.55)) drop-shadow(0 6px 14px rgba(0, 0, 0, 0.7));
+}
+
+/* 3. Recommended Active Building (Enhanced Cyan Drop-Shadow conforming to silhouette) */
+.building-sprite--recommended {
+  filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.75)) drop-shadow(0 0 22px rgba(34, 211, 238, 0.4)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+}
+
+.building-hotspot:hover .building-sprite--recommended,
+.building-hotspot:focus-visible .building-sprite--recommended {
+  filter: drop-shadow(0 0 22px rgba(34, 211, 238, 1)) drop-shadow(0 0 38px rgba(34, 211, 238, 0.75)) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.8));
+}
+
+/* 4. Locked Building ("Segera Dibuka") - Dim, grayscale, no frame */
+.building-hotspot--locked {
+  cursor: not-allowed !important;
+}
+
+.building-hotspot--locked:hover,
+.building-hotspot--locked:focus-visible {
+  transform: none;
+  /* locked buildings don't bounce */
+}
+
+.building-sprite--locked {
+  opacity: 0.42;
+  filter: grayscale(85%) brightness(0.7) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+.building-hotspot--locked:hover .building-sprite--locked {
+  opacity: 0.55;
+  filter: grayscale(80%) brightness(0.75) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+/* ============================================================
+   NIGHT SKY & CITY ENVIRONMENT DECORATIONS
+   ============================================================ */
+
+/* Moon styling */
+.moon-svg {
+  width: 72px;
+  height: 72px;
+}
+
+/* Star twinkling animation */
+@keyframes starTwinkle {
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.85);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+/* Night clouds horizontal drift parallax (seamless dual segment) */
+.cloud-track {
+  display: flex;
+  width: 200%;
+  height: 100%;
+  will-change: transform;
+}
+
+.cloud-segment {
+  width: 50%;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.cloud-layer--1 {
+  animation: cloudDrift1 110s linear infinite;
+}
+
+.cloud-layer--2 {
+  animation: cloudDrift2 75s linear infinite;
+}
+
+@keyframes cloudDrift1 {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes cloudDrift2 {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Street lamp flicker animation */
+.lamp-lantern-glow {
+  animation: lampFlicker 4s infinite ease-in-out;
+}
+
+@keyframes lampFlicker {
+
+  0%,
+  100% {
+    opacity: 0.95;
+  }
+
+  30% {
+    opacity: 0.98;
+  }
+
+  68% {
+    opacity: 0.92;
+  }
+
+  71% {
+    opacity: 0.99;
+  }
+
+  73% {
+    opacity: 0.91;
+  }
+
+  75% {
+    opacity: 0.98;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sky-star--desktop {
+    display: none !important;
+  }
+
+  .moon-svg {
+    width: 52px;
+    height: 52px;
+  }
+
+  .night-sky-moon {
+    top: 10px !important;
+    right: 20px !important;
+  }
+
+  .welcome-title {
+    font-size: 0.62rem !important;
+  }
+
+  .welcome-subtitle {
+    font-size: 0.72rem !important;
+  }
+
+  .street-lamp--desktop-only {
+    display: none !important;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+
+  .sky-star,
+  .cloud-layer,
+  .cloud-layer--1,
+  .cloud-layer--2,
+  .lamp-lantern-glow,
+  .building-badge-rec {
+    animation: none !important;
+  }
+}
+
+/* ============================================================
+   RETRO CRT MONITOR & DESK SIMULATION STYLES
+   ============================================================ */
+
+/* Wide wrapper for active IT simulation */
+.simulation-active-main {
+  width: 100%;
+  max-width: min(1700px, 96vw);
+  margin-inline: auto;
+  padding: 0 var(--space-md);
+}
+
+.retro-desk-scene {
+  position: relative;
+  width: 100%;
+  max-width: min(1700px, 96vw);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-md) 0 var(--space-xl);
+}
+
+/* ============================================================
+   WORKSTATION LAYOUT: [CLIPBOARD] [MONITOR-STATION]
+   Two-column CSS grid: left clipboard, right monitor
+   ============================================================ */
+
+.retro-workstation-layout {
+  position: relative;
+  display: grid;
+  grid-template-columns: clamp(240px, 24%, 400px) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: end;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Desk line: full-width line via ::after on shared wrapper */
+.retro-workstation-layout::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(180, 170, 155, 0.4) 8%,
+      rgba(215, 205, 190, 0.75) 30%,
+      rgba(225, 215, 200, 0.9) 50%,
+      rgba(215, 205, 190, 0.75) 70%,
+      rgba(180, 170, 155, 0.4) 92%,
+      transparent 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ============================================================
+   MONITOR STATION: bezel + neck + pedestal base + keyboard
+   All centered in a single flex column
+   ============================================================ */
+
+.monitor-station,
+.retro-monitor-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
+  justify-self: center;
+  min-width: 0;
+}
+
+/* Monitor Casing (Beige / Grey retro plastic) - landscape ~4:3 */
+.retro-monitor-outer {
+  position: relative;
+  width: min(100%, 1000px);
+  min-width: 0;
+  justify-self: center;
+  background: linear-gradient(160deg, #ede7db 0%, #ded7c9 30%, #c9c2b3 70%, #b8b1a2 100%);
+  border-radius: 20px;
+  padding: clamp(14px, 2vw, 22px) clamp(16px, 2.2vw, 24px) clamp(10px, 1.5vw, 16px);
+  box-shadow:
+    0 20px 48px rgba(0, 0, 0, 0.75),
+    0 6px 16px rgba(0, 0, 0, 0.5),
+    inset 2px 2px 0 rgba(255, 255, 255, 0.8),
+    inset -3px -3px 0 rgba(0, 0, 0, 0.35);
+  border: 1px solid #9c9587;
+  transition: transform var(--transition-normal);
+}
+
+/* Vent slots at top of casing */
+.retro-monitor-vents {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.retro-monitor-vent-slot {
+  width: 28px;
+  height: 3px;
+  background: #736c5f;
+  border-radius: 1px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Inner bezel recess */
+.retro-bezel-inner {
+  position: relative;
+  background: linear-gradient(180deg, #181c22 0%, #1f242c 100%);
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow:
+    inset 0 6px 14px rgba(0, 0, 0, 0.9),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.7),
+    0 1px 1px rgba(255, 255, 255, 0.5);
+  border: 2px solid #282f3a;
+  overflow: hidden;
+}
+
+/* CRT Screen Face */
+.retro-crt-screen {
+  position: relative;
+  background: radial-gradient(circle at 50% 50%, #0d1b2a 0%, #08101a 70%, #03060a 100%);
+  border-radius: 10px;
+  min-height: 440px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  color: #38bdf8;
+  font-family: 'Courier New', 'Fira Code', Consolas, monospace;
+  box-shadow:
+    inset 0 0 35px rgba(0, 0, 0, 0.95),
+    inset 0 0 15px rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+/* Scanline Overlay */
+.retro-scanlines-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%,
+      rgba(0, 0, 0, 0.35) 50%);
+  background-size: 100% 3px;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.85;
+}
+
+/* CRT Curvature Vignette Reflection */
+.retro-screen-glare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at 50% 25%, rgba(255, 255, 255, 0.04) 0%, rgba(0, 0, 0, 0.3) 100%);
+  pointer-events: none;
+  z-index: 11;
+}
+
+/* Phosphor Glow effect for terminal text */
+.terminal-glow-text {
+  text-shadow:
+    0 0 4px rgba(56, 189, 248, 0.8),
+    0 0 10px rgba(56, 189, 248, 0.4);
+}
+
+.terminal-glow-green {
+  color: #4ade80;
+  text-shadow:
+    0 0 4px rgba(74, 222, 128, 0.8),
+    0 0 10px rgba(74, 222, 128, 0.4);
+}
+
+.terminal-glow-amber {
+  color: #fbbf24;
+  text-shadow:
+    0 0 4px rgba(251, 191, 36, 0.8),
+    0 0 10px rgba(251, 191, 36, 0.4);
+}
+
+/* CRT Screen flicker */
+@keyframes crtFlicker {
+  0% {
+    opacity: 0.99;
+  }
+
+  50% {
+    opacity: 0.96;
+  }
+
+  100% {
+    opacity: 0.99;
+  }
+}
+
+.retro-crt-screen:not(.no-flicker) {
+  animation: crtFlicker 0.15s infinite;
+}
+
+/* Screen shake for World Event */
+@keyframes screenShake {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  20% {
+    transform: translate(-3px, 2px) rotate(-0.5deg);
+  }
+
+  40% {
+    transform: translate(3px, -2px) rotate(0.5deg);
+  }
+
+  60% {
+    transform: translate(-2px, -1px) rotate(-0.3deg);
+  }
+
+  80% {
+    transform: translate(2px, 1px) rotate(0.3deg);
+  }
+
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+.screen-shake {
+  animation: screenShake 0.4s ease-in-out;
+}
+
+/* Monitor Bottom Bezel (Controls & Logo) */
+.retro-bottom-bezel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 8px 4px;
+}
+
+.retro-monitor-brand {
+  font-family: var(--font-pixel);
+  font-size: 0.55rem;
+  color: #787164;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.retro-power-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.retro-power-led {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  box-shadow:
+    0 0 6px #22c55e,
+    0 0 12px rgba(34, 197, 94, 0.8);
+  border: 1px solid #15803d;
+}
+
+.retro-power-btn {
+  width: 22px;
+  height: 22px;
+  background: linear-gradient(145deg, #ded8ca, #b3aba0);
+  border: 1px solid #8c8577;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow:
+    0 2px 3px rgba(0, 0, 0, 0.3),
+    inset 1px 1px 0 rgba(255, 255, 255, 0.6);
+  color: #575147;
+  font-size: 0.55rem;
+  transition: all var(--transition-fast);
+}
+
+.retro-power-btn:hover {
+  background: linear-gradient(145deg, #f0ebdE, #c4bcaf);
+}
+
+.retro-power-btn:active {
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5);
+  transform: translateY(1px);
+}
+
+/* ============================================================
+   MONITOR STAND & PEDESTAL — inside monitor-station, auto-centered
+   ============================================================ */
+
+/* Stand neck: 18-22% of monitor width, flush below bezel */
+.retro-monitor-stand {
+  width: 20%;
+  height: clamp(24px, 3.2vw, 36px);
+  margin-top: -1px;
+  background: linear-gradient(180deg, #9c9588 0%, #7e786b 100%);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+/* Pedestal base: 35-40% of monitor width, flush below neck, rounded ends */
+.retro-monitor-base {
+  width: 38%;
+  height: clamp(14px, 2vw, 20px);
+  margin-top: -1px;
+  background: linear-gradient(180deg, #d3ccbd 0%, #bab3a4 60%, #9e9789 100%);
+  border-radius: 8px 8px 6px 6px;
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 1px 2px rgba(0, 0, 0, 0.4);
+  border: 1px solid #8f887a;
+  position: relative;
+  z-index: 2;
+}
+
+/* Soft ellipse shadow under base */
+.retro-monitor-base::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 4%;
+  width: 92%;
+  height: 10px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.55) 0%, transparent 75%);
+  border-radius: 50%;
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+/* ============================================================
+   RETRO KEYBOARD — centered inside monitor-station, 70-80% width
+   12-20px gap from pedestal base, does not overlap base
+   ============================================================ */
+
+.retro-keyboard {
+  width: 76%;
+  margin-top: clamp(12px, 1.8vw, 18px);
+  background: linear-gradient(180deg, #ddd6c8 0%, #c4bdae 100%);
+  border-radius: 8px 8px 4px 4px;
+  padding: 8px 12px 10px;
+  border: 1px solid #9e9687;
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Soft ellipse shadow under keyboard */
+.retro-keyboard::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 3%;
+  width: 94%;
+  height: 12px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.55) 0%, transparent 75%);
+  border-radius: 50%;
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+.retro-key-row {
+  display: flex;
+  gap: 3px;
+}
+
+.retro-key {
+  flex: 1;
+  height: 10px;
+  background: linear-gradient(180deg, #eee8db 0%, #c9c2b4 100%);
+  border-radius: 2px;
+  border-bottom: 2px solid #8e8779;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.retro-spacebar {
+  flex: 5;
+}
+
+/* ============================================================
+   CLIPBOARD TASK BOARD — ENLARGED, tasks only (no events)
+   Sits to the left of the monitor column, bottom-aligned
+   ============================================================ */
+
+.retro-clipboard-taskboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  flex-shrink: 0;
+  user-select: none;
+  position: relative;
+  z-index: 2;
+}
+
+/* Hardboard / Wood Board Base with A4 portrait aspect ratio */
+.clipboard-board {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1.414;
+  min-height: 400px;
+  background: linear-gradient(135deg, #a76d38 0%, #8b5527 50%, #6d3f18 100%);
+  border: 1.5px solid #543012;
+  border-radius: 14px;
+  padding: 42px 14px 20px;
+  box-shadow:
+    0 16px 32px rgba(0, 0, 0, 0.5),
+    0 4px 10px rgba(0, 0, 0, 0.35),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.25),
+    inset -1px -1px 2px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* Small Hanging Hole at top center */
+.clipboard-hanging-hole {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #1b140e;
+  border: 2px solid #cbd5e1;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.9), 0 1px 1px rgba(255, 255, 255, 0.3);
+  z-index: 4;
+}
+
+/* Silver Metallic Clip at top center */
+.clipboard-metal-clip {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 34px;
+  background: linear-gradient(180deg, #f8fafc 0%, #cbd5e1 30%, #94a3b8 70%, #64748b 100%);
+  border: 1px solid #475569;
+  border-radius: 5px 5px 2px 2px;
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.clipboard-clip-spring {
+  width: 52px;
+  height: 6px;
+  background: #475569;
+  border-radius: 2px;
+  margin-bottom: 3px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.clipboard-clip-clamp {
+  width: 100px;
+  height: 8px;
+  background: linear-gradient(180deg, #94a3b8 0%, #475569 100%);
+  border-radius: 1px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.35);
+}
+
+/* Lined Paper Sheet slightly tilted (1-2 deg) */
+.clipboard-paper {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  background: #fdfbf7;
+  border-radius: 4px;
+  padding: 20px 14px 16px;
+  transform: rotate(-1.2deg);
+  box-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.22),
+    0 1px 2px rgba(0, 0, 0, 0.15);
+  background-image: repeating-linear-gradient(transparent,
+      transparent 32px,
+      #e2e8f0 33px);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Paper header */
+.clipboard-paper-header {
+  border-bottom: 2.5px solid #0f172a;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.clipboard-paper-title {
+  display: block;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 800;
+  font-size: clamp(0.85rem, 1.1vw, 1rem);
+  letter-spacing: 2px;
+  color: #0f172a;
+}
+
+.clipboard-paper-subtitle {
+  display: block;
+  font-size: clamp(0.7rem, 0.9vw, 0.78rem);
+  color: #475569;
+  font-family: monospace;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* Task list on lined paper */
+.clipboard-task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.clipboard-task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 8px;
+  font-size: clamp(0.78rem, 1vw, 0.9rem);
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 1.35;
+  border-radius: 4px;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.clipboard-status-icon {
+  font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.clipboard-time {
+  font-size: clamp(0.72rem, 0.9vw, 0.8rem);
+  color: #475569;
+  flex-shrink: 0;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+/* Text must not be cut off */
+.clipboard-text {
+  flex: 1;
+  word-break: break-word;
+  color: #0f172a;
+  line-height: 1.35;
+}
+
+/* Pending status: ☐ */
+.clipboard-task-item--pending {
+  color: #334155;
+}
+
+.clipboard-task-item--pending .clipboard-status-icon {
+  color: #64748b;
+}
+
+/* Active status: ▶ with yellow stabilo highlight */
+.clipboard-task-item--active {
+  background: rgba(254, 240, 138, 0.7);
+  box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.35);
+  color: #020617;
+  font-weight: 700;
+}
+
+.clipboard-task-item--active .clipboard-status-icon {
+  color: #d97706;
+}
+
+.clipboard-task-item--active .clipboard-text {
+  color: #020617;
+  font-weight: 700;
+}
+
+/* Completed status: ✓ with strike-through (dicoret) */
+.clipboard-task-item--completed {
+  opacity: 0.6;
+  color: #64748b;
+}
+
+.clipboard-task-item--completed .clipboard-status-icon {
+  color: #15803d;
+}
+
+.clipboard-task-item--completed .clipboard-text {
+  text-decoration: line-through 2px #475569;
+  color: #475569;
+}
+
+/* Desk contact shadow beneath clipboard */
+.clipboard-desk-shadow {
+  width: 90%;
+  height: 12px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.45) 0%, transparent 75%);
+  margin-top: -6px;
+  border-radius: 50%;
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+/* ============================================================
+   RESPONSIVE: 1100-1400px: clipboard ~22%, monitor fills the rest
+   ============================================================ */
+
+@media (min-width: 1101px) and (max-width: 1400px) {
+  .retro-workstation-layout {
+    grid-template-columns: clamp(230px, 22%, 310px) minmax(0, 1fr);
+    gap: clamp(16px, 3vw, 36px);
+  }
+}
+
+/* ============================================================
+   RESPONSIVE: Below 1100px clipboard moves above monitor as
+   compact scrollable row, monitor full width, neck/base/keyboard centered
+   ============================================================ */
+
+@media (max-width: 1100px) {
+  .retro-workstation-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .retro-clipboard-taskboard {
+    width: 100%;
+    max-width: 1000px;
+    align-self: center;
+  }
+
+  .clipboard-board {
+    width: 100%;
+    max-width: 1000px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    aspect-ratio: auto;
+    min-height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .clipboard-hanging-hole {
+    display: none;
+  }
+
+  .clipboard-metal-clip {
+    position: static;
+    transform: none;
+    width: 48px;
+    height: 22px;
+    flex-shrink: 0;
+  }
+
+  .clipboard-clip-spring {
+    width: 24px;
+    height: 3px;
+  }
+
+  .clipboard-clip-clamp {
+    width: 44px;
+    height: 5px;
+  }
+
+  .clipboard-paper {
+    transform: none;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    flex: 1;
+    min-height: auto;
+  }
+
+  .clipboard-paper-header {
+    border-bottom: none;
+    border-right: 2px solid #0f172a;
+    padding-bottom: 0;
+    padding-right: 10px;
+    margin-bottom: 0;
+    text-align: left;
+    flex-shrink: 0;
+  }
+
+  .clipboard-paper-title {
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+
+  .clipboard-paper-subtitle {
+    font-size: 0.6rem;
+    white-space: nowrap;
+  }
+
+  .clipboard-task-list {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 2px 0;
+    flex: 1;
+  }
+
+  .clipboard-task-item {
+    flex-shrink: 0;
+    padding: 4px 8px;
+    background: rgba(241, 245, 249, 0.85);
+    border-radius: 3px;
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+
+  .clipboard-status-icon {
+    font-size: 0.8rem;
+    width: 16px;
+  }
+
+  .clipboard-text {
+    white-space: nowrap;
+  }
+
+  .clipboard-desk-shadow {
+    display: none;
+  }
+
+  .monitor-station,
+  .retro-monitor-column {
+    width: 100%;
+    max-width: 1000px;
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .clipboard-task-item--just-completed {
+    animation: none !important;
+  }
+
+  .retro-crt-screen:not(.no-flicker) {
+    animation: none !important;
+  }
+
+  .screen-shake {
+    animation: none !important;
+  }
+}
+
+/* Modal Dialog Inside CRT Monitor */
+.retro-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(4, 10, 20, 0.8);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  z-index: 25;
+}
+
+.retro-modal-window {
+  background: #111a28;
+  border: 2px solid #38bdf8;
+  border-radius: 6px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow:
+    0 0 20px rgba(56, 189, 248, 0.3),
+    inset 0 0 10px rgba(56, 189, 248, 0.1);
+  overflow: hidden;
+  animation: windowPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes windowPop {
+  0% {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.retro-modal-titlebar {
+  background: linear-gradient(90deg, #0284c7 0%, #0369a1 100%);
+  color: #f0fdf4;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+}
+
+.retro-modal-content {
+  padding: var(--space-md);
+  color: #e0f2fe;
+}
+
+/* Accessibility & Settings toggles */
+.no-scanlines .retro-scanlines-layer,
+html.no-scanlines .retro-scanlines-layer {
+  display: none !important;
+}
+
+.no-animations .retro-crt-screen,
+html.no-animations .retro-crt-screen,
+.no-animations .screen-shake,
+html.no-animations .screen-shake,
+.no-animations .mug-steam,
+html.no-animations .mug-steam {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .retro-crt-screen,
+  .screen-shake,
+  .mug-steam {
+    animation: none !important;
+  }
+}
+
+/* Mobile responsive monitor */
+@media (max-width: 768px) {
+  .retro-monitor-outer {
+    padding: 10px 10px 8px;
+    border-radius: 14px;
+  }
+
+  .retro-bezel-inner {
+    padding: 8px;
+    border-radius: 10px;
+  }
+
+  .retro-crt-screen {
+    min-height: 480px;
+  }
+
+  .retro-monitor-stand {
+    width: 90px;
+    height: 20px;
+  }
+
+  .retro-monitor-base {
+    width: 170px;
+    height: 12px;
+  }
+
+  .retro-desk-surface {
+    padding: 8px 4px 0;
+  }
+
+  .retro-keyboard {
+    max-width: 220px;
+    padding: 4px;
+  }
+}
+
+/* ============================================================
+   BANGSAL RUMAH SAKIT PIXEL NEON (SIMULASI PERAWAT)
+   ============================================================ */
+
+.nurse-ward-scene {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  background: radial-gradient(ellipse at 50% 20%, #0d1e38 0%, #07101f 60%, #040812 100%);
+  border: 2px solid rgba(34, 211, 238, 0.45);
+  border-radius: 12px;
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.8),
+    0 0 24px rgba(34, 211, 238, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ward Top Header */
+.ward-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: rgba(10, 20, 36, 0.95);
+  border-bottom: 2px solid rgba(34, 211, 238, 0.35);
+  flex-wrap: wrap;
+  gap: 10px;
+  z-index: 10;
+}
+
+.ward-shift-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.15);
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  letter-spacing: 1px;
+}
+
+.ward-clock {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  color: #fbbf24;
+  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-shadow: 0 0 8px rgba(251, 191, 36, 0.4);
+}
+
+.ward-trust-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  color: #e2e8f0;
+}
+
+.ward-trust-bar-bg {
+  width: 90px;
+  height: 10px;
+  background: #1e293b;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid rgba(52, 211, 153, 0.4);
+}
+
+.ward-trust-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #34d399, #10b981);
+  border-radius: 5px;
+  transition: width 0.4s ease;
+  box-shadow: 0 0 8px rgba(52, 211, 153, 0.5);
+}
+
+/* Disclaimer Banner */
+.ward-disclaimer {
+  background: rgba(30, 41, 59, 0.7);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  padding: 6px 14px;
+  font-size: 0.68rem;
+  color: #cbd5e1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Decorative Hospital Backdrop */
+.ward-backdrop {
+  position: relative;
+  height: 110px;
+  background: linear-gradient(180deg, #0b1526 0%, #0f233d 70%, #0d1e34 100%);
+  border-bottom: 2px solid rgba(34, 211, 238, 0.25);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 24px;
+  overflow: hidden;
+}
+
+.ward-tile-grid {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 28px;
+  background:
+    repeating-linear-gradient(90deg, transparent, transparent 38px, rgba(56, 189, 248, 0.08) 38px, rgba(56, 189, 248, 0.08) 40px),
+    linear-gradient(180deg, #0f2847 0%, #0a1b30 100%);
+  border-top: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+/* EKG Monitor in Ward */
+.ward-ekg-device {
+  width: 140px;
+  height: 78px;
+  background: #061811;
+  border: 2px solid #10b981;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 14px rgba(16, 185, 129, 0.3),
+    inset 0 0 10px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+}
+
+.ward-ekg-header {
+  height: 14px;
+  background: #0b2e21;
+  border-bottom: 1px solid #10b981;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+  font-size: 0.5rem;
+  color: #34d399;
+  font-family: monospace;
+}
+
+.ward-ekg-screen {
+  flex: 1;
+  position: relative;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 80%),
+    repeating-linear-gradient(0deg, rgba(16, 185, 129, 0.08) 0px, rgba(16, 185, 129, 0.08) 1px, transparent 1px, transparent 8px);
+}
+
+@keyframes ekgMove {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-140px);
+  }
+}
+
+.ekg-wave-path {
+  animation: ekgMove 2.8s linear infinite;
+}
+
+/* Nurse Clipboard Content Container */
+.nurse-clipboard {
+  position: relative;
+  background: #0b1322;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 8px;
+  margin: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+.nurse-clipboard-header {
+  background: linear-gradient(90deg, #1e293b 0%, #0f172a 100%);
+  border-bottom: 2px solid #38bdf8;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nurse-clipboard-clip {
+  width: 60px;
+  height: 10px;
+  background: #94a3b8;
+  border-radius: 4px 4px 0 0;
+  margin: -10px auto 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.nurse-clipboard-body {
+  padding: 18px;
+}
+
+/* Emergency flash for World Event */
+@keyframes hospitalEmergencyFlash {
+
+  0%,
+  100% {
+    border-color: rgba(34, 211, 238, 0.45);
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.2);
+  }
+
+  50% {
+    border-color: rgba(248, 113, 113, 0.85);
+    box-shadow: 0 0 35px rgba(248, 113, 113, 0.55);
+  }
+}
+
+.hospital-event-pulse {
+  animation: hospitalEmergencyFlash 0.9s ease-in-out 3;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+
+  .ekg-wave-path,
+  .hospital-event-pulse {
+    animation: none !important;
+  }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .ward-backdrop {
+    height: 65px;
+    padding: 0 12px;
+  }
+
+  .ward-ekg-device {
+    width: 100px;
+    height: 52px;
+  }
+
+  .nurse-clipboard {
+    margin: 8px;
+  }
+
+  .nurse-clipboard-body {
+    padding: 12px;
+  }
+}
+
+/* ============================================================
+   SPECIALIZED EDUCATION MODAL (Retro Kota Karier)
+   ============================================================ */
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.specialized-modal-overlay {
+  animation: modalFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.specialized-modal-content {
+  animation: modalPopIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .specialized-modal-overlay,
+  .specialized-modal-content {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
