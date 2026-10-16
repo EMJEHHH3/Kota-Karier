@@ -3,6 +3,7 @@
  */
 
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './lib/AuthContext';
 import { UserProvider } from './lib/context';
 import HomePage from './pages/HomePage';
 import BuildingInteriorPage from './pages/BuildingInteriorPage';
@@ -15,7 +16,8 @@ import SettingsPage from './pages/SettingsPage';
 
 export default function App() {
   return (
-    <UserProvider>
+    <AuthProvider>
+      <UserProvider>
       <div className="scanlines" style={{ minHeight: '100dvh', background: 'var(--color-bg-dark)' }}>
         <BrowserRouter>
           <Routes>
@@ -32,5 +34,6 @@ export default function App() {
         </BrowserRouter>
       </div>
     </UserProvider>
+    </AuthProvider>
   );
 }

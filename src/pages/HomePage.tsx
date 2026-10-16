@@ -12,6 +12,8 @@ import { BuildingSprite } from '../components/BuildingSprite';
 import { StreetLamp } from '../components/StreetLamp';
 import { NightSky } from '../components/NightSky';
 import { CitySkyline } from '../components/CitySkyline';
+import { NavbarAuth } from '../components/NavbarAuth';
+import { GuestSyncBanner } from '../components/GuestSyncBanner';
 
 export default function HomePage() {
   const { state } = useUserState();
@@ -56,11 +58,15 @@ export default function HomePage() {
           <Link to="/kandidat" className="btn btn--ghost" style={{ fontSize: '0.5rem', minHeight: '36px', padding: '4px 8px' }}>
             Kandidat {state.candidates.length > 0 ? `(${state.candidates.length})` : ''}
           </Link>
+          <NavbarAuth />
           <Link to="/pengaturan" className="btn btn--ghost" style={{ fontSize: '0.5rem', minHeight: '36px', padding: '4px 8px' }} aria-label="Pengaturan">
             ⚙️
           </Link>
         </div>
       </nav>
+
+      {/* Guest sync prompt banner */}
+      <GuestSyncBanner />
 
       {/* Notification banner if test completed */}
       {testCompleted && (

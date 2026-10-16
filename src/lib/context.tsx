@@ -5,11 +5,13 @@
 
 import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
 import type { UserState, UserSettings, TestResult, SimulationResult } from '../types';
-import { loadState, saveState, clearState } from './storage';
+import { loadState, saveState, clearState, storage, type SyncStatus } from './storage';
 import { DEFAULT_USER_STATE } from '../types/result';
+import { useAuth } from './AuthContext';
 
-interface UserContextValue {
+export interface UserContextValue {
   state: UserState;
+  syncStatus: SyncStatus;
   saveTestResult: (result: TestResult) => void;
   saveSimulationResult: (result: SimulationResult) => void;
   toggleCandidate: (professionId: string) => void;
@@ -21,9 +23,25 @@ interface UserContextValue {
 const UserContext = createContext<UserContextValue | null>(null);
 
 export function UserProvider({ children }: { children: React.ReactNode }) {
+  const { user } = useAuth();
   const [state, setState] = useState<UserState>(() => loadState());
+  const [syncStatus, setSyncStatus] = useState<SyncStatus>(() => storage.getSyncStatus());
 
-  // Save to localStorage whenever state changes
+  // Listen to sync status from storage layer
+  useEffect(() => {
+    return storage.onSyncStatusChange((newStatus) => {
+      setSyncStatus(newStatus);
+    });
+  }, []);
+
+  // Sync user state on login, logout, and account switch
+  useEffect(() => {
+    storage.handleUserChange(user ? user.id : null, (updatedState) => {
+      setState(updatedState);
+    });
+  }, [user]);
+
+  // Save to storage layer whenever state changes
   useEffect(() => {
     saveState(state);
   }, [state]);
@@ -46,6 +64,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 
   const value = useMemo<UserContextValue>(() => ({
     state,
+    syncStatus,
     saveTestResult: (result: TestResult) => {
       setState((prev) => ({
         ...prev,
@@ -89,7 +108,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       clearState();
       setState({ ...DEFAULT_USER_STATE });
     },
-  }), [state]);
+  }), [state, syncStatus]);
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }

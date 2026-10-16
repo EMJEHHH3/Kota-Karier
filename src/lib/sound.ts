@@ -3,14 +3,17 @@
  * Safe, zero-dependency, and gracefully handles browser audio restrictions.
  */
 
+import { storage } from './storage';
+
 class RetroAudioSynth {
   private ctx: AudioContext | null = null;
   private isMuted: boolean = false;
 
   constructor() {
-    // Check saved audio preference if any
-    if (typeof localStorage !== 'undefined') {
-      this.isMuted = localStorage.getItem('retro_sound_muted') === 'true';
+    // Check saved audio preference via unified storage layer
+    const saved = storage.getItem<string>('retro_sound_muted');
+    if (saved !== null) {
+      this.isMuted = saved === 'true';
     }
   }
 
@@ -20,9 +23,7 @@ class RetroAudioSynth {
 
   public toggleMute(): boolean {
     this.isMuted = !this.isMuted;
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('retro_sound_muted', String(this.isMuted));
-    }
+    storage.setItem('retro_sound_muted', String(this.isMuted));
     return this.isMuted;
   }
 

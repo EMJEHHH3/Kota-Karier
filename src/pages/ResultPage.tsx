@@ -17,6 +17,7 @@ import { useUserState } from '../lib/context';
 import { rankProfessions } from '../lib/scoring';
 import { PROFESSIONS, getProfessionById } from '../data/professions';
 import { encodeResultCode, decodeResultCode, type DecodedResultCode } from '../lib/shareCode';
+import { GuestSyncBanner } from '../components/GuestSyncBanner';
 
 export default function ResultPage() {
   const { state } = useUserState();
@@ -111,6 +112,9 @@ export default function ResultPage() {
           📄 Cetak / PDF
         </button>
       </header>
+
+      {/* Guest sync prompt banner */}
+      <GuestSyncBanner />
 
       {/* Print Document Title */}
       <div className="print-only" style={{ padding: '16px 0', borderBottom: '2px solid #000', marginBottom: '16px' }}>
