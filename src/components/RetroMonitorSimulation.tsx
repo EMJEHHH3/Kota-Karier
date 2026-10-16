@@ -90,17 +90,30 @@ export default function RetroMonitorSimulation({
     },
   ]);
 
+  const sceneRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const terminalBottomRef = useRef<HTMLDivElement>(null);
+  const terminalOutputRef = useRef<HTMLDivElement>(null);
+  const eventDialogRef = useRef<HTMLDivElement>(null);
+  const hasInitialScrolledRef = useRef(false);
 
-  // Auto-scroll terminal on new logs
+  // Smooth scroll once when starting simulation so monitor is visible
   useEffect(() => {
-    terminalBottomRef.current?.scrollIntoView?.({ behavior: 'smooth' });
-  }, [logs, currentInput]);
+    if (!hasInitialScrolledRef.current) {
+      hasInitialScrolledRef.current = true;
+      sceneRef.current?.scrollIntoView?.({ behavior: 'smooth', block: 'center' });
+    }
+  }, []);
 
-  // Focus input on click
+  // Auto-scroll ONLY inside the terminal output area, never on window/page
+  useEffect(() => {
+    if (terminalOutputRef.current) {
+      terminalOutputRef.current.scrollTop = terminalOutputRef.current.scrollHeight;
+    }
+  }, [logs]);
+
+  // Focus input without scrolling page
   const focusInput = () => {
-    inputRef.current?.focus();
+    inputRef.current?.focus({ preventScroll: true });
   };
 
   // Finish day simulation
@@ -137,6 +150,13 @@ export default function RetroMonitorSimulation({
       setCurrentTime(currentItem.data.jam);
     }
   }, [stepIndex, currentItem, finishSimulation]);
+
+  // Shift focus to event dialog safely with preventScroll
+  useEffect(() => {
+    if (activeEvent) {
+      eventDialogRef.current?.focus({ preventScroll: true });
+    }
+  }, [activeEvent]);
 
   const handleToggleMute = () => {
     const muted = retroSound.toggleMute();
@@ -193,6 +213,7 @@ export default function RetroMonitorSimulation({
         setCurrentInput('');
         setSubStepPhase(1);
         setWrongAttempts(0);
+        focusInput();
         return;
       }
     } else if (task.subLangkah && subStepPhase === 1) {
@@ -236,6 +257,7 @@ export default function RetroMonitorSimulation({
       },
     ]);
     setCurrentInput('');
+    focusInput();
   };
 
   const handleTaskSuccess = (
@@ -283,6 +305,7 @@ export default function RetroMonitorSimulation({
     setCurrentInput('');
     setWrongAttempts(0);
     setSubStepPhase(0);
+    focusInput();
 
     // Proceed to next sequence step
     setTimeout(() => {
@@ -315,6 +338,7 @@ export default function RetroMonitorSimulation({
     setWrongAttempts(0);
     setSubStepPhase(0);
     setCurrentInput('');
+    focusInput();
 
     if (stepIndex + 1 < simulation.urutan.length) {
       setStepIndex((prev) => prev + 1);
@@ -384,6 +408,7 @@ export default function RetroMonitorSimulation({
 
     setActiveEvent(null);
     setEventConsequence(null);
+    focusInput();
 
     if (stepIndex + 1 < simulation.urutan.length) {
       setStepIndex((prev) => prev + 1);
@@ -466,7 +491,12 @@ export default function RetroMonitorSimulation({
   const finalScores = aggregateSimulationScores(accumulatedImpacts);
 
   return (
-    <div className="retro-desk-scene" onClick={focusInput}>
+    <div
+      ref={sceneRef}
+      className="retro-desk-scene"
+      onClick={focusInput}
+      style={{ overflowAnchor: 'none' }}
+    >
       {/* ============================================================
           WORKSTATION LAYOUT: [CLIPBOARD] [MONITOR-COLUMN]
           ============================================================ */}
@@ -848,6 +878,7 @@ export default function RetroMonitorSimulation({
                 <div
                   style={{
                     flex: 1,
+                    minHeight: 0,
                     display: 'flex',
                     flexDirection: 'column',
                     overflow: 'hidden',
@@ -857,6 +888,7 @@ export default function RetroMonitorSimulation({
                   {/* 1. SHORTENED GUIDANCE PANEL WITH SEPARATE CODE BOX */}
                   <section
                     style={{
+                      flexShrink: 0,
                       background: 'rgba(8, 18, 30, 0.9)',
                       borderBottom: '1px solid rgba(56, 189, 248, 0.25)',
                       padding: '8px 12px',
@@ -925,9 +957,12 @@ export default function RetroMonitorSimulation({
 
                   {/* 2. TERMINAL OUTPUT LOGS: Clean & concise history */}
                   <div
+                    ref={terminalOutputRef}
                     style={{
                       flex: 1,
+                      minHeight: 0,
                       overflowY: 'auto',
+                      overflowAnchor: 'none',
                       padding: '10px 12px',
                       display: 'flex',
                       flexDirection: 'column',
@@ -955,13 +990,13 @@ export default function RetroMonitorSimulation({
                         </div>
                       );
                     })}
-                    <div ref={terminalBottomRef} />
                   </div>
 
                   {/* 3. ACTIVE COMMAND PROMPT INPUT */}
                   <form
                     onSubmit={handleCommandSubmit}
                     style={{
+                      flexShrink: 0,
                       display: 'flex',
                       alignItems: 'center',
                       background: 'rgba(4, 9, 16, 0.95)',
@@ -1013,6 +1048,7 @@ export default function RetroMonitorSimulation({
                   {/* 4. BOTTOM ACTION TOOLBAR */}
                   <footer
                     style={{
+                      flexShrink: 0,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
@@ -1071,7 +1107,10 @@ export default function RetroMonitorSimulation({
                   ============================================================ */}
               {activeEvent && (
                 <div
+                  ref={eventDialogRef}
+                  tabIndex={-1}
                   className="retro-modal-overlay"
+                  style={{ outline: 'none' }}
                   onClick={(e) => e.stopPropagation()}
                   role="dialog"
                   aria-modal="true"
@@ -1206,6 +1245,7 @@ export default function RetroMonitorSimulation({
                   onClick={(e) => {
                     e.stopPropagation();
                     setShowHintModal(false);
+                    focusInput();
                   }}
                 >
                   <div
@@ -1216,7 +1256,10 @@ export default function RetroMonitorSimulation({
                       <span>💡 PETUNJUK KODE</span>
                       <button
                         type="button"
-                        onClick={() => setShowHintModal(false)}
+                        onClick={() => {
+                          setShowHintModal(false);
+                          focusInput();
+                        }}
                         style={{
                           background: 'transparent',
                           border: 'none',
