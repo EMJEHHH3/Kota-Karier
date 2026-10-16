@@ -4536,32 +4536,34 @@ html.no-animations .mug-steam {
 }
 
 /* ==========================================================================
-   TES MINAT KARIER (INTEREST TEST PAGE) REDESIGN STYLES
+   TES MINAT KARIER (PUSAT INFORMASI) — KOTA KARIER RETRO DESIGN SYSTEM
    ========================================================================== */
 
 .itest-wrapper {
-  --itest-text: #f8fafc;
-  --itest-text-soft: #cbd5e1;
-  --itest-text-faint: #94a3b8;
-  --itest-cyan: #38bdf8;
-  --itest-yellow: #fbbf24;
-  --itest-green: #34d399;
-  --itest-purple: #c084fc;
-  --itest-red: #f87171;
-  --itest-bg-page: #0b1120;
-  --itest-bg-panel: rgba(15, 23, 42, 0.85);
-  --itest-border: rgba(255, 255, 255, 0.08);
+  --itest-text: var(--color-text-primary, #f1f5f9);
+  --itest-text-soft: var(--color-text-secondary, #94a3b8);
+  --itest-text-faint: var(--color-text-muted, #64748b);
+  --itest-cyan: var(--color-accent-cyan, #22d3ee);
+  --itest-yellow: var(--color-accent-yellow, #fbbf24);
+  --itest-green: var(--color-accent-green, #4ade80);
+  --itest-purple: var(--color-accent-purple, #a78bfa);
+  --itest-red: var(--color-accent-red, #f87171);
+  --itest-bg-page: var(--color-bg-dark, #0a0e1a);
+  --itest-bg-panel: var(--color-bg-panel, #111827);
+  --itest-border: var(--color-border-subtle, #1e293b);
 
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.6;
   color: var(--itest-text);
   min-height: 100dvh;
-  background-color: var(--itest-bg-page);
+  background: radial-gradient(ellipse at center top, #1e1b4b 0%, #0f172a 70%, #020617 100%);
   position: relative;
   overflow-x: hidden;
   max-width: 100%;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Background Skyline & Stars (Pure CSS) */
@@ -4574,14 +4576,14 @@ html.no-animations .mug-steam {
     radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
     radial-gradient(1.5px 1.5px at 120px 80px, rgba(255,255,255,0.8), rgba(0,0,0,0)),
     radial-gradient(1px 1px at 240px 150px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
-    radial-gradient(1.5px 1.5px at 380px 40px, rgba(56,189,248,0.9), rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 380px 40px, rgba(34,211,238,0.9), rgba(0,0,0,0)),
     radial-gradient(1px 1px at 520px 110px, rgba(255,255,255,0.6), rgba(0,0,0,0)),
     radial-gradient(1px 1px at 700px 70px, rgba(255,255,255,0.8), rgba(0,0,0,0)),
     radial-gradient(1.5px 1.5px at 850px 130px, rgba(251,191,36,0.8), rgba(0,0,0,0)),
     radial-gradient(1px 1px at 980px 50px, rgba(255,255,255,0.7), rgba(0,0,0,0));
   background-repeat: repeat;
   background-size: 1000px 300px;
-  opacity: 0.35;
+  opacity: 0.25;
 }
 
 .itest-skyline-bg {
@@ -4592,54 +4594,32 @@ html.no-animations .mug-steam {
   height: 140px;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.12;
+  opacity: 0.08;
   background-repeat: repeat-x;
   background-position: bottom;
   background-size: 600px 140px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 140' fill='%2338bdf8'%3E%3Cpath d='M0,140 L0,90 L30,90 L30,60 L70,60 L70,140 L90,140 L90,40 L130,40 L130,140 L160,140 L160,80 L200,80 L200,140 L220,140 L220,30 L260,30 L260,140 L290,140 L290,75 L330,75 L330,140 L360,140 L360,50 L410,50 L410,140 L440,140 L440,85 L480,85 L480,140 L510,140 L510,35 L560,35 L560,140 L600,140 L600,140 Z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 140' fill='%2322d3ee'%3E%3Cpath d='M0,140 L0,90 L30,90 L30,60 L70,60 L70,140 L90,140 L90,40 L130,40 L130,140 L160,140 L160,80 L200,80 L200,140 L220,140 L220,30 L260,30 L260,140 L290,140 L290,75 L330,75 L330,140 L360,140 L360,50 L410,50 L410,140 L440,140 L440,85 L480,85 L480,140 L510,140 L510,35 L560,35 L560,140 L600,140 L600,140 Z'/%3E%3C/svg%3E");
 }
 
 /* Header */
 .itest-header {
   position: sticky;
   top: 0;
-  z-index: 40;
+  z-index: 50;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px;
-  background: rgba(11, 17, 32, 0.94);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--itest-border);
-}
-
-.itest-btn-exit {
-  font-size: 0.75rem;
-  min-height: 36px;
-  padding: 6px 12px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--itest-text-soft);
-  background: transparent;
-  border: 1px solid var(--itest-border);
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.itest-btn-exit:hover,
-.itest-btn-exit:focus-visible {
-  color: var(--itest-text);
-  border-color: rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.05);
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(17, 24, 39, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(34, 211, 238, 0.25);
 }
 
 .itest-header-progress {
-  font-size: 0.8125rem;
-  color: var(--itest-text-soft);
-  font-weight: 600;
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  color: var(--color-accent-yellow);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -4648,7 +4628,7 @@ html.no-animations .mug-steam {
 /* Mini Road Progress Bar (Jalan Kota) */
 .itest-road-wrapper {
   max-width: 680px;
-  margin: 16px auto 24px;
+  margin: 16px auto 20px;
   padding: 0 16px;
   position: relative;
   z-index: 10;
@@ -4658,14 +4638,14 @@ html.no-animations .mug-steam {
 .itest-road-track {
   position: relative;
   height: 28px;
-  background: #111827;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 14px;
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 6px;
   padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .itest-road-line {
@@ -4673,7 +4653,7 @@ html.no-animations .mug-steam {
   left: 24px;
   right: 24px;
   height: 2px;
-  background: repeating-linear-gradient(90deg, rgba(255,255,255,0.2) 0, rgba(255,255,255,0.2) 8px, transparent 8px, transparent 16px);
+  background: repeating-linear-gradient(90deg, rgba(34, 211, 238, 0.3) 0, rgba(34, 211, 238, 0.3) 8px, transparent 8px, transparent 16px);
   z-index: 1;
 }
 
@@ -4689,39 +4669,41 @@ html.no-animations .mug-steam {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #1f2937;
-  border: 2px solid var(--itest-text-faint);
+  background: var(--color-bg-dark);
+  border: 2px solid var(--color-border-cyan);
   transition: all 0.3s ease;
 }
 
 .itest-road-stop--active .itest-road-dot {
-  background: var(--itest-cyan);
+  background: var(--color-accent-cyan);
   border-color: #ffffff;
-  box-shadow: 0 0 10px var(--itest-cyan);
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.8);
   transform: scale(1.2);
 }
 
 .itest-road-stop--passed .itest-road-dot {
-  background: var(--itest-green);
-  border-color: var(--itest-green);
+  background: var(--color-accent-green);
+  border-color: var(--color-accent-green);
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.6);
 }
 
 .itest-road-labels {
   display: flex;
   justify-content: space-between;
   margin-top: 6px;
-  font-size: 0.72rem;
-  color: var(--itest-text-faint);
+  font-family: var(--font-pixel);
+  font-size: 0.55rem;
+  color: var(--color-text-muted);
 }
 
 .itest-road-label--active {
-  color: var(--itest-cyan);
+  color: var(--color-accent-cyan);
   font-weight: 700;
 }
 
 /* Card Stack (Bagian 1) */
 .itest-stack-container {
-  max-width: 540px;
+  max-width: 560px;
   width: 100%;
   margin: 0 auto;
   position: relative;
@@ -4732,10 +4714,10 @@ html.no-animations .mug-steam {
 .itest-card-under {
   position: absolute;
   inset: 0;
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  transform: translateY(12px) scale(0.96);
+  background: rgba(17, 24, 39, 0.6);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 6px;
+  transform: translateY(10px) scale(0.97);
   z-index: 1;
   pointer-events: none;
 }
@@ -4743,12 +4725,12 @@ html.no-animations .mug-steam {
 .itest-card-active {
   position: relative;
   z-index: 2;
-  background: var(--itest-bg-panel);
-  border: 1px solid var(--itest-border);
-  border-radius: 16px;
+  background: var(--color-bg-panel);
+  border: 2px solid var(--color-border-cyan);
+  border-radius: 6px;
   padding: 32px 24px;
   text-align: center;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 16px rgba(34, 211, 238, 0.15);
   touch-action: pan-y;
   user-select: none;
   transition: transform 0.2s ease, opacity 0.2s ease;
@@ -4756,30 +4738,30 @@ html.no-animations .mug-steam {
 }
 
 .itest-card-icon-bubble {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: rgba(56, 189, 248, 0.08);
-  border: 1px solid rgba(56, 189, 248, 0.25);
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.3);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--itest-cyan);
+  color: var(--color-accent-cyan);
   margin-bottom: 20px;
 }
 
 .itest-card-question {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 600;
   line-height: 1.5;
-  color: var(--itest-text);
+  color: var(--color-text-primary);
   margin: 0 0 28px 0;
   overflow-wrap: anywhere;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 3.4em;
+  min-height: 3.2em;
 }
 
 .itest-rating-actions {
@@ -4795,11 +4777,11 @@ html.no-animations .mug-steam {
   justify-content: center;
   gap: 8px;
   padding: 14px 10px;
-  border-radius: 12px;
-  border: 1px solid var(--itest-border);
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--itest-text);
-  font-size: 0.875rem;
+  border-radius: 6px;
+  border: 1px solid var(--color-border-subtle);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--color-text-primary);
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -4815,73 +4797,75 @@ html.no-animations .mug-steam {
 .itest-btn-rating--dislike:hover,
 .itest-btn-rating--dislike:focus-visible {
   background: rgba(248, 113, 113, 0.12);
-  border-color: var(--itest-red);
+  border-color: var(--color-accent-red);
   color: #fca5a5;
+  box-shadow: 0 0 10px rgba(248, 113, 113, 0.25);
 }
 
 .itest-btn-rating--neutral:hover,
 .itest-btn-rating--neutral:focus-visible {
-  background: rgba(203, 213, 225, 0.12);
-  border-color: var(--itest-text-soft);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--color-text-secondary);
   color: #ffffff;
 }
 
 .itest-btn-rating--like:hover,
 .itest-btn-rating--like:focus-visible {
-  background: rgba(52, 211, 153, 0.12);
-  border-color: var(--itest-green);
-  color: #6ee7b7;
+  background: rgba(74, 222, 128, 0.12);
+  border-color: var(--color-accent-green);
+  color: #86efac;
+  box-shadow: 0 0 10px rgba(74, 222, 128, 0.25);
 }
 
 .itest-key-hint {
-  font-size: 0.68rem;
-  color: var(--itest-text-faint);
-  font-weight: 500;
-  font-family: inherit;
+  font-family: var(--font-pixel);
+  font-size: 0.55rem;
+  color: var(--color-text-muted);
 }
 
 /* Skenario Magang (Bagian 2) */
 .itest-intern-header {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--itest-border);
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 24px;
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 6px;
+  padding: 18px;
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
 .itest-intern-icon-frame {
-  width: 52px;
-  height: 52px;
-  border-radius: 10px;
-  background: rgba(251, 191, 36, 0.1);
-  border: 1px solid rgba(251, 191, 36, 0.3);
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--itest-yellow);
+  color: var(--color-accent-yellow);
   flex-shrink: 0;
 }
 
 .itest-intern-title {
-  font-size: 1.15rem;
+  font-family: var(--font-body);
+  font-size: 1.1rem;
   font-weight: 700;
-  color: var(--itest-text);
+  color: var(--color-text-primary);
   margin: 0 0 4px 0;
 }
 
 .itest-intern-sub {
-  font-size: 0.875rem;
-  color: var(--itest-text-soft);
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
   margin: 0;
 }
 
 .itest-options-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  gap: 12px;
   margin-bottom: 24px;
 }
 
@@ -4890,9 +4874,9 @@ html.no-animations .mug-steam {
   align-items: center;
   gap: 14px;
   padding: 16px 18px;
-  background: var(--itest-bg-panel);
-  border: 1px solid var(--itest-border);
-  border-radius: 12px;
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 6px;
   cursor: pointer;
   text-align: left;
   transition: all 0.2s ease;
@@ -4902,20 +4886,20 @@ html.no-animations .mug-steam {
 
 .itest-option-card:hover,
 .itest-option-card:focus-visible {
-  border-color: var(--itest-cyan);
-  background: rgba(56, 189, 248, 0.06);
+  border-color: var(--color-border-cyan);
+  background: rgba(34, 211, 238, 0.05);
   transform: translateY(-2px);
 }
 
 .itest-option-card--selected {
-  border-color: var(--itest-cyan);
-  background: rgba(56, 189, 248, 0.12);
-  box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
+  border-color: var(--color-accent-cyan) !important;
+  background: rgba(34, 211, 238, 0.12) !important;
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.25) !important;
 }
 
 .itest-option-text {
-  font-size: 0.9375rem;
-  color: var(--itest-text);
+  font-size: 0.9rem;
+  color: var(--color-text-primary);
   line-height: 1.4;
   overflow-wrap: anywhere;
   display: -webkit-box;
@@ -4936,12 +4920,12 @@ html.no-animations .mug-steam {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 16px;
-  border-radius: 20px;
-  background: var(--itest-bg-panel);
-  border: 1px solid var(--itest-border);
-  color: var(--itest-text-soft);
-  font-size: 0.875rem;
+  padding: 8px 14px;
+  border-radius: 4px;
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -4950,22 +4934,22 @@ html.no-animations .mug-steam {
 
 .itest-chip:hover,
 .itest-chip:focus-visible {
-  border-color: var(--itest-cyan);
-  color: var(--itest-text);
+  border-color: var(--color-border-cyan);
+  color: var(--color-text-primary);
 }
 
 .itest-chip--selected {
-  background: rgba(56, 189, 248, 0.15);
-  border-color: var(--itest-cyan);
+  background: rgba(34, 211, 238, 0.15);
+  border-color: var(--color-accent-cyan);
   color: #ffffff;
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.3);
 }
 
 /* Gaya Kerja A/B (Bagian 4) */
 .itest-ab-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  gap: 14px;
   margin-bottom: 28px;
 }
 
@@ -4976,10 +4960,10 @@ html.no-animations .mug-steam {
   justify-content: center;
   text-align: center;
   gap: 14px;
-  padding: 28px 20px;
-  background: var(--itest-bg-panel);
-  border: 2px solid var(--itest-border);
-  border-radius: 14px;
+  padding: 24px 18px;
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
   min-width: 0;
@@ -4988,21 +4972,21 @@ html.no-animations .mug-steam {
 
 .itest-ab-card:hover,
 .itest-ab-card:focus-visible {
-  border-color: var(--itest-cyan);
-  background: rgba(56, 189, 248, 0.05);
+  border-color: var(--color-border-cyan);
+  background: rgba(34, 211, 238, 0.05);
   transform: translateY(-2px);
 }
 
 .itest-ab-card--selected {
-  border-color: var(--itest-cyan);
-  background: rgba(56, 189, 248, 0.12);
-  box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
+  border-color: var(--color-accent-cyan) !important;
+  background: rgba(34, 211, 238, 0.12) !important;
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.25) !important;
 }
 
 .itest-ab-label {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  color: var(--itest-text);
+  color: var(--color-text-primary);
   line-height: 1.4;
   overflow-wrap: anywhere;
   display: -webkit-box;
@@ -5013,27 +4997,28 @@ html.no-animations .mug-steam {
 
 /* Layar Jeda / Intermission */
 .itest-pause-card {
-  max-width: 540px;
-  margin: 32px auto;
-  padding: 36px 28px;
-  background: var(--itest-bg-panel);
-  border: 1px solid var(--itest-border);
-  border-radius: 16px;
+  max-width: 560px;
+  margin: 24px auto;
+  padding: 32px 24px;
+  background: var(--color-bg-panel);
+  border: 2px solid var(--color-border-cyan);
+  border-radius: 6px;
   text-align: center;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 16px rgba(34, 211, 238, 0.15);
   box-sizing: border-box;
 }
 
 .itest-pause-title {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--itest-cyan);
+  font-family: var(--font-pixel);
+  font-size: 1rem;
+  color: var(--color-accent-cyan);
   margin: 0 0 12px 0;
+  line-height: 1.4;
 }
 
 .itest-pause-desc {
-  font-size: 0.9375rem;
-  color: var(--itest-text-soft);
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
   line-height: 1.6;
   margin: 0 0 28px 0;
 }
@@ -5051,41 +5036,49 @@ html.no-animations .mug-steam {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: transparent;
-  border: 1px solid var(--itest-border);
-  color: var(--itest-text-soft);
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 0.8125rem;
-  font-weight: 600;
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border-cyan);
+  color: var(--color-accent-cyan);
+  padding: 8px 14px;
+  border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
+  text-decoration: none;
 }
 
 .itest-btn-prev:hover,
 .itest-btn-prev:focus-visible {
-  color: var(--itest-text);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(34, 211, 238, 0.1);
+  box-shadow: 0 0 8px rgba(34, 211, 238, 0.3);
 }
 
 .itest-btn-primary {
-  background: var(--itest-cyan);
-  color: #0b1120;
+  font-family: var(--font-pixel);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--color-accent-cyan);
+  color: var(--color-bg-dark);
   font-weight: 700;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 22px;
-  font-size: 0.875rem;
+  border: 1px solid var(--color-border-cyan);
+  border-radius: 4px;
+  padding: 10px 20px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   transition: all 0.2s ease;
+  text-decoration: none;
 }
 
 .itest-btn-primary:hover,
 .itest-btn-primary:focus-visible {
-  filter: brightness(1.1);
+  background: #06b6d4;
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.5);
   transform: translateY(-1px);
 }
 
@@ -5100,9 +5093,9 @@ html.no-animations .mug-steam {
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5111,27 +5104,27 @@ html.no-animations .mug-steam {
 }
 
 .itest-modal-card {
-  background: #0f172a;
-  border: 1px solid var(--itest-border);
-  border-radius: 14px;
+  background: var(--color-bg-panel);
+  border: 2px solid var(--color-border-cyan);
+  border-radius: 6px;
   max-width: 420px;
   width: 100%;
   padding: 24px;
   text-align: center;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 16px rgba(34, 211, 238, 0.2);
   box-sizing: border-box;
 }
 
 .itest-modal-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--itest-text);
-  margin: 0 0 8px 0;
+  font-family: var(--font-pixel);
+  font-size: 0.85rem;
+  color: var(--color-accent-cyan);
+  margin: 0 0 12px 0;
 }
 
 .itest-modal-desc {
-  font-size: 0.875rem;
-  color: var(--itest-text-soft);
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
   line-height: 1.5;
   margin: 0 0 24px 0;
 }
@@ -5157,7 +5150,7 @@ html.no-animations .mug-steam {
   }
 
   .itest-card-question {
-    font-size: 1.05rem;
+    font-size: 1rem;
     min-height: auto;
   }
 }

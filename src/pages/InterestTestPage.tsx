@@ -555,36 +555,86 @@ export default function InterestTestPage() {
         <div className="itest-stars-bg" aria-hidden="true" />
         <div className="itest-skyline-bg" aria-hidden="true" />
 
-        <header className="itest-header">
-          <Link to="/" className="itest-btn-exit" title="Kembali ke Kota">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="m15 18-6-6 6-6" />
-            </svg>
-            <span>Kota</span>
-          </Link>
-          <div className="itest-header-progress">
-            <span>Hasil Terverifikasi</span>
+        {/* Header Bar matching Kantor Teknologi / BuildingInteriorPage */}
+        <header
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: 'var(--space-sm) var(--space-md)',
+            borderBottom: '1px solid rgba(34, 211, 238, 0.25)',
+            background: 'rgba(17, 24, 39, 0.95)',
+            backdropFilter: 'blur(8px)',
+            position: 'sticky',
+            top: 0,
+            zIndex: 50,
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)' }}>
+            <Link
+              to="/"
+              className="btn btn--ghost"
+              style={{ fontSize: '0.55rem', minHeight: '36px', padding: '4px 10px' }}
+              aria-label="Kembali ke kota"
+            >
+              ← Kota
+            </Link>
+            <h1 style={{ fontSize: '0.7rem', color: 'var(--color-accent-cyan)', margin: 0, fontFamily: 'var(--font-pixel)' }}>
+              Pusat Informasi
+            </h1>
           </div>
+          <span style={{ fontSize: '0.55rem', color: 'var(--color-accent-green)', fontFamily: 'var(--font-pixel)' }}>
+            ✓ SELESAI
+          </span>
         </header>
 
-        <main className="container" style={{ paddingTop: '24px', paddingBottom: '48px', position: 'relative', zIndex: 10, maxWidth: '840px' }}>
-          <div className="panel" style={{ textAlign: 'center', marginBottom: '24px', background: 'rgba(15, 23, 42, 0.85)' }}>
-            <h1 style={{ fontSize: '1.25rem', color: 'var(--itest-cyan)', margin: '0 0 8px 0', fontWeight: 700 }}>
+        <main className="container" style={{ paddingTop: '28px', paddingBottom: '48px', position: 'relative', zIndex: 10, maxWidth: '840px' }}>
+          {/* Room Header Info matching Kantor Teknologi */}
+          <div style={{ textAlign: 'center', maxWidth: '520px', margin: '0 auto 24px', width: '100%' }}>
+            <p
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                color: 'var(--color-accent-yellow, #fbbf24)',
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                marginBottom: '6px',
+                fontFamily: 'var(--font-body)',
+              }}
+            >
+              HASIL EVALUASI MINAT
+            </p>
+            <h2
+              style={{
+                fontSize: '1.45rem',
+                fontWeight: 700,
+                color: '#ffffff',
+                margin: '0 0 8px 0',
+                fontFamily: 'var(--font-body)',
+                letterSpacing: '-0.01em',
+              }}
+            >
               Kecenderungan Minat Kariermu
-            </h1>
-            <p style={{ fontSize: '0.875rem', color: 'var(--itest-text-soft)', margin: 0 }}>
+            </h2>
+            <p
+              style={{
+                color: 'var(--color-text-secondary, #94a3b8)',
+                fontSize: '0.875rem',
+                margin: 0,
+                lineHeight: 1.5,
+                fontFamily: 'var(--font-body)',
+              }}
+            >
               Hasil ini memetakan preferensi aktivitas kerja nyata untuk membantumu mengeksplorasi gedung kota dengan lebih terarah.
             </p>
           </div>
 
           {/* Top RIASEC Types */}
-          <section className="panel" style={{ marginBottom: '24px', background: 'rgba(15, 23, 42, 0.85)' }}>
-            <h2 style={{ fontSize: '0.95rem', color: 'var(--itest-yellow)', marginBottom: '16px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-              </svg>
+          <section className="panel" style={{ marginBottom: '24px' }}>
+            <h3 style={{ fontSize: '0.75rem', fontFamily: 'var(--font-pixel)', color: 'var(--color-accent-yellow)', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <i className="fa-solid fa-star" aria-hidden="true" />
               Top Minat Terbesar
-            </h2>
+            </h3>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               {activeResult.topTypes.map((type) => {
@@ -595,20 +645,20 @@ export default function InterestTestPage() {
                     key={type}
                     style={{
                       padding: '16px',
-                      background: 'rgba(255, 255, 255, 0.03)',
-                      border: '1px solid rgba(56, 189, 248, 0.2)',
-                      borderRadius: '10px',
+                      background: 'rgba(255, 255, 255, 0.02)',
+                      border: '1px solid var(--color-border-subtle)',
+                      borderRadius: '6px',
                     }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                      <span style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--itest-cyan)' }}>
+                      <span style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-accent-cyan)' }}>
                         {info.label}
                       </span>
-                      <span style={{ fontSize: '0.85rem', color: 'var(--itest-yellow)', fontWeight: 700 }}>
+                      <span style={{ fontSize: '0.7rem', color: 'var(--color-accent-yellow)', fontFamily: 'var(--font-pixel)' }}>
                         Skor: {score} / 10
                       </span>
                     </div>
-                    <p style={{ fontSize: '0.875rem', color: 'var(--itest-text-soft)', margin: 0, lineHeight: 1.5 }}>
+                    <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', margin: 0, lineHeight: 1.5 }}>
                       {info.desc}
                     </p>
                   </div>
@@ -618,23 +668,11 @@ export default function InterestTestPage() {
           </section>
 
           {/* Recommended Buildings */}
-          <section className="panel" style={{ marginBottom: '28px', background: 'rgba(15, 23, 42, 0.85)' }}>
-            <h2 style={{ fontSize: '0.95rem', color: 'var(--itest-green)', marginBottom: '12px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <rect width="16" height="20" x="4" y="2" rx="2" />
-                <path d="M9 22v-4h6v4" />
-                <path d="M8 6h.01" />
-                <path d="M16 6h.01" />
-                <path d="M12 6h.01" />
-                <path d="M12 10h.01" />
-                <path d="M12 14h.01" />
-                <path d="M16 10h.01" />
-                <path d="M16 14h.01" />
-                <path d="M8 10h.01" />
-                <path d="M8 14h.01" />
-              </svg>
+          <section className="panel" style={{ marginBottom: '28px' }}>
+            <h3 style={{ fontSize: '0.75rem', fontFamily: 'var(--font-pixel)', color: 'var(--color-accent-green)', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <i className="fa-solid fa-city" aria-hidden="true" />
               Gedung Kota yang Direkomendasikan
-            </h2>
+            </h3>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {recommendedBuildings.map((b) => (
@@ -646,25 +684,25 @@ export default function InterestTestPage() {
                     alignItems: 'center',
                     padding: '12px 16px',
                     background: 'rgba(255, 255, 255, 0.02)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    borderRadius: '8px',
+                    border: '1px solid var(--color-border-subtle)',
+                    borderRadius: '6px',
                     gap: '12px',
                     flexWrap: 'wrap',
                   }}
                 >
                   <div style={{ minWidth: 0 }}>
-                    <div style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--itest-text)' }}>
+                    <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--color-text-primary)' }}>
                       {b.nama}
                     </div>
-                    <div style={{ fontSize: '0.8rem', color: 'var(--itest-text-soft)' }}>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)' }}>
                       {b.deskripsi}
                     </div>
                   </div>
                   <button
                     type="button"
                     onClick={() => navigate(`/gedung/${b.id}`)}
-                    className="itest-btn-primary"
-                    style={{ padding: '8px 16px', fontSize: '0.8rem' }}
+                    className="btn btn--primary"
+                    style={{ padding: '6px 14px', fontSize: '0.65rem' }}
                   >
                     Kunjungi Gedung →
                   </button>
@@ -675,19 +713,19 @@ export default function InterestTestPage() {
 
           {/* Action Row */}
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
-            <Link to="/" className="itest-btn-primary">
+            <Link to="/" className="btn btn--primary">
+              <i className="fa-solid fa-map" style={{ marginRight: '6px' }} aria-hidden="true" />
               Jelajahi Kota Sekarang
             </Link>
             <button
               type="button"
               onClick={handleStartFresh}
-              className="itest-btn-prev"
-              style={{ fontSize: '0.875rem' }}
+              className="btn btn--ghost"
             >
               Ulangi Tes
             </button>
-            <Link to="/hasil" className="itest-btn-prev" style={{ fontSize: '0.875rem' }}>
-              Lihat Ringkasan Hasil
+            <Link to="/hasil" className="btn">
+              Lihat Ringkasan Hasil →
             </Link>
           </div>
         </main>
@@ -704,49 +742,108 @@ export default function InterestTestPage() {
         <div className="itest-stars-bg" aria-hidden="true" />
         <div className="itest-skyline-bg" aria-hidden="true" />
 
-        <header className="itest-header">
-          <Link to="/" className="itest-btn-exit" title="Kembali ke Kota">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="m15 18-6-6 6-6" />
-            </svg>
-            <span>Keluar</span>
-          </Link>
-          <div className="itest-header-progress">
-            <span>Pusat Informasi</span>
+        {/* Header Bar matching Kantor Teknologi / BuildingInteriorPage */}
+        <header
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: 'var(--space-sm) var(--space-md)',
+            borderBottom: '1px solid rgba(34, 211, 238, 0.25)',
+            background: 'rgba(17, 24, 39, 0.95)',
+            backdropFilter: 'blur(8px)',
+            position: 'sticky',
+            top: 0,
+            zIndex: 50,
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)' }}>
+            <Link
+              to="/"
+              className="btn btn--ghost"
+              style={{ fontSize: '0.55rem', minHeight: '36px', padding: '4px 10px' }}
+              aria-label="Kembali ke kota"
+            >
+              ← Kota
+            </Link>
+            <h1 style={{ fontSize: '0.7rem', color: 'var(--color-accent-cyan)', margin: 0, fontFamily: 'var(--font-pixel)' }}>
+              Pusat Informasi
+            </h1>
           </div>
+          <span style={{ fontSize: '0.55rem', color: 'var(--color-accent-yellow)', fontFamily: 'var(--font-pixel)' }}>
+            TES MINAT
+          </span>
         </header>
 
-        <main className="container" style={{ paddingTop: '36px', paddingBottom: '48px', position: 'relative', zIndex: 10, maxWidth: '640px' }}>
-          <div className="itest-pause-card" style={{ marginTop: '0' }}>
-            <div className="itest-card-icon-bubble" style={{ width: '72px', height: '72px', margin: '0 auto 20px' }}>
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="10" />
-                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
-              </svg>
+        <main className="container" style={{ paddingTop: '28px', paddingBottom: '48px', position: 'relative', zIndex: 10, maxWidth: '640px' }}>
+          {/* Room Header Info matching Kantor Teknologi */}
+          <div style={{ textAlign: 'center', maxWidth: '480px', margin: '0 auto 24px', width: '100%' }}>
+            <p
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                color: 'var(--color-accent-yellow, #fbbf24)',
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                marginBottom: '6px',
+                fontFamily: 'var(--font-body)',
+              }}
+            >
+              AREA EKSPLORASI
+            </p>
+            <h2
+              style={{
+                fontSize: '1.45rem',
+                fontWeight: 700,
+                color: '#ffffff',
+                margin: '0 0 8px 0',
+                fontFamily: 'var(--font-body)',
+                letterSpacing: '-0.01em',
+              }}
+            >
+              Tes Minat & Gaya Kerja
+            </h2>
+            <p
+              style={{
+                color: 'var(--color-text-secondary, #94a3b8)',
+                fontSize: '0.875rem',
+                margin: 0,
+                lineHeight: 1.5,
+                fontFamily: 'var(--font-body)',
+              }}
+            >
+              Kenali kecenderungan minat dan bakatmu lewat simulasi tugas kerja nyata untuk menemukan gedung kota yang tepat.
+            </p>
+          </div>
+
+          <div className="panel" style={{ textAlign: 'center', maxWidth: '560px', margin: '0 auto', padding: '32px 24px' }}>
+            <div className="itest-card-icon-bubble" style={{ width: '64px', height: '64px', margin: '0 auto 16px' }}>
+              <i className="fa-solid fa-compass" style={{ fontSize: '1.75rem', color: 'var(--color-accent-cyan)' }} aria-hidden="true" />
             </div>
 
-            <h1 style={{ fontSize: '1.35rem', fontWeight: 700, color: 'var(--itest-cyan)', margin: '0 0 12px 0' }}>
-              Tes Minat Karier
-            </h1>
-            <p style={{ fontSize: '0.9375rem', color: 'var(--itest-text-soft)', lineHeight: 1.6, margin: '0 0 24px 0' }}>
-              Sekitar 5 menit, 35 pertanyaan, tidak ada jawaban benar atau salah. Tes ini memetakan preferensi aktivitas kerja nyata untuk mencarikan gedung kota yang paling cocok denganmu.
+            <h3 style={{ fontSize: '0.9rem', fontFamily: 'var(--font-pixel)', color: 'var(--color-accent-cyan)', margin: '0 0 12px 0' }}>
+              Petualangan Dimulai
+            </h3>
+            <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', lineHeight: 1.6, margin: '0 0 24px 0' }}>
+              Sekitar 5 menit · 35 langkah interaktif · Tanpa jawaban benar atau salah. Hasil tes langsung memetakan rekomendasi gedung kota dan profesi yang paling cocok untukmu.
             </p>
 
             {hasSavedDraft ? (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
                 <button
                   type="button"
                   onClick={handleResume}
-                  className="itest-btn-primary"
-                  style={{ width: '100%', maxWidth: '280px', justifyContent: 'center', padding: '12px 20px', fontSize: '0.9375rem' }}
+                  className="btn btn--primary"
+                  style={{ width: '100%', maxWidth: '280px', padding: '12px 20px', fontSize: '0.68rem' }}
                 >
+                  <i className="fa-solid fa-play" style={{ marginRight: '6px' }} aria-hidden="true" />
                   Lanjutkan Tes
                 </button>
                 <button
                   type="button"
                   onClick={handleStartFresh}
-                  className="itest-btn-prev"
-                  style={{ width: '100%', maxWidth: '280px', justifyContent: 'center' }}
+                  className="btn btn--ghost"
+                  style={{ width: '100%', maxWidth: '280px', fontSize: '0.62rem' }}
                 >
                   Mulai Ulang dari Awal
                 </button>
@@ -755,14 +852,15 @@ export default function InterestTestPage() {
               <button
                 type="button"
                 onClick={handleStartFresh}
-                className="itest-btn-primary"
-                style={{ padding: '14px 32px', fontSize: '1rem' }}
+                className="btn btn--primary"
+                style={{ padding: '12px 32px', fontSize: '0.72rem' }}
               >
-                Mulai Tes Minat
+                <i className="fa-solid fa-bolt" style={{ marginRight: '8px' }} aria-hidden="true" />
+                Mulai Tes Minat →
               </button>
             )}
 
-            <p style={{ fontSize: '0.78rem', color: 'var(--itest-text-faint)', marginTop: '24px', marginBottom: 0 }}>
+            <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginTop: '20px', marginBottom: 0 }}>
               *Progres tersimpan otomatis di perangkatmu. Kamu bisa keluar kapan saja dan melanjutkan nanti.
             </p>
           </div>
@@ -784,24 +882,44 @@ export default function InterestTestPage() {
       <div className="itest-stars-bg" aria-hidden="true" />
       <div className="itest-skyline-bg" aria-hidden="true" />
 
-      {/* STICKY HEADER DENGAN TOMBOL KELUAR DI KIRI ATAS */}
-      <header className="itest-header">
-        <button
-          type="button"
-          onClick={() => setShowExitModal(true)}
-          className="itest-btn-exit"
-          aria-label="Keluar dari tes"
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="m15 18-6-6 6-6" />
-          </svg>
-          <span>Keluar</span>
-        </button>
+      {/* Header Bar matching Kantor Teknologi / BuildingInteriorPage */}
+      <header
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: 'var(--space-sm) var(--space-md)',
+          borderBottom: '1px solid rgba(34, 211, 238, 0.25)',
+          background: 'rgba(17, 24, 39, 0.95)',
+          backdropFilter: 'blur(8px)',
+          position: 'sticky',
+          top: 0,
+          zIndex: 50,
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)' }}>
+          <button
+            type="button"
+            onClick={() => setShowExitModal(true)}
+            className="btn btn--ghost"
+            style={{ fontSize: '0.55rem', minHeight: '36px', padding: '4px 10px' }}
+            aria-label="Kembali ke kota"
+          >
+            ← Kota
+          </button>
+          <h1 style={{ fontSize: '0.7rem', color: 'var(--color-accent-cyan)', margin: 0, fontFamily: 'var(--font-pixel)' }}>
+            Pusat Informasi
+          </h1>
+        </div>
 
-        <div className="itest-header-progress">
-          <span>Bagian {currentStageNumber} dari 4</span>
-          <span>·</span>
-          <span>Pertanyaan {currentTotalQuestionNumber} / 35</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{ fontSize: '0.55rem', color: 'var(--color-accent-yellow)', fontFamily: 'var(--font-pixel)' }}>
+            Bagian {currentStageNumber}/4
+          </span>
+          <span style={{ color: 'var(--color-text-muted)', fontSize: '0.65rem' }}>·</span>
+          <span style={{ fontSize: '0.55rem', color: 'var(--color-text-secondary)', fontFamily: 'var(--font-pixel)' }}>
+            Soal {currentTotalQuestionNumber}/35
+          </span>
         </div>
       </header>
 
