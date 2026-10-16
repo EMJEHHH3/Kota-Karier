@@ -128,18 +128,19 @@ export default function HomePage() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '6px',
+            gap: '10px',
             flexShrink: 0,
           }}
         >
           <h1
             className="welcome-title pixel-text"
             style={{
-              fontSize: '0.78rem',
+              fontSize: 'clamp(1.2rem, 2.5vw, 1.75rem)',
+              lineHeight: 1.4,
               color: 'var(--color-accent-cyan)',
               letterSpacing: '1px',
               margin: 0,
-              textShadow: '0 0 10px rgba(34, 211, 238, 0.7), 0 0 20px rgba(34, 211, 238, 0.35)',
+              textShadow: '0 0 12px rgba(34, 211, 238, 0.75), 0 0 24px rgba(34, 211, 238, 0.4)',
             }}
           >
             Selamat datang di Kota Karier
@@ -147,10 +148,11 @@ export default function HomePage() {
           <p
             className="welcome-subtitle"
             style={{
-              fontSize: '0.82rem',
-              color: '#cbd5e1',
+              fontSize: 'clamp(1.05rem, 1.5vw, 1.3rem)',
+              lineHeight: 1.5,
+              color: '#e2e8f0',
               margin: 0,
-              textShadow: '0 2px 4px rgba(0, 0, 0, 0.95)',
+              textShadow: '0 2px 6px rgba(0, 0, 0, 0.95)',
               fontWeight: 500,
             }}
           >
@@ -286,11 +288,10 @@ export default function HomePage() {
                         <div className="building-sprite-wrapper">
                           <BuildingSprite
                             id={building.id}
-                            className={`building-sprite ${
-                              isRecommended
+                            className={`building-sprite ${isRecommended
                                 ? 'building-sprite--recommended'
                                 : 'building-sprite--cyan'
-                            }`}
+                              }`}
                           />
                         </div>
                       </Link>

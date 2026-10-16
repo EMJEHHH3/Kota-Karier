@@ -727,11 +727,13 @@ h3,
   }
 
   .welcome-title {
-    font-size: 0.62rem !important;
+    font-size: 1.1rem !important;
+    line-height: 1.4 !important;
   }
 
   .welcome-subtitle {
-    font-size: 0.72rem !important;
+    font-size: 0.95rem !important;
+    line-height: 1.45 !important;
   }
 
   .street-lamp--desktop-only {
@@ -2021,4 +2023,4 @@ html.no-animations .mug-steam {
 .interior-card--tried:hover {
   border-color: var(--color-accent-green);
   box-shadow: 0 6px 24px rgba(74, 222, 128, 0.18), 0 0 12px rgba(74, 222, 128, 0.1);
-}
+}
