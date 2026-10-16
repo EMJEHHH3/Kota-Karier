@@ -48,8 +48,27 @@ export default function HomePage() {
           zIndex: 10,
         }}
       >
-        <span className="pixel-text" style={{ fontSize: '0.65rem', color: 'var(--color-accent-cyan)' }}>
-          <i className="fa-solid fa-city" aria-hidden="true" style={{ marginRight: '6px' }} />
+        <span
+          className="pixel-text"
+          style={{
+            fontSize: '0.65rem',
+            color: 'var(--color-accent-cyan)',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+          }}
+        >
+          <img
+            src="/favicon.svg"
+            alt=""
+            aria-hidden="true"
+            style={{
+              width: '20px',
+              height: '20px',
+              objectFit: 'contain',
+              display: 'block',
+            }}
+          />
           Kota Karier
         </span>
         <div style={{ display: 'flex', gap: 'var(--space-xs)', alignItems: 'center' }}>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <title>Ikon Gedung Pencakar Langit</title>
+  <rect width="500" height="500" rx="70" fill="#0b1020"/>
+  <g fill="none" stroke="#22d3ee" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Antena menara -->
+    <line x1="250" y1="80" x2="250" y2="127"/>
+    <!-- Puncak menara -->
+    <rect x="229" y="127" width="42" height="30" rx="3"/>
+    <!-- Badan menara tengah -->
+    <path d="M205 408 V168 Q205 158 215 158 H285 Q295 158 295 168 V240"/>
+    <path d="M205 275 L237 290 V408"/>
+    <path d="M295 240 L275 262 V408"/>
+    <!-- Gedung kiri -->
+    <line x1="158" y1="207" x2="158" y2="252"/>
+    <path d="M205 408 H125 Q115 408 115 398 V262 Q115 252 125 252 H205"/>
+    <!-- Gedung kanan -->
+    <path d="M295 408 H380 Q390 408 390 398 V252 Q390 242 380 242 H300"/>
+  </g>
+  <!-- Jendela hijau menara -->
+  <rect x="237" y="187" width="26" height="26" fill="#2ecc8f"/>
+  <!-- Jendela gedung kiri -->
+  <g fill="#22d3ee">
+    <rect x="136" y="278" width="17" height="17"/>
+    <rect x="165" y="278" width="17" height="17"/>
+    <rect x="136" y="309" width="17" height="17"/>
+    <rect x="165" y="309" width="17" height="17"/>
+    <rect x="136" y="341" width="17" height="17"/>
+    <!-- Jendela gedung kanan -->
+    <rect x="320" y="278" width="17" height="17"/>
+    <rect x="349" y="278" width="17" height="17"/>
+    <rect x="320" y="309" width="17" height="17"/>
+    <rect x="349" y="309" width="17" height="17"/>
+    <rect x="349" y="341" width="17" height="17"/>
+  </g>
+</svg>
