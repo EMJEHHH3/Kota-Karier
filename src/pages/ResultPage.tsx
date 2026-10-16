@@ -18,43 +18,7 @@ import { rankProfessions } from '../lib/scoring';
 import { PROFESSIONS, getProfessionById } from '../data/professions';
 import { encodeResultCode, decodeResultCode, type DecodedResultCode } from '../lib/shareCode';
 import { GuestSyncBanner } from '../components/GuestSyncBanner';
-import { storage } from '../lib/storage';
-
-interface ActionPlanPhase {
-  id: string;
-  periode: string;
-  langkah: { id: string; text: string }[];
-}
-
-const ACTION_PLAN_PHASES: ActionPlanPhase[] = [
-  {
-    id: 'fase-1',
-    periode: 'Bulan 1 - 2: Eksplorasi & Validasi Awal',
-    langkah: [
-      { id: 'b1-1', text: 'Tonton video "Day in the Life" praktisi di YouTube/TikTok untuk melihat rutinitas harian.' },
-      { id: 'b1-2', text: 'Wawancarai minimal 1 orang mahasiswa jurusan terkait (tanyakan mata kuliah paling sulit).' },
-      { id: 'b1-3', text: 'Coba 1 mini project mandiri (misal: buat web portofolio atau ikut seminar kesehatan).' },
-    ],
-  },
-  {
-    id: 'fase-2',
-    periode: 'Bulan 3 - 4: Pemetaan Jurusan & Kampus',
-    langkah: [
-      { id: 'b2-1', text: 'Riset daya tampung & keketatan jalur SNBP, SNBT, dan Jalur Mandiri di PTN/PTS tujuan.' },
-      { id: 'b2-2', text: 'Bandingkan kurikulum universitas utama vs politeknik/vokasi D4.' },
-      { id: 'b2-3', text: 'Diskusikan estimasi biaya kuliah (UKT) dan opsi beasiswa bersama orang tua.' },
-    ],
-  },
-  {
-    id: 'fase-3',
-    periode: 'Bulan 5 - 6: Persiapan Portofolio & Konsultasi BK',
-    langkah: [
-      { id: 'b3-1', text: 'Mulai drill soal try-out SNBT secara berkala untuk subtes penalaran matematika & logika.' },
-      { id: 'b3-2', text: 'Bawa lembar PDF hasil Kota Karier ini ke Guru BK untuk sesi konseling personal.' },
-      { id: 'b3-3', text: 'Kunci pilihan 1 dan pilihan 2 program studi dengan pertimbangan matang.' },
-    ],
-  },
-];
+import { CareerRoadmap } from '../components/CareerRoadmap';
 
 export default function ResultPage() {
   const { state } = useUserState();
@@ -62,18 +26,6 @@ export default function ResultPage() {
   const [counselorResult, setCounselorResult] = useState<DecodedResultCode | null>(null);
   const [counselorError, setCounselorError] = useState<string>('');
   const [copied, setCopied] = useState<boolean>(false);
-
-  // Accordion state for 6-Month Action Plan (first phase open by default)
-  const [openPhases, setOpenPhases] = useState<Record<string, boolean>>({
-    'fase-1': true,
-    'fase-2': false,
-    'fase-3': false,
-  });
-
-  // Action plan checklist state persisted to unified storage layer
-  const [checkedStepIds, setCheckedStepIds] = useState<string[]>(() => {
-    return storage.getItem<string[]>('kota-karier-action-checklist') || [];
-  });
 
   // Note expansion state for Ekspektasi vs Realita
   const [expandedNotes, setExpandedNotes] = useState<Record<string, boolean>>({});
@@ -140,30 +92,12 @@ export default function ResultPage() {
     window.print();
   };
 
-  const handleToggleStep = (stepId: string) => {
-    setCheckedStepIds((prev) => {
-      const next = prev.includes(stepId) ? prev.filter((id) => id !== stepId) : [...prev, stepId];
-      storage.setItem('kota-karier-action-checklist', next);
-      return next;
-    });
-  };
-
-  const togglePhase = (phaseId: string) => {
-    setOpenPhases((prev) => ({
-      ...prev,
-      [phaseId]: !prev[phaseId],
-    }));
-  };
-
   const toggleNotes = (profId: string) => {
     setExpandedNotes((prev) => ({
       ...prev,
       [profId]: !prev[profId],
     }));
   };
-
-  const totalStepsCount = ACTION_PLAN_PHASES.reduce((acc, p) => acc + p.langkah.length, 0);
-  const completedStepsCount = checkedStepIds.length;
 
   return (
     <div className="page-enter" style={{ minHeight: '100dvh' }}>
@@ -200,6 +134,15 @@ export default function ResultPage() {
         <p style={{ fontSize: '10pt', color: '#4b5563' }}>
           Tanggal: {new Date().toLocaleDateString('id-ID', { dateStyle: 'long' })} · Kode Hasil: <strong>{shareCode}</strong>
         </p>
+        {top3Professions.length > 0 && (
+          <div style={{ marginTop: '10px', fontSize: '10pt', color: '#111827' }}>
+            <strong>Ringkasan Top 3 Rekomendasi: </strong>
+            {top3Professions.map((p, i) => {
+              const prof = getProfessionById(p.id);
+              return `${i + 1}. ${prof ? prof.nama : p.id}`;
+            }).join(' | ')}
+          </div>
+        )}
       </div>
 
       <main className="rp-container">
@@ -213,7 +156,7 @@ export default function ResultPage() {
               Belum Ada Data Eksplorasi
             </h2>
             <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.85rem', marginBottom: 'var(--space-lg)', overflowWrap: 'anywhere' }}>
-              Untuk melihat rekomendasi Top 3 profesi, Ekspektasi vs Realita, dan Rencana Aksi 6 Bulan, silakan mulai dari Tes Minat atau coba simulasi di gedung kota!
+              Untuk melihat rekomendasi Top 3 profesi, Ekspektasi vs Realita, dan Roadmap Karier, silakan mulai dari Tes Minat atau coba simulasi di gedung kota!
             </p>
             <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap' }}>
               <Link to="/tes-minat" className="btn btn--primary">
@@ -434,96 +377,12 @@ export default function ResultPage() {
           </section>
         )}
 
-        {/* 3. 6-MONTH ACTION PLAN (ACCORDION & CHECKLIST) */}
-        <section className="rp-section">
-          <div className="rp-section-header">
-            <svg className="rp-section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-accent-green)' }} aria-hidden="true">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-              <line x1="16" y1="2" x2="16" y2="6" />
-              <line x1="8" y1="2" x2="8" y2="6" />
-              <line x1="3" y1="10" x2="21" y2="10" />
-            </svg>
-            <h2 className="rp-section-title">Rencana Aksi 6 Bulan</h2>
-          </div>
-
-          <p className="rp-section-desc">
-            Panduan bertahap menyiapkan diri menuju perkuliahan dan karier impianmu.
-          </p>
-
-          {/* Small progress display */}
-          <div className="rp-progress-box">
-            <div className="rp-progress-text">
-              <span>Progres Aksi</span>
-              <span>{completedStepsCount} dari {totalStepsCount} langkah selesai</span>
-            </div>
-            <div className="rp-progress-track">
-              <div
-                className="rp-progress-bar"
-                style={{ width: `${(completedStepsCount / totalStepsCount) * 100}%` }}
-              />
-            </div>
-          </div>
-
-          {/* 3 Accordion Cards */}
-          <div className="rp-accordion-stack">
-            {ACTION_PLAN_PHASES.map((phase) => {
-              const isOpen = Boolean(openPhases[phase.id]);
-              return (
-                <div key={phase.id} className="rp-accordion-card">
-                  <button
-                    type="button"
-                    className="rp-accordion-btn"
-                    onClick={() => togglePhase(phase.id)}
-                    aria-expanded={isOpen}
-                  >
-                    <div className="rp-accordion-title-wrap">
-                      <span className="rp-accordion-title">{phase.periode}</span>
-                      <span className="rp-accordion-count">{phase.langkah.length} langkah</span>
-                    </div>
-                    <svg
-                      className={`rp-accordion-chevron ${isOpen ? 'rp-accordion-chevron--open' : ''}`}
-                      width="15"
-                      height="15"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                  </button>
-
-                  {isOpen && (
-                    <ul className="rp-checklist">
-                      {phase.langkah.map((item) => {
-                        const isChecked = checkedStepIds.includes(item.id);
-                        return (
-                          <li key={item.id} style={{ listStyle: 'none' }}>
-                            <label className="rp-checklist-item">
-                              <input
-                                type="checkbox"
-                                className="rp-checkbox"
-                                checked={isChecked}
-                                onChange={() => handleToggleStep(item.id)}
-                                aria-label={item.text}
-                              />
-                              <span className={`rp-checklist-text ${isChecked ? 'rp-checklist-text--done' : ''}`}>
-                                {item.text}
-                              </span>
-                            </label>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </section>
+        {/* 3. ROADMAP KARIER */}
+        {(hasTest || hasSimulations) && (
+          <CareerRoadmap
+            topProfessions={top3Professions}
+          />
+        )}
 
         {/* 4. SHAREABLE CODE & COUNSELOR LOOKUP */}
         <section className="rp-section no-print">
@@ -553,7 +412,7 @@ export default function ResultPage() {
               </button>
             </div>
             <p className="rp-bk-desc">
-              Bagikan kode 8 karakter ini kepada orang tua atau Guru BK tanpa perlu membuat akun atau login.
+              Gunakan tombol <strong>Cetak / PDF</strong> di atas untuk membawa lembar cetak hasil dan roadmap karier fisik saat sesi konseling bersama Guru BK, atau bagikan kode 8 karakter ini langsung tanpa perlu akun/login.
             </p>
           </div>
 
