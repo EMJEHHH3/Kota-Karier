@@ -68,20 +68,24 @@ export default function NurseWardSimulation({
   // Mini-game 1: Tanda Vital
   const [selectedVitals, setSelectedVitals] = useState<string[]>([]);
   const [vitalFeedback, setVitalFeedback] = useState<string | null>(null);
+  const [isVitalCompleted, setIsVitalCompleted] = useState<boolean>(false);
 
   // Mini-game 2: 5 Benar
   const [selectedAspect, setSelectedAspect] = useState<string | null>(null);
   const [medicationFeedback, setMedicationFeedback] = useState<string | null>(null);
+  const [isMedicationCompleted, setIsMedicationCompleted] = useState<boolean>(false);
 
   // Mini-game 3: Triase
   const [triageList, setTriageList] = useState<TriagePatient[]>([
     ...simulation.misi.triase.pasienList,
   ]);
   const [triageFeedback, setTriageFeedback] = useState<string | null>(null);
+  const [isTriageCompleted, setIsTriageCompleted] = useState<boolean>(false);
 
   // Mini-game 4: Menenangkan Pasien
   const [selectedCalmingId, setSelectedCalmingId] = useState<string | null>(null);
   const [calmingFeedback, setCalmingFeedback] = useState<string | null>(null);
+  const [isCalmingCompleted, setIsCalmingCompleted] = useState<boolean>(false);
 
   // Post-evaluation state in Laporan Shift
   const [postEnjoyment, setPostEnjoyment] = useState<number>(4);
@@ -129,18 +133,24 @@ export default function NurseWardSimulation({
 
   // --- MISI 1: Cek Tanda Vital ---
   const handleToggleVital = (id: string) => {
+    if (isVitalCompleted) return;
     retroSound.playKeypress();
+    if (vitalFeedback) {
+      setVitalFeedback(null);
+    }
     setSelectedVitals((prev) =>
       prev.includes(id) ? prev.filter((v) => v !== id) : [...prev, id]
     );
   };
 
   const handleSubmitVitals = () => {
+    if (isVitalCompleted || selectedVitals.length === 0) return;
     const isCorrect =
       selectedVitals.length === 1 && selectedVitals.includes('suhu');
 
     if (isCorrect) {
       retroSound.playSuccess();
+      setIsVitalCompleted(true);
       setScores((prev) => ({ ...prev, ketelitian: prev.ketelitian + 2 }));
       setPatientTrust((prev) => Math.min(100, prev + 10));
       setVitalFeedback(
@@ -165,13 +175,19 @@ export default function NurseWardSimulation({
 
   // --- MISI 2: 5 Benar ---
   const handleSelectAspect = (aspect: string) => {
+    if (isMedicationCompleted) return;
     retroSound.playKeypress();
+    if (medicationFeedback) {
+      setMedicationFeedback(null);
+    }
     setSelectedAspect(aspect);
   };
 
   const handleMedicationAction = (action: 'berikan' | 'tahan') => {
+    if (isMedicationCompleted || !selectedAspect) return;
     if (selectedAspect === 'pasien' && action === 'tahan') {
       retroSound.playSuccess();
+      setIsMedicationCompleted(true);
       setScores((prev) => ({ ...prev, ketelitian: prev.ketelitian + 3 }));
       setPatientTrust((prev) => Math.min(100, prev + 15));
       setMedicationFeedback(
@@ -237,7 +253,11 @@ export default function NurseWardSimulation({
 
   // --- MISI 3: Triase ---
   const moveTriagePatient = (index: number, direction: 'up' | 'down') => {
+    if (isTriageCompleted) return;
     retroSound.playKeypress();
+    if (triageFeedback) {
+      setTriageFeedback(null);
+    }
     const newIndex = direction === 'up' ? index - 1 : index + 1;
     if (newIndex < 0 || newIndex >= triageList.length) return;
 
@@ -249,6 +269,7 @@ export default function NurseWardSimulation({
   };
 
   const handleSubmitTriage = () => {
+    if (isTriageCompleted) return;
     const isCorrect =
       triageList[0].urutanBenar === 1 &&
       triageList[1].urutanBenar === 2 &&
@@ -256,6 +277,7 @@ export default function NurseWardSimulation({
 
     if (isCorrect) {
       retroSound.playSuccess();
+      setIsTriageCompleted(true);
       setScores((prev) => ({ ...prev, prioritas: prev.prioritas + 3 }));
       setPatientTrust((prev) => Math.min(100, prev + 15));
       setTriageFeedback(
@@ -276,12 +298,14 @@ export default function NurseWardSimulation({
 
   // --- MISI 4: Menenangkan Pasien ---
   const handleSelectCalming = (optionId: string) => {
+    if (isCalmingCompleted) return;
     setSelectedCalmingId(optionId);
     const option = simulation.misi.komunikasi.pilihan.find((o) => o.id === optionId);
     if (!option) return;
 
     if (option.tipe === 'empatik') {
       retroSound.playSuccess();
+      setIsCalmingCompleted(true);
       setScores((prev) => ({
         ...prev,
         empati: prev.empati + 3,
@@ -351,12 +375,16 @@ export default function NurseWardSimulation({
     setIsCompleted(false);
     setSelectedVitals([]);
     setVitalFeedback(null);
+    setIsVitalCompleted(false);
     setSelectedAspect(null);
     setMedicationFeedback(null);
+    setIsMedicationCompleted(false);
     setTriageList([...simulation.misi.triase.pasienList]);
     setTriageFeedback(null);
+    setIsTriageCompleted(false);
     setSelectedCalmingId(null);
     setCalmingFeedback(null);
+    setIsCalmingCompleted(false);
     setEventHistory([]);
     setIsSaved(false);
     setScores({
@@ -902,13 +930,14 @@ export default function NurseWardSimulation({
                           key={vital.id}
                           type="button"
                           onClick={() => handleToggleVital(vital.id)}
+                          disabled={isVitalCompleted}
                           style={{
                             background: isSelected ? 'rgba(239, 68, 68, 0.2)' : '#071224',
                             border: `2px solid ${isSelected ? '#f87171' : 'rgba(56, 189, 248, 0.3)'}`,
                             borderRadius: '6px',
                             padding: '10px',
                             textAlign: 'left',
-                            cursor: 'pointer',
+                            cursor: isVitalCompleted ? 'default' : 'pointer',
                             display: 'flex',
                             flexDirection: 'column',
                             gap: '4px',
@@ -958,25 +987,25 @@ export default function NurseWardSimulation({
                 </div>
 
                 {/* Feedback & Proceed Button */}
-                {vitalFeedback ? (
+                {vitalFeedback && (
                   <div
                     style={{
                       padding: '12px',
                       borderRadius: '6px',
-                      background: vitalFeedback.startsWith('✓') ? 'rgba(52, 211, 153, 0.15)' : 'rgba(239, 68, 68, 0.15)',
-                      border: `1px solid ${vitalFeedback.startsWith('✓') ? '#34d399' : '#f87171'}`,
+                      background: isVitalCompleted ? 'rgba(52, 211, 153, 0.15)' : 'rgba(239, 68, 68, 0.15)',
+                      border: `1px solid ${isVitalCompleted ? '#34d399' : '#f87171'}`,
                       marginBottom: '14px',
                       fontSize: '0.75rem',
                       color: '#f8fafc',
                     }}
                   >
                     <p style={{ margin: 0 }}>
-                      {!vitalFeedback.startsWith('✓') && (
+                      {!isVitalCompleted && (
                         <i className="fa-solid fa-triangle-exclamation" aria-hidden="true" style={{ marginRight: '6px', color: '#f87171' }} />
                       )}
                       {vitalFeedback}
                     </p>
-                    {vitalFeedback.startsWith('✓') && (
+                    {isVitalCompleted && (
                       <button
                         type="button"
                         onClick={() => {
@@ -990,14 +1019,22 @@ export default function NurseWardSimulation({
                       </button>
                     )}
                   </div>
-                ) : (
+                )}
+
+                {!isVitalCompleted && (
                   <button
                     type="button"
                     onClick={handleSubmitVitals}
+                    disabled={selectedVitals.length === 0}
                     className="btn btn--primary"
-                    style={{ width: '100%', fontSize: '0.65rem' }}
+                    style={{
+                      width: '100%',
+                      fontSize: '0.65rem',
+                      opacity: selectedVitals.length === 0 ? 0.6 : 1,
+                      cursor: selectedVitals.length === 0 ? 'not-allowed' : 'pointer',
+                    }}
                   >
-                    KIRIM LAPORAN TANDA VITAL ↵
+                    LAPORKAN TANDA VITAL ↵
                   </button>
                 )}
               </div>
@@ -1056,6 +1093,7 @@ export default function NurseWardSimulation({
                         key={aspect}
                         type="button"
                         onClick={() => handleSelectAspect(aspect)}
+                        disabled={isMedicationCompleted}
                         style={{
                           background: selectedAspect === aspect ? '#f87171' : '#071224',
                           color: selectedAspect === aspect ? '#020617' : '#e2e8f0',
@@ -1063,7 +1101,7 @@ export default function NurseWardSimulation({
                           borderRadius: '4px',
                           padding: '6px 12px',
                           fontSize: '0.7rem',
-                          cursor: 'pointer',
+                          cursor: isMedicationCompleted ? 'default' : 'pointer',
                           fontWeight: selectedAspect === aspect ? 'bold' : 'normal',
                           textTransform: 'capitalize',
                         }}
@@ -1075,28 +1113,44 @@ export default function NurseWardSimulation({
                 </div>
 
                 {/* Action Buttons */}
-                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '14px' }}>
-                  <button
-                    type="button"
-                    onClick={() => handleMedicationAction('tahan')}
-                    disabled={!selectedAspect}
-                    className="btn btn--primary"
-                    style={{ flex: 1, minWidth: '180px', fontSize: '0.65rem' }}
-                  >
-                    <i className="fa-solid fa-hand" aria-hidden="true" style={{ marginRight: '6px' }} />
-                    Tahan & Konfirmasi ke Dokter/Farmasi
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleMedicationAction('berikan')}
-                    disabled={!selectedAspect}
-                    className="btn btn--ghost"
-                    style={{ flex: 1, minWidth: '150px', fontSize: '0.65rem', color: '#f87171', borderColor: '#f87171' }}
-                  >
-                    <i className="fa-solid fa-pills" aria-hidden="true" style={{ marginRight: '6px' }} />
-                    Berikan Obat Langsung
-                  </button>
-                </div>
+                {!isMedicationCompleted && (
+                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '14px' }}>
+                    <button
+                      type="button"
+                      onClick={() => handleMedicationAction('tahan')}
+                      disabled={!selectedAspect}
+                      className="btn btn--primary"
+                      style={{
+                        flex: 1,
+                        minWidth: '180px',
+                        fontSize: '0.65rem',
+                        opacity: !selectedAspect ? 0.6 : 1,
+                        cursor: !selectedAspect ? 'not-allowed' : 'pointer',
+                      }}
+                    >
+                      <i className="fa-solid fa-hand" aria-hidden="true" style={{ marginRight: '6px' }} />
+                      Tahan & Konfirmasi ke Dokter/Farmasi
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleMedicationAction('berikan')}
+                      disabled={!selectedAspect}
+                      className="btn btn--ghost"
+                      style={{
+                        flex: 1,
+                        minWidth: '150px',
+                        fontSize: '0.65rem',
+                        color: '#f87171',
+                        borderColor: '#f87171',
+                        opacity: !selectedAspect ? 0.6 : 1,
+                        cursor: !selectedAspect ? 'not-allowed' : 'pointer',
+                      }}
+                    >
+                      <i className="fa-solid fa-pills" aria-hidden="true" style={{ marginRight: '6px' }} />
+                      Berikan Obat Langsung
+                    </button>
+                  </div>
+                )}
 
                 {/* Feedback */}
                 {medicationFeedback && (
@@ -1104,19 +1158,19 @@ export default function NurseWardSimulation({
                     style={{
                       padding: '12px',
                       borderRadius: '6px',
-                      background: medicationFeedback.startsWith('✓') ? 'rgba(52, 211, 153, 0.15)' : 'rgba(239, 68, 68, 0.15)',
-                      border: `1px solid ${medicationFeedback.startsWith('✓') ? '#34d399' : '#f87171'}`,
+                      background: isMedicationCompleted ? 'rgba(52, 211, 153, 0.15)' : 'rgba(239, 68, 68, 0.15)',
+                      border: `1px solid ${isMedicationCompleted ? '#34d399' : '#f87171'}`,
                       fontSize: '0.75rem',
                       color: '#f8fafc',
                     }}
                   >
                     <p style={{ margin: 0 }}>
-                      {!medicationFeedback.startsWith('✓') && (
+                      {!isMedicationCompleted && (
                         <i className="fa-solid fa-triangle-exclamation" aria-hidden="true" style={{ marginRight: '6px', color: '#f87171' }} />
                       )}
                       {medicationFeedback}
                     </p>
-                    {medicationFeedback.startsWith('✓') && (
+                    {isMedicationCompleted && (
                       <button
                         type="button"
                         onClick={() => {
@@ -1311,15 +1365,15 @@ export default function NurseWardSimulation({
                           <button
                             type="button"
                             onClick={() => moveTriagePatient(index, 'up')}
-                            disabled={index === 0}
+                            disabled={isTriageCompleted || index === 0}
                             title="Naikkan prioritas"
                             style={{
                               background: '#1e293b',
                               border: '1px solid #475569',
-                              color: index === 0 ? '#475569' : '#38bdf8',
+                              color: isTriageCompleted || index === 0 ? '#475569' : '#38bdf8',
                               padding: '2px 8px',
                               borderRadius: '3px',
-                              cursor: index === 0 ? 'default' : 'pointer',
+                              cursor: isTriageCompleted || index === 0 ? 'default' : 'pointer',
                               fontSize: '0.65rem',
                             }}
                           >
@@ -1328,15 +1382,15 @@ export default function NurseWardSimulation({
                           <button
                             type="button"
                             onClick={() => moveTriagePatient(index, 'down')}
-                            disabled={index === triageList.length - 1}
+                            disabled={isTriageCompleted || index === triageList.length - 1}
                             title="Turunkan prioritas"
                             style={{
                               background: '#1e293b',
                               border: '1px solid #475569',
-                              color: index === triageList.length - 1 ? '#475569' : '#38bdf8',
+                              color: isTriageCompleted || index === triageList.length - 1 ? '#475569' : '#38bdf8',
                               padding: '2px 8px',
                               borderRadius: '3px',
-                              cursor: index === triageList.length - 1 ? 'default' : 'pointer',
+                              cursor: isTriageCompleted || index === triageList.length - 1 ? 'default' : 'pointer',
                               fontSize: '0.65rem',
                             }}
                           >
@@ -1348,25 +1402,26 @@ export default function NurseWardSimulation({
                   })}
                 </div>
 
-                {/* Feedback or Submit */}
-                {triageFeedback ? (
+                {/* Feedback */}
+                {triageFeedback && (
                   <div
                     style={{
                       padding: '12px',
                       borderRadius: '6px',
-                      background: triageFeedback.startsWith('✓') ? 'rgba(52, 211, 153, 0.15)' : 'rgba(239, 68, 68, 0.15)',
-                      border: `1px solid ${triageFeedback.startsWith('✓') ? '#34d399' : '#f87171'}`,
+                      background: isTriageCompleted ? 'rgba(52, 211, 153, 0.15)' : 'rgba(239, 68, 68, 0.15)',
+                      border: `1px solid ${isTriageCompleted ? '#34d399' : '#f87171'}`,
                       fontSize: '0.75rem',
                       color: '#f8fafc',
+                      marginBottom: '14px',
                     }}
                   >
                     <p style={{ margin: 0 }}>
-                      {!triageFeedback.startsWith('✓') && (
+                      {!isTriageCompleted && (
                         <i className="fa-solid fa-triangle-exclamation" aria-hidden="true" style={{ marginRight: '6px', color: '#f87171' }} />
                       )}
                       {triageFeedback}
                     </p>
-                    {triageFeedback.startsWith('✓') && (
+                    {isTriageCompleted && (
                       <button
                         type="button"
                         onClick={() => {
@@ -1380,7 +1435,10 @@ export default function NurseWardSimulation({
                       </button>
                     )}
                   </div>
-                ) : (
+                )}
+
+                {/* Submit button - always visible while not completed */}
+                {!isTriageCompleted && (
                   <button
                     type="button"
                     onClick={handleSubmitTriage}
@@ -1447,6 +1505,7 @@ export default function NurseWardSimulation({
                       key={opt.id}
                       type="button"
                       onClick={() => handleSelectCalming(opt.id)}
+                      disabled={isCalmingCompleted}
                       className="btn btn--ghost"
                       style={{
                         textAlign: 'left',
@@ -1458,6 +1517,7 @@ export default function NurseWardSimulation({
                         color: selectedCalmingId === opt.id ? '#38bdf8' : '#e0f2fe',
                         borderColor: selectedCalmingId === opt.id ? '#38bdf8' : '#334155',
                         background: selectedCalmingId === opt.id ? 'rgba(56, 189, 248, 0.15)' : '#071224',
+                        cursor: isCalmingCompleted ? 'default' : 'pointer',
                       }}
                     >
                       {opt.teks}
@@ -1471,19 +1531,19 @@ export default function NurseWardSimulation({
                     style={{
                       padding: '12px',
                       borderRadius: '6px',
-                      background: calmingFeedback.startsWith('✓') ? 'rgba(52, 211, 153, 0.15)' : 'rgba(239, 68, 68, 0.15)',
-                      border: `1px solid ${calmingFeedback.startsWith('✓') ? '#34d399' : '#f87171'}`,
+                      background: isCalmingCompleted ? 'rgba(52, 211, 153, 0.15)' : 'rgba(239, 68, 68, 0.15)',
+                      border: `1px solid ${isCalmingCompleted ? '#34d399' : '#f87171'}`,
                       fontSize: '0.75rem',
                       color: '#f8fafc',
                     }}
                   >
                     <p style={{ whiteSpace: 'pre-wrap', margin: 0 }}>
-                      {!calmingFeedback.startsWith('✓') && (
+                      {!isCalmingCompleted && (
                         <i className="fa-solid fa-triangle-exclamation" aria-hidden="true" style={{ marginRight: '6px', color: '#f87171' }} />
                       )}
                       {calmingFeedback}
                     </p>
-                    {calmingFeedback.startsWith('✓') && (
+                    {isCalmingCompleted && (
                       <button
                         type="button"
                         onClick={() => {
