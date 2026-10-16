@@ -55,4 +55,11 @@ export interface TestResult {
   isSuspicious: boolean;
   /** Timestamp of completion */
   completedAt: number;
+  /** Version of test taken (2 for realistic work-task test) */
+  testVersion?: number;
+  /** Additional data (subjects, work styles) that do not affect RIASEC */
+  extras?: {
+    favoriteSubjects?: string[];
+    workStyles?: Record<string, string>;
+  };
 }

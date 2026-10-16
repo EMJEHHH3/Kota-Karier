@@ -8,6 +8,11 @@
 import type { RiasecType, ScoreImpact } from '../types';
 import type { RiasecScores, TestAnswer, TestResult, SimulationResult } from '../types';
 import { TEST_QUESTIONS } from '../data/tes-minat';
+import {
+  BAGIAN_1_CARDS,
+  BAGIAN_2_SCENARIOS,
+  RIASEC_MAX_POINTS,
+} from '../data/interestQuestions.js';
 
 // ============================================================
 // SCORING WEIGHTS — single config object for easy tuning
@@ -149,6 +154,106 @@ export function computeTestResult(answers: TestAnswer[]): TestResult {
     topTypes,
     isSuspicious,
     completedAt: Date.now(),
+  };
+}
+
+// ============================================================
+// RIASEC SCORING V2 (Work-Task Based Interest Test)
+// ============================================================
+
+export interface Part1Answer {
+  cardId: string;
+  rating: 'mau_banget' | 'biasa_aja' | 'nggak_minat';
+}
+
+export interface Part2Answer {
+  scenarioId: string;
+  chosenOptionId: string;
+}
+
+export interface InterestTestV2Answers {
+  part1: Part1Answer[];
+  part2: Part2Answer[];
+  part3?: string[];
+  part4?: Record<string, string>;
+}
+
+/**
+ * Normalizes scores per type:
+ * Raw points = (points Part 1 + points Part 2)
+ * Normalized fraction = raw points / max possible points for that type
+ * Scaled to 0-10 range (matching old test scale).
+ */
+export function calculateNormalizedRiasecScores(
+  part1: Part1Answer[],
+  part2: Part2Answer[]
+): RiasecScores {
+  const rawPoints: RiasecScores = {
+    Realistic: 0,
+    Investigative: 0,
+    Artistic: 0,
+    Social: 0,
+    Enterprising: 0,
+    Conventional: 0,
+  };
+
+  // Bagian 1: Mau banget = 2, Biasa aja = 1, Nggak minat = 0
+  for (const a of part1) {
+    const card = BAGIAN_1_CARDS.find((c) => c.id === a.cardId);
+    if (!card) continue;
+    const pts = a.rating === 'mau_banget' ? 2 : a.rating === 'biasa_aja' ? 1 : 0;
+    rawPoints[card.tipe as RiasecType] += pts;
+  }
+
+  // Bagian 2: 2 poin ke tipe opsi yang dipilih
+  for (const a of part2) {
+    const scenario = BAGIAN_2_SCENARIOS.find((s) => s.id === a.scenarioId);
+    if (!scenario) continue;
+    const option = scenario.opsi.find((o) => o.id === a.chosenOptionId);
+    if (!option) continue;
+    rawPoints[option.tipe as RiasecType] += 2;
+  }
+
+  // Normalisasi tiap tipe dan skala ke rentang lama (0-10)
+  const OLD_SCALE = 10;
+  const normalizedScores: RiasecScores = {
+    Realistic: 0,
+    Investigative: 0,
+    Artistic: 0,
+    Social: 0,
+    Enterprising: 0,
+    Conventional: 0,
+  };
+
+  for (const typeKey of Object.keys(rawPoints) as RiasecType[]) {
+    const maxPossible = RIASEC_MAX_POINTS[typeKey] || 18;
+    const fraction = rawPoints[typeKey] / maxPossible;
+    normalizedScores[typeKey] = Math.round(fraction * OLD_SCALE);
+  }
+
+  return normalizedScores;
+}
+
+/**
+ * Compute final test result for Test V2.
+ * Output maintains exact RiasecScores format and scale, plus testVersion: 2 and extras.
+ */
+export function computeInterestTestResultV2(
+  answers: InterestTestV2Answers
+): TestResult {
+  const scores = calculateNormalizedRiasecScores(answers.part1, answers.part2);
+  const topTypes = getTopRiasecTypes(scores);
+
+  return {
+    scores,
+    topTypes,
+    isSuspicious: false,
+    completedAt: Date.now(),
+    testVersion: 2,
+    extras: {
+      favoriteSubjects: answers.part3 || [],
+      workStyles: answers.part4 || {},
+    },
   };
 }
 
