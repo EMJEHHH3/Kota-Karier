@@ -40,7 +40,8 @@ export default function SettingsPage() {
         {/* Tampilan & Aksesibilitas */}
         <section className="panel" style={{ marginBottom: 'var(--space-lg)' }}>
           <h2 style={{ fontSize: '0.65rem', color: 'var(--color-accent-cyan)', marginBottom: 'var(--space-md)' }}>
-            🎮 Tampilan & Aksesibilitas
+            <i className="fa-solid fa-gamepad" aria-hidden="true" style={{ marginRight: '6px' }} />
+            Tampilan & Aksesibilitas
           </h2>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
@@ -79,7 +80,8 @@ export default function SettingsPage() {
         {/* Privasi & Data */}
         <section className="panel" style={{ marginBottom: 'var(--space-lg)', borderColor: 'var(--color-border-subtle)' }}>
           <h2 style={{ fontSize: '0.65rem', color: 'var(--color-accent-yellow)', marginBottom: 'var(--space-sm)' }}>
-            🔒 Privasi & Penyimpanan
+            <i className="fa-solid fa-lock" aria-hidden="true" style={{ marginRight: '6px' }} />
+            Privasi & Penyimpanan
           </h2>
           <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-md)' }}>
             Kota Karier tidak mengumpulkan data pribadi dan tidak memerlukan akun. Semua progres, jawaban tes, serta simulasi disimpan secara aman 100% hanya di perangkatmu (localStorage).
@@ -90,14 +92,16 @@ export default function SettingsPage() {
             className="btn"
             style={{ borderColor: 'var(--color-accent-red)', color: 'var(--color-accent-red)' }}
           >
-            🗑️ Reset Semua Progres & Data
+            <i className="fa-solid fa-trash-can" aria-hidden="true" style={{ marginRight: '6px' }} />
+            Reset Semua Progres & Data
           </button>
         </section>
 
         {/* Tentang Kota Karier */}
         <section className="panel" style={{ borderColor: 'var(--color-border-subtle)' }}>
           <h2 style={{ fontSize: '0.65rem', color: 'var(--color-accent-cyan)', marginBottom: 'var(--space-sm)' }}>
-            ℹ️ Tentang Kota Karier
+            <i className="fa-solid fa-circle-info" aria-hidden="true" style={{ marginRight: '6px' }} />
+            Tentang Kota Karier
           </h2>
           <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-xs)' }}>
             Platform eksplorasi karier interaktif untuk siswa SMA Indonesia.

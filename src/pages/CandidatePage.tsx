@@ -37,7 +37,9 @@ export default function CandidatePage() {
       <main className="container" style={{ paddingTop: 'var(--space-lg)', paddingBottom: 'var(--space-2xl)' }}>
         {candidateProfessions.length === 0 ? (
           <div className="panel" style={{ textAlign: 'center', padding: 'var(--space-2xl)' }}>
-            <div style={{ fontSize: '2.5rem', marginBottom: 'var(--space-md)' }}>⭐</div>
+            <div style={{ fontSize: '2.5rem', marginBottom: 'var(--space-md)', color: 'var(--color-accent-yellow)' }}>
+              <i className="fa-solid fa-star" aria-hidden="true" />
+            </div>
             <p className="pixel-text" style={{ fontSize: '0.6rem', color: 'var(--color-accent-yellow)', marginBottom: 'var(--space-md)' }}>
               Belum Ada Profesi Disimpan
             </p>
@@ -56,7 +58,8 @@ export default function CandidatePage() {
               </p>
               {candidateProfessions.length >= 2 && (
                 <Link to="/bandingkan" className="btn btn--primary" style={{ fontSize: '0.55rem', padding: '4px 10px' }}>
-                  ⚖️ Bandingkan Pilihan
+                  <i className="fa-solid fa-scale-balanced" aria-hidden="true" style={{ marginRight: '6px' }} />
+                  Bandingkan Pilihan
                 </Link>
               )}
             </div>
@@ -81,7 +84,8 @@ export default function CandidatePage() {
                     {prof.realityCheck.jurusanKuliah.utama.join(', ')}
                   </p>
                   <p style={{ fontSize: '0.7rem', color: 'var(--color-accent-yellow)', marginTop: '4px' }}>
-                    💰 {prof.realityCheck.prospek.rentangGaji}
+                    <i className="fa-solid fa-money-bill-wave" aria-hidden="true" style={{ marginRight: '6px' }} />
+                    {prof.realityCheck.prospek.rentangGaji}
                   </p>
                 </div>
 

@@ -154,10 +154,10 @@ export default function NurseWardSimulation({
       setPatientTrust((prev) => Math.max(20, prev - 5));
 
       if (selectedVitals.length === 0) {
-        setVitalFeedback('⚠️ Kamu belum memilih nilai abnormal. Coba bandingkan data suhu dengan tabel rujukan!');
+        setVitalFeedback('Kamu belum memilih nilai abnormal. Coba bandingkan data suhu dengan tabel rujukan!');
       } else {
         setVitalFeedback(
-          '⚠️ Laporan belum akurat. Perhatikan parameter suhu tubuh pasien (38,6 °C). Bandingkan dengan tabel rujukan normal di samping!'
+          'Laporan belum akurat. Perhatikan parameter suhu tubuh pasien (38,6 °C). Bandingkan dengan tabel rujukan normal di samping!'
         );
       }
     }
@@ -186,11 +186,11 @@ export default function NurseWardSimulation({
 
       if (action === 'berikan') {
         setMedicationFeedback(
-          '⚠️ Bahaya Klinis! Jangan memberikan obat jika ada ketidaksesuaian identitas pasien! Obat harus ditahan dan dikonfirmasi.'
+          'Bahaya Klinis! Jangan memberikan obat jika ada ketidaksesuaian identitas pasien! Obat harus ditahan dan dikonfirmasi.'
         );
       } else {
         setMedicationFeedback(
-          '⚠️ Aspek yang kamu tandai belum tepat. Cermati nama pasien di resep vs nama di label obat!'
+          'Aspek yang kamu tandai belum tepat. Cermati nama pasien di resep vs nama di label obat!'
         );
       }
     }
@@ -269,7 +269,7 @@ export default function NurseWardSimulation({
       setPatientTrust((prev) => Math.max(20, prev - 5));
 
       setTriageFeedback(
-        '⚠️ Urutan triase belum optimal. Ingat prinsip gawat darurat: masalah jalan napas / sesak napas berat selalu menjadi prioritas Segera pertama!'
+        'Urutan triase belum optimal. Ingat prinsip gawat darurat: masalah jalan napas / sesak napas berat selalu menjadi prioritas Segera pertama!'
       );
     }
   };
@@ -298,7 +298,7 @@ export default function NurseWardSimulation({
       setTotalErrors((prev) => prev + 1);
       setPatientTrust((prev) => Math.max(20, prev + option.dampakTrust));
       setCalmingFeedback(
-        `⚠️ Pasien: ${option.responPasien}\n\n${option.umpanBalik}`
+        `Pasien: ${option.responPasien}\n\n${option.umpanBalik}`
       );
     }
   };
@@ -389,7 +389,8 @@ export default function NurseWardSimulation({
       <header className="ward-header-bar">
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
           <span className="ward-shift-badge">
-            🏥 {simulation.namaProfesi.toUpperCase()}
+            <i className="fa-solid fa-hospital" aria-hidden="true" style={{ marginRight: '6px' }} />
+            {simulation.namaProfesi.toUpperCase()}
           </span>
           <span
             style={{
@@ -408,7 +409,10 @@ export default function NurseWardSimulation({
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
           {/* Patient Trust Indicator */}
           <div className="ward-trust-container" title={`Kepercayaan Pasien: ${patientTrust}%`}>
-            <span>❤️ Kepercayaan:</span>
+            <span>
+              <i className="fa-solid fa-heart" aria-hidden="true" style={{ color: '#f43f5e', marginRight: '4px' }} />
+              Kepercayaan:
+            </span>
             <div className="ward-trust-bar-bg">
               <div
                 className="ward-trust-bar-fill"
@@ -428,14 +432,15 @@ export default function NurseWardSimulation({
 
           {/* Clock */}
           <span className="ward-clock">
-            ⏰ {currentTime} WIB
+            <i className="fa-solid fa-clock" aria-hidden="true" style={{ marginRight: '6px' }} />
+            {currentTime} WIB
           </span>
         </div>
       </header>
 
       {/* Educational Disclaimer Banner */}
       <div className="ward-disclaimer">
-        <span>ℹ️</span>
+        <span><i className="fa-solid fa-circle-info" aria-hidden="true" /></span>
         <span>{simulation.disclaimer}</span>
       </div>
 
@@ -513,7 +518,10 @@ export default function NurseWardSimulation({
             fontFamily: 'monospace',
           }}
         >
-          <div style={{ color: '#38bdf8', fontWeight: 600 }}>📋 JADWAL DINAS</div>
+          <div style={{ color: '#38bdf8', fontWeight: 600 }}>
+            <i className="fa-solid fa-clipboard-list" aria-hidden="true" style={{ marginRight: '6px' }} />
+            JADWAL DINAS
+          </div>
           <div>Kmr 201-206: Ns. Aktif</div>
         </div>
 
@@ -567,7 +575,8 @@ export default function NurseWardSimulation({
                 marginBottom: '4px',
               }}
             >
-              📋 LAPORAN OPERAN SHIFT PAGI (SELESAI)
+              <i className="fa-solid fa-clipboard-check" aria-hidden="true" style={{ marginRight: '6px' }} />
+              LAPORAN OPERAN SHIFT PAGI (SELESAI)
             </h2>
             <p style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
               Waktu Dinas: 07.00 - 14.00 WIB · Bangsal Rawat Inap & IGD
@@ -589,7 +598,8 @@ export default function NurseWardSimulation({
             <div style={{ background: '#0b1322', padding: '10px', borderRadius: '6px', border: '1px solid rgba(52, 211, 153, 0.3)' }}>
               <div style={{ fontSize: '0.65rem', color: '#94a3b8' }}>Kepercayaan Akhir</div>
               <div style={{ fontSize: '0.9rem', fontWeight: 600, color: patientTrust >= 70 ? '#38bdf8' : '#fbbf24' }}>
-                ❤️ {patientTrust}%
+                <i className="fa-solid fa-heart" aria-hidden="true" style={{ color: '#f43f5e', marginRight: '4px' }} />
+                {patientTrust}%
               </div>
             </div>
             <div style={{ background: '#0b1322', padding: '10px', borderRadius: '6px', border: '1px solid rgba(52, 211, 153, 0.3)' }}>
@@ -610,7 +620,8 @@ export default function NurseWardSimulation({
           {eventHistory.length > 0 && (
             <div style={{ background: '#0b1322', padding: '12px', borderRadius: '6px', border: '1px solid rgba(56, 189, 248, 0.3)' }}>
               <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#fbbf24', marginBottom: '8px' }}>
-                ⚡ Keputusan Penanganan Situasi Kritis:
+                <i className="fa-solid fa-bolt" aria-hidden="true" style={{ marginRight: '6px' }} />
+                Keputusan Penanganan Situasi Kritis:
               </div>
               {eventHistory.map((ev, i) => (
                 <div key={i} style={{ fontSize: '0.75rem', marginBottom: '8px', borderLeft: '2px solid #38bdf8', paddingLeft: '8px' }}>
@@ -625,7 +636,8 @@ export default function NurseWardSimulation({
           {/* Aspect Scores Breakdown */}
           <div style={{ background: '#0b1322', padding: '14px', borderRadius: '6px', border: '1px solid rgba(56, 189, 248, 0.3)' }}>
             <h3 style={{ fontSize: '0.75rem', color: '#38bdf8', marginBottom: '10px' }}>
-              📊 Penilaian Kinerja Aspek Keperawatan:
+              <i className="fa-solid fa-chart-simple" aria-hidden="true" style={{ marginRight: '6px' }} />
+              Penilaian Kinerja Aspek Keperawatan:
             </h3>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '10px', fontSize: '0.75rem' }}>
@@ -681,14 +693,15 @@ export default function NurseWardSimulation({
                 color: '#e2e8f0',
               }}
             >
-              💡 <strong>Kesimpulan Evaluasi:</strong> Kamu teliti dalam memeriksa kondisi pasien, sigap dalam triase darurat, dan mampu berkomunikasi dengan empati tinggi. Karakter ini sangat cocok untuk profesi di bidang kesehatan!
+              <i className="fa-solid fa-lightbulb" aria-hidden="true" style={{ marginRight: '6px' }} />
+              <strong>Kesimpulan Evaluasi:</strong> Kamu teliti dalam memeriksa kondisi pasien, sigap dalam triase darurat, dan mampu berkomunikasi dengan empati tinggi. Karakter ini sangat cocok untuk profesi di bidang kesehatan!
             </div>
           </div>
 
           {/* Ekspektasi vs Realita Rating */}
           <div style={{ background: '#0b1322', padding: '14px', borderRadius: '6px', border: '1px solid #38bdf8' }}>
             <label style={{ fontSize: '0.75rem', color: '#fbbf24', display: 'block', marginBottom: '8px', fontWeight: 600 }}>
-              Seberapa kamu menikmati peran sebagai perawat? (1 - 5 ⭐)
+              Seberapa kamu menikmati peran sebagai perawat? (1 - 5 <i className="fa-solid fa-star" aria-hidden="true" style={{ color: '#fbbf24' }} />)
             </label>
             <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
               {[1, 2, 3, 4, 5].map((star) => (
@@ -765,7 +778,14 @@ export default function NurseWardSimulation({
               className="btn btn--primary"
               style={{ flex: 1, minWidth: '160px', fontSize: '0.65rem' }}
             >
-              {isSaved ? '✓ Tersimpan di HASILKU' : '💾 Simpan ke HASILKU'}
+              {isSaved ? (
+                '✓ Tersimpan di HASILKU'
+              ) : (
+                <>
+                  <i className="fa-solid fa-floppy-disk" aria-hidden="true" style={{ marginRight: '6px' }} />
+                  Simpan ke HASILKU
+                </>
+              )}
             </button>
             <button
               type="button"
@@ -773,7 +793,8 @@ export default function NurseWardSimulation({
               className="btn btn--ghost"
               style={{ fontSize: '0.65rem' }}
             >
-              🔄 Ulangi
+              <i className="fa-solid fa-rotate-right" aria-hidden="true" style={{ marginRight: '6px' }} />
+              Ulangi
             </button>
             <button
               type="button"
@@ -781,7 +802,8 @@ export default function NurseWardSimulation({
               className="btn btn--ghost"
               style={{ fontSize: '0.65rem' }}
             >
-              🏢 Kembali ke Gedung
+              <i className="fa-solid fa-building" aria-hidden="true" style={{ marginRight: '6px' }} />
+              Kembali ke Gedung
             </button>
           </div>
         </div>
@@ -819,7 +841,17 @@ export default function NurseWardSimulation({
                   background: wrongAttempts >= 2 ? 'rgba(251, 191, 36, 0.15)' : 'transparent',
                 }}
               >
-                {wrongAttempts >= 2 ? '💡 PETUNJUK (SIAP PAKAI)' : '💡 Petunjuk'}
+                {wrongAttempts >= 2 ? (
+                  <>
+                    <i className="fa-solid fa-lightbulb" aria-hidden="true" style={{ marginRight: '4px' }} />
+                    PETUNJUK (SIAP PAKAI)
+                  </>
+                ) : (
+                  <>
+                    <i className="fa-solid fa-lightbulb" aria-hidden="true" style={{ marginRight: '4px' }} />
+                    Petunjuk
+                  </>
+                )}
               </button>
             </div>
           </div>
@@ -842,7 +874,8 @@ export default function NurseWardSimulation({
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
                     <span style={{ fontWeight: 600, color: '#38bdf8', fontSize: '0.8rem' }}>
-                      👤 {simulation.misi.vital.pasien.nama} ({simulation.misi.vital.pasien.usia} thn)
+                      <i className="fa-solid fa-user" aria-hidden="true" style={{ marginRight: '6px' }} />
+                      {simulation.misi.vital.pasien.nama} ({simulation.misi.vital.pasien.usia} thn)
                     </span>
                     <span style={{ fontSize: '0.7rem', color: '#94a3b8' }}>
                       {simulation.misi.vital.pasien.kamar}
@@ -887,7 +920,14 @@ export default function NurseWardSimulation({
                             {vital.nilai} <span style={{ fontSize: '0.7rem', fontWeight: 'normal' }}>{vital.unit}</span>
                           </span>
                           <span style={{ fontSize: '0.65rem', color: isSelected ? '#f87171' : '#64748b' }}>
-                            {isSelected ? '⚠️ DITANDAI ABNORMAL' : '◯ Normal? Ketuk jika anomali'}
+                            {isSelected ? (
+                              <>
+                                <i className="fa-solid fa-triangle-exclamation" aria-hidden="true" style={{ marginRight: '4px' }} />
+                                DITANDAI ABNORMAL
+                              </>
+                            ) : (
+                              '◯ Normal? Ketuk jika anomali'
+                            )}
                           </span>
                         </button>
                       );
@@ -904,7 +944,8 @@ export default function NurseWardSimulation({
                     }}
                   >
                     <div style={{ fontSize: '0.65rem', color: '#38bdf8', fontWeight: 600, marginBottom: '6px' }}>
-                      📖 TABEL RUJUKAN RENTANG NORMAL:
+                      <i className="fa-solid fa-book-medical" aria-hidden="true" style={{ marginRight: '6px' }} />
+                      TABEL RUJUKAN RENTANG NORMAL:
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '6px', fontSize: '0.7rem' }}>
                       {simulation.misi.vital.rentangNormal.map((item, i) => (
@@ -929,7 +970,12 @@ export default function NurseWardSimulation({
                       color: '#f8fafc',
                     }}
                   >
-                    <p style={{ margin: 0 }}>{vitalFeedback}</p>
+                    <p style={{ margin: 0 }}>
+                      {!vitalFeedback.startsWith('✓') && (
+                        <i className="fa-solid fa-triangle-exclamation" aria-hidden="true" style={{ marginRight: '6px', color: '#f87171' }} />
+                      )}
+                      {vitalFeedback}
+                    </p>
                     {vitalFeedback.startsWith('✓') && (
                       <button
                         type="button"
@@ -971,7 +1017,8 @@ export default function NurseWardSimulation({
                   {/* Resep Dokter */}
                   <div style={{ background: '#071224', border: '1px solid rgba(56, 189, 248, 0.4)', borderRadius: '6px', padding: '12px' }}>
                     <div style={{ fontSize: '0.65rem', color: '#38bdf8', fontWeight: 600, marginBottom: '8px' }}>
-                      📋 KARTU RESEP DOKTER
+                      <i className="fa-solid fa-clipboard-list" aria-hidden="true" style={{ marginRight: '6px' }} />
+                      KARTU RESEP DOKTER
                     </div>
                     <div style={{ fontSize: '0.75rem', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                       <div><strong>Pasien:</strong> {simulation.misi.obat.resep.pasien}</div>
@@ -985,7 +1032,8 @@ export default function NurseWardSimulation({
                   {/* Label Botol Obat */}
                   <div style={{ background: '#0a1628', border: '1px solid rgba(251, 191, 36, 0.4)', borderRadius: '6px', padding: '12px' }}>
                     <div style={{ fontSize: '0.65rem', color: '#fbbf24', fontWeight: 600, marginBottom: '8px' }}>
-                      🏷️ LABEL DARI INSTALASI FARMASI
+                      <i className="fa-solid fa-tag" aria-hidden="true" style={{ marginRight: '6px' }} />
+                      LABEL DARI INSTALASI FARMASI
                     </div>
                     <div style={{ fontSize: '0.75rem', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                       <div><strong>Pasien:</strong> {simulation.misi.obat.labelObat.pasien}</div>
@@ -1035,7 +1083,8 @@ export default function NurseWardSimulation({
                     className="btn btn--primary"
                     style={{ flex: 1, minWidth: '180px', fontSize: '0.65rem' }}
                   >
-                    🛑 Tahan & Konfirmasi ke Dokter/Farmasi
+                    <i className="fa-solid fa-hand" aria-hidden="true" style={{ marginRight: '6px' }} />
+                    Tahan & Konfirmasi ke Dokter/Farmasi
                   </button>
                   <button
                     type="button"
@@ -1044,7 +1093,8 @@ export default function NurseWardSimulation({
                     className="btn btn--ghost"
                     style={{ flex: 1, minWidth: '150px', fontSize: '0.65rem', color: '#f87171', borderColor: '#f87171' }}
                   >
-                    💊 Berikan Obat Langsung
+                    <i className="fa-solid fa-pills" aria-hidden="true" style={{ marginRight: '6px' }} />
+                    Berikan Obat Langsung
                   </button>
                 </div>
 
@@ -1060,7 +1110,12 @@ export default function NurseWardSimulation({
                       color: '#f8fafc',
                     }}
                   >
-                    <p style={{ margin: 0 }}>{medicationFeedback}</p>
+                    <p style={{ margin: 0 }}>
+                      {!medicationFeedback.startsWith('✓') && (
+                        <i className="fa-solid fa-triangle-exclamation" aria-hidden="true" style={{ marginRight: '6px', color: '#f87171' }} />
+                      )}
+                      {medicationFeedback}
+                    </p>
                     {medicationFeedback.startsWith('✓') && (
                       <button
                         type="button"
@@ -1106,7 +1161,8 @@ export default function NurseWardSimulation({
                         <span style={{ fontSize: '1.5rem' }}>{eventObj.avatar}</span>
                         <div>
                           <div style={{ fontSize: '0.8rem', fontWeight: 600, color: '#f87171' }}>
-                            🚨 {eventObj.judul}
+                            <i className="fa-solid fa-bell" aria-hidden="true" style={{ marginRight: '6px' }} />
+                            {eventObj.judul}
                           </div>
                           <div style={{ fontSize: '0.7rem', color: '#cbd5e1' }}>
                             Pihak Terkait: <strong>{eventObj.karakter}</strong>
@@ -1304,7 +1360,12 @@ export default function NurseWardSimulation({
                       color: '#f8fafc',
                     }}
                   >
-                    <p style={{ margin: 0 }}>{triageFeedback}</p>
+                    <p style={{ margin: 0 }}>
+                      {!triageFeedback.startsWith('✓') && (
+                        <i className="fa-solid fa-triangle-exclamation" aria-hidden="true" style={{ marginRight: '6px', color: '#f87171' }} />
+                      )}
+                      {triageFeedback}
+                    </p>
                     {triageFeedback.startsWith('✓') && (
                       <button
                         type="button"
@@ -1348,7 +1409,9 @@ export default function NurseWardSimulation({
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-                    <span style={{ fontSize: '1.3rem' }}>👩</span>
+                    <span style={{ fontSize: '1.3rem', color: '#38bdf8' }}>
+                      <i className="fa-solid fa-hospital-user" aria-hidden="true" />
+                    </span>
                     <div>
                       <div style={{ fontWeight: 600, color: '#38bdf8', fontSize: '0.78rem' }}>
                         {simulation.misi.komunikasi.pasien.nama} ({simulation.misi.komunikasi.pasien.usia} thn)
@@ -1414,7 +1477,12 @@ export default function NurseWardSimulation({
                       color: '#f8fafc',
                     }}
                   >
-                    <p style={{ whiteSpace: 'pre-wrap', margin: 0 }}>{calmingFeedback}</p>
+                    <p style={{ whiteSpace: 'pre-wrap', margin: 0 }}>
+                      {!calmingFeedback.startsWith('✓') && (
+                        <i className="fa-solid fa-triangle-exclamation" aria-hidden="true" style={{ marginRight: '6px', color: '#f87171' }} />
+                      )}
+                      {calmingFeedback}
+                    </p>
                     {calmingFeedback.startsWith('✓') && (
                       <button
                         type="button"
@@ -1471,7 +1539,8 @@ export default function NurseWardSimulation({
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
               <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#fbbf24' }}>
-                💡 PETUNJUK PERAWAT
+                <i className="fa-solid fa-lightbulb" aria-hidden="true" style={{ marginRight: '6px' }} />
+                PETUNJUK PERAWAT
               </span>
               <button
                 type="button"

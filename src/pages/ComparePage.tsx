@@ -120,7 +120,10 @@ export default function ComparePage() {
             </div>
 
             <div>
-              <h3 style={{ fontSize: '0.55rem', color: 'var(--color-accent-yellow)', marginBottom: '4px' }}>💰 Prospek Gaji</h3>
+              <h3 style={{ fontSize: '0.55rem', color: 'var(--color-accent-yellow)', marginBottom: '4px' }}>
+                <i className="fa-solid fa-money-bill-wave" aria-hidden="true" style={{ marginRight: '6px' }} />
+                Prospek Gaji
+              </h3>
               <p style={{ fontSize: '0.75rem', fontWeight: 600 }}>{prof1.realityCheck.prospek.rentangGaji}</p>
               <p style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)' }}>
                 {prof1.realityCheck.prospek.sumber} ({prof1.realityCheck.prospek.tahun})
@@ -128,7 +131,10 @@ export default function ComparePage() {
             </div>
 
             <div>
-              <h3 style={{ fontSize: '0.55rem', color: 'var(--color-accent-green)', marginBottom: '4px' }}>📋 Tugas Utama</h3>
+              <h3 style={{ fontSize: '0.55rem', color: 'var(--color-accent-green)', marginBottom: '4px' }}>
+                <i className="fa-solid fa-clipboard-list" aria-hidden="true" style={{ marginRight: '6px' }} />
+                Tugas Utama
+              </h3>
               <ul style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', paddingLeft: '16px' }}>
                 {prof1.realityCheck.tugasHarian.map((t, i) => (
                   <li key={i} style={{ marginBottom: '2px' }}>{t}</li>
@@ -137,7 +143,10 @@ export default function ComparePage() {
             </div>
 
             <div>
-              <h3 style={{ fontSize: '0.55rem', color: 'var(--color-accent-red)', marginBottom: '4px' }}>⚠️ Sisi Tidak Enak</h3>
+              <h3 style={{ fontSize: '0.55rem', color: 'var(--color-accent-red)', marginBottom: '4px' }}>
+                <i className="fa-solid fa-triangle-exclamation" aria-hidden="true" style={{ marginRight: '6px' }} />
+                Sisi Tidak Enak
+              </h3>
               <ul style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', paddingLeft: '16px' }}>
                 {prof1.realityCheck.sisiTidakEnak.map((s, i) => (
                   <li key={i} style={{ marginBottom: '2px' }}>{s}</li>
@@ -146,7 +155,10 @@ export default function ComparePage() {
             </div>
 
             <div>
-              <h3 style={{ fontSize: '0.55rem', color: 'var(--color-accent-cyan)', marginBottom: '4px' }}>🎓 Jurusan Kuliah</h3>
+              <h3 style={{ fontSize: '0.55rem', color: 'var(--color-accent-cyan)', marginBottom: '4px' }}>
+                <i className="fa-solid fa-graduation-cap" aria-hidden="true" style={{ marginRight: '6px' }} />
+                Jurusan Kuliah
+              </h3>
               <p style={{ fontSize: '0.75rem' }}><strong>Utama:</strong> {prof1.realityCheck.jurusanKuliah.utama.join(', ')}</p>
               <p style={{ fontSize: '0.7rem', color: 'var(--color-text-secondary)', marginTop: '2px' }}>
                 <strong>Alternatif:</strong> {prof1.realityCheck.jurusanKuliah.alternatif.join(', ')}
@@ -154,7 +166,10 @@ export default function ComparePage() {
             </div>
 
             <div>
-              <h3 style={{ fontSize: '0.55rem', color: 'var(--color-accent-orange)', marginBottom: '4px' }}>⚡ Jalur Non-S1</h3>
+              <h3 style={{ fontSize: '0.55rem', color: 'var(--color-accent-orange)', marginBottom: '4px' }}>
+                <i className="fa-solid fa-bolt" aria-hidden="true" style={{ marginRight: '6px' }} />
+                Jalur Non-S1
+              </h3>
               {prof1.realityCheck.jalurAlternatif.map((j, i) => (
                 <div key={i} style={{ fontSize: '0.7rem', marginBottom: '4px' }}>
                   <strong>{j.jenis}:</strong> {j.deskripsi}
@@ -181,7 +196,10 @@ export default function ComparePage() {
             </div>
 
             <div>
-              <h3 style={{ fontSize: '0.55rem', color: 'var(--color-accent-yellow)', marginBottom: '4px' }}>💰 Prospek Gaji</h3>
+              <h3 style={{ fontSize: '0.55rem', color: 'var(--color-accent-yellow)', marginBottom: '4px' }}>
+                <i className="fa-solid fa-money-bill-wave" aria-hidden="true" style={{ marginRight: '6px' }} />
+                Prospek Gaji
+              </h3>
               <p style={{ fontSize: '0.75rem', fontWeight: 600 }}>{prof2.realityCheck.prospek.rentangGaji}</p>
               <p style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)' }}>
                 {prof2.realityCheck.prospek.sumber} ({prof2.realityCheck.prospek.tahun})
@@ -189,7 +207,10 @@ export default function ComparePage() {
             </div>
 
             <div>
-              <h3 style={{ fontSize: '0.55rem', color: 'var(--color-accent-green)', marginBottom: '4px' }}>📋 Tugas Utama</h3>
+              <h3 style={{ fontSize: '0.55rem', color: 'var(--color-accent-green)', marginBottom: '4px' }}>
+                <i className="fa-solid fa-clipboard-list" aria-hidden="true" style={{ marginRight: '6px' }} />
+                Tugas Utama
+              </h3>
               <ul style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', paddingLeft: '16px' }}>
                 {prof2.realityCheck.tugasHarian.map((t, i) => (
                   <li key={i} style={{ marginBottom: '2px' }}>{t}</li>
@@ -198,7 +219,10 @@ export default function ComparePage() {
             </div>
 
             <div>
-              <h3 style={{ fontSize: '0.55rem', color: 'var(--color-accent-red)', marginBottom: '4px' }}>⚠️ Sisi Tidak Enak</h3>
+              <h3 style={{ fontSize: '0.55rem', color: 'var(--color-accent-red)', marginBottom: '4px' }}>
+                <i className="fa-solid fa-triangle-exclamation" aria-hidden="true" style={{ marginRight: '6px' }} />
+                Sisi Tidak Enak
+              </h3>
               <ul style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', paddingLeft: '16px' }}>
                 {prof2.realityCheck.sisiTidakEnak.map((s, i) => (
                   <li key={i} style={{ marginBottom: '2px' }}>{s}</li>
@@ -207,7 +231,10 @@ export default function ComparePage() {
             </div>
 
             <div>
-              <h3 style={{ fontSize: '0.55rem', color: 'var(--color-accent-cyan)', marginBottom: '4px' }}>🎓 Jurusan Kuliah</h3>
+              <h3 style={{ fontSize: '0.55rem', color: 'var(--color-accent-cyan)', marginBottom: '4px' }}>
+                <i className="fa-solid fa-graduation-cap" aria-hidden="true" style={{ marginRight: '6px' }} />
+                Jurusan Kuliah
+              </h3>
               <p style={{ fontSize: '0.75rem' }}><strong>Utama:</strong> {prof2.realityCheck.jurusanKuliah.utama.join(', ')}</p>
               <p style={{ fontSize: '0.7rem', color: 'var(--color-text-secondary)', marginTop: '2px' }}>
                 <strong>Alternatif:</strong> {prof2.realityCheck.jurusanKuliah.alternatif.join(', ')}
@@ -215,7 +242,10 @@ export default function ComparePage() {
             </div>
 
             <div>
-              <h3 style={{ fontSize: '0.55rem', color: 'var(--color-accent-orange)', marginBottom: '4px' }}>⚡ Jalur Non-S1</h3>
+              <h3 style={{ fontSize: '0.55rem', color: 'var(--color-accent-orange)', marginBottom: '4px' }}>
+                <i className="fa-solid fa-bolt" aria-hidden="true" style={{ marginRight: '6px' }} />
+                Jalur Non-S1
+              </h3>
               {prof2.realityCheck.jalurAlternatif.map((j, i) => (
                 <div key={i} style={{ fontSize: '0.7rem', marginBottom: '4px' }}>
                   <strong>{j.jenis}:</strong> {j.deskripsi}

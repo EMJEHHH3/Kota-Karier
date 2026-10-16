@@ -49,7 +49,8 @@ export default function HomePage() {
         }}
       >
         <span className="pixel-text" style={{ fontSize: '0.65rem', color: 'var(--color-accent-cyan)' }}>
-          🏙️ Kota Karier
+          <i className="fa-solid fa-city" aria-hidden="true" style={{ marginRight: '6px' }} />
+          Kota Karier
         </span>
         <div style={{ display: 'flex', gap: 'var(--space-xs)', alignItems: 'center' }}>
           <Link to="/hasil" className="btn btn--ghost" style={{ fontSize: '0.5rem', minHeight: '36px', padding: '4px 8px' }}>
@@ -60,7 +61,7 @@ export default function HomePage() {
           </Link>
           <NavbarAuth />
           <Link to="/pengaturan" className="btn btn--ghost" style={{ fontSize: '0.5rem', minHeight: '36px', padding: '4px 8px' }} aria-label="Pengaturan">
-            ⚙️
+            <i className="fa-solid fa-gear" aria-hidden="true" />
           </Link>
         </div>
       </nav>
@@ -82,7 +83,8 @@ export default function HomePage() {
           }}
         >
           <span style={{ color: 'var(--color-accent-cyan)' }}>
-            ✨ Kecenderunganmu: <strong>{topRiasec.join(', ')}</strong>. Gedung yang bersinar mungkin cocok untukmu!
+            <i className="fa-solid fa-wand-magic-sparkles" aria-hidden="true" style={{ marginRight: '6px' }} />
+            Kecenderunganmu: <strong>{topRiasec.join(', ')}</strong>. Gedung yang bersinar mungkin cocok untukmu!
           </span>
           <Link to="/hasil" style={{ color: 'var(--color-accent-yellow)', textDecoration: 'underline', fontSize: '0.65rem', marginLeft: '8px' }}>
             Lihat Analisis →
@@ -224,7 +226,17 @@ export default function HomePage() {
                             {testCompleted ? 'Tes Sudah Diisi' : 'Bingung mau mulai?'}
                           </span>
                           <span className="building-action building-action--gold">
-                            {testCompleted ? '🔄 Ulangi Tes' : '⚡ Mulai Tes →'}
+                            {testCompleted ? (
+                              <>
+                                <i className="fa-solid fa-rotate-right" aria-hidden="true" style={{ marginRight: '4px' }} />
+                                Ulangi Tes
+                              </>
+                            ) : (
+                              <>
+                                <i className="fa-solid fa-bolt" aria-hidden="true" style={{ marginRight: '4px' }} />
+                                Mulai Tes →
+                              </>
+                            )}
                           </span>
                         </div>
 
@@ -255,7 +267,8 @@ export default function HomePage() {
                         <div className="building-header">
                           {isRecommended && (
                             <span className="building-badge-rec">
-                              ✨ Rekomendasi
+                              <i className="fa-solid fa-wand-magic-sparkles" aria-hidden="true" style={{ marginRight: '4px' }} />
+                              Rekomendasi
                             </span>
                           )}
                           <span className="building-title building-title--cyan">
@@ -296,7 +309,8 @@ export default function HomePage() {
                             {building.deskripsi}
                           </span>
                           <span className="building-action building-action--locked">
-                            🔒 Segera Dibuka
+                            <i className="fa-solid fa-lock" aria-hidden="true" style={{ marginRight: '4px' }} />
+                            Segera Dibuka
                           </span>
                         </div>
 

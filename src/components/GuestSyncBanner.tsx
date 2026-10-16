@@ -58,7 +58,7 @@ export function GuestSyncBanner() {
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <span aria-hidden="true">☁️</span>
+        <span aria-hidden="true"><i className="fa-solid fa-cloud" /></span>
         <span>Login to save your results across devices</span>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: 'auto' }}>

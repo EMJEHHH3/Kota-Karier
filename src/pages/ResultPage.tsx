@@ -109,7 +109,8 @@ export default function ResultPage() {
           Laporan Hasil Eksplorasi
         </h1>
         <button onClick={handlePrint} className="btn btn--primary" style={{ fontSize: '0.5rem', padding: '4px 8px' }}>
-          📄 Cetak / PDF
+          <i className="fa-solid fa-file-pdf" aria-hidden="true" style={{ marginRight: '6px' }} />
+          Cetak / PDF
         </button>
       </header>
 
@@ -128,7 +129,9 @@ export default function ResultPage() {
         {/* If no test & no simulation done yet */}
         {!hasTest && !hasSimulations && (
           <div className="panel no-print" style={{ textAlign: 'center', padding: 'var(--space-xl)', marginBottom: 'var(--space-lg)' }}>
-            <div style={{ fontSize: '2.5rem', marginBottom: 'var(--space-md)' }}>📜</div>
+            <div style={{ fontSize: '2.5rem', marginBottom: 'var(--space-md)', color: 'var(--color-accent-yellow)' }}>
+              <i className="fa-solid fa-scroll" aria-hidden="true" />
+            </div>
             <h2 className="pixel-text" style={{ fontSize: '0.7rem', color: 'var(--color-accent-yellow)', marginBottom: 'var(--space-sm)' }}>
               Belum Ada Data Eksplorasi
             </h2>
@@ -151,7 +154,8 @@ export default function ResultPage() {
           <div className="panel" style={{ borderColor: 'var(--color-accent-purple)', marginBottom: 'var(--space-lg)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-sm)' }}>
               <h2 style={{ fontSize: '0.7rem', color: 'var(--color-accent-purple)' }}>
-                👨‍🏫 Tampilan Guru BK (Kode: {counselorCode.toUpperCase()})
+                <i className="fa-solid fa-chalkboard-user" aria-hidden="true" style={{ marginRight: '6px' }} />
+                Tampilan Guru BK (Kode: {counselorCode.toUpperCase()})
               </h2>
               <button onClick={() => setCounselorResult(null)} className="btn btn--ghost" style={{ fontSize: '0.5rem', padding: '2px 6px' }}>
                 ✕ Tutup
@@ -178,7 +182,8 @@ export default function ResultPage() {
         {top3Professions.length > 0 && (
           <section className="panel" style={{ marginBottom: 'var(--space-lg)', borderColor: 'var(--color-border-cyan)' }}>
             <h2 style={{ fontSize: '0.75rem', color: 'var(--color-accent-cyan)', marginBottom: '4px' }}>
-              🏆 Top 3 Rekomendasi Profesi
+              <i className="fa-solid fa-trophy" aria-hidden="true" style={{ marginRight: '6px' }} />
+              Top 3 Rekomendasi Profesi
             </h2>
             <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-md)' }}>
               Berdasarkan performa simulasi, ketahanan kerja, dan kecenderungan minatmu:
@@ -204,12 +209,14 @@ export default function ResultPage() {
                         #{idx + 1} {prof.nama}
                       </span>
                       <span style={{ fontSize: '0.65rem', color: 'var(--color-accent-yellow)' }}>
-                        💰 {prof.realityCheck.prospek.rentangGaji}
+                        <i className="fa-solid fa-money-bill-wave" aria-hidden="true" style={{ marginRight: '4px' }} />
+                        {prof.realityCheck.prospek.rentangGaji}
                       </span>
                     </div>
 
                     <p style={{ fontSize: '0.75rem', color: 'var(--color-text-primary)', marginBottom: '6px' }}>
-                      💡 <em>"{reason}"</em>
+                      <i className="fa-solid fa-lightbulb" aria-hidden="true" style={{ marginRight: '6px' }} />
+                      <em>"{reason}"</em>
                     </p>
 
                     <p style={{ fontSize: '0.7rem', color: 'var(--color-text-secondary)' }}>
@@ -232,7 +239,8 @@ export default function ResultPage() {
         {hasSimulations && (
           <section className="panel" style={{ marginBottom: 'var(--space-lg)' }}>
             <h2 style={{ fontSize: '0.75rem', color: 'var(--color-accent-yellow)', marginBottom: 'var(--space-md)' }}>
-              ⚖️ Ekspektasi vs Realita
+              <i className="fa-solid fa-scale-balanced" aria-hidden="true" style={{ marginRight: '6px' }} />
+              Ekspektasi vs Realita
             </h2>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
@@ -258,14 +266,16 @@ export default function ResultPage() {
                     </div>
 
                     <div style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginBottom: '4px' }}>
-                      Ekspektasi: {sim.preInterest}/5 ⭐ → Realita Pengalaman: {sim.postEnjoyment}/5 ⭐
+                      Ekspektasi: {sim.preInterest}/5 <i className="fa-solid fa-star" aria-hidden="true" style={{ color: 'var(--color-accent-yellow)', marginLeft: '2px' }} /> → Realita Pengalaman: {sim.postEnjoyment}/5 <i className="fa-solid fa-star" aria-hidden="true" style={{ color: 'var(--color-accent-yellow)', marginLeft: '2px' }} />
                     </div>
 
                     <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>
-                      🎉 <em>Paling seru:</em> {sim.mostExciting}
+                      <i className="fa-solid fa-award" aria-hidden="true" style={{ marginRight: '4px' }} />
+                      <em>Paling seru:</em> {sim.mostExciting}
                     </div>
                     <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>
-                      ⚡ <em>Paling menantang:</em> {sim.mostBoring}
+                      <i className="fa-solid fa-bolt" aria-hidden="true" style={{ marginRight: '4px' }} />
+                      <em>Paling menantang:</em> {sim.mostBoring}
                     </div>
                   </div>
                 );
@@ -277,7 +287,8 @@ export default function ResultPage() {
         {/* 3. 6-MONTH ACTION PLAN */}
         <section className="panel" style={{ marginBottom: 'var(--space-lg)' }}>
           <h2 style={{ fontSize: '0.75rem', color: 'var(--color-accent-green)', marginBottom: 'var(--space-md)' }}>
-            🗓️ Rencana Aksi 6 Bulan (Action Plan)
+            <i className="fa-solid fa-calendar-days" aria-hidden="true" style={{ marginRight: '6px' }} />
+            Rencana Aksi 6 Bulan (Action Plan)
           </h2>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
@@ -319,7 +330,8 @@ export default function ResultPage() {
         {/* 4. SHAREABLE CODE & COUNSELOR LOOKUP */}
         <section className="panel no-print" style={{ marginBottom: 'var(--space-lg)' }}>
           <h2 style={{ fontSize: '0.75rem', color: 'var(--color-accent-cyan)', marginBottom: 'var(--space-sm)' }}>
-            🔗 Kode Hasil & Akses Guru BK
+            <i className="fa-solid fa-link" aria-hidden="true" style={{ marginRight: '6px' }} />
+            Kode Hasil & Akses Guru BK
           </h2>
           <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-md)' }}>
             Bagikan kode 8 karakter ini kepada orang tua atau Guru BK tanpa perlu membuat akun atau login:
@@ -341,7 +353,17 @@ export default function ResultPage() {
               {shareCode}
             </span>
             <button onClick={handleCopyCode} className="btn btn--primary" style={{ fontSize: '0.55rem', marginLeft: 'auto' }}>
-              {copied ? '✓ Disalin!' : '📋 Salin Kode'}
+              {copied ? (
+                <>
+                  <i className="fa-solid fa-check" aria-hidden="true" style={{ marginRight: '4px' }} />
+                  Disalin!
+                </>
+              ) : (
+                <>
+                  <i className="fa-solid fa-clipboard" aria-hidden="true" style={{ marginRight: '4px' }} />
+                  Salin Kode
+                </>
+              )}
             </button>
           </div>
 
@@ -384,13 +406,15 @@ export default function ResultPage() {
         {/* Action Buttons */}
         <div className="no-print" style={{ display: 'flex', gap: 'var(--space-sm)', justifyContent: 'center', flexWrap: 'wrap' }}>
           <button onClick={handlePrint} className="btn btn--primary">
-            📄 Cetak / Download PDF
+            <i className="fa-solid fa-file-pdf" aria-hidden="true" style={{ marginRight: '6px' }} />
+            Cetak / Download PDF
           </button>
           <Link to="/" className="btn">
             ← Kembali ke Kota
           </Link>
           <Link to="/bandingkan" className="btn btn--ghost">
-            ⚖️ Bandingkan Profesi
+            <i className="fa-solid fa-scale-balanced" aria-hidden="true" style={{ marginRight: '6px' }} />
+            Bandingkan Profesi
           </Link>
         </div>
       </main>

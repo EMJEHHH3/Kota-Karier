@@ -122,7 +122,8 @@ export default function InterestTestPage() {
           {/* Important exploration notice */}
           <div className="panel" style={{ marginBottom: 'var(--space-lg)', borderColor: 'var(--color-accent-yellow)' }}>
             <p style={{ fontSize: '0.8rem', color: 'var(--color-accent-yellow)', marginBottom: '4px' }}>
-              ⚠️ Ini alat eksplorasi, bukan vonis.
+              <i className="fa-solid fa-triangle-exclamation" aria-hidden="true" style={{ marginRight: '6px' }} />
+              Ini alat eksplorasi, bukan vonis.
             </p>
             <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>
               Kamu menunjukkan kecenderungan minat di bawah ini. Hasil ini bukan pembatas, melainkan panduan awal untuk mencoba profesi di kota!
@@ -132,7 +133,8 @@ export default function InterestTestPage() {
           {activeResult.isSuspicious && (
             <div className="panel" style={{ marginBottom: 'var(--space-lg)', borderColor: 'var(--color-accent-orange)' }}>
               <p style={{ fontSize: '0.75rem', color: 'var(--color-accent-orange)' }}>
-                💡 Catatan: Beberapa jawaban terisi cukup cepat atau berpola seragam. Jika merasa hasil kurang sesuai, kamu bisa mengulang tes lebih santai ya!
+                <i className="fa-solid fa-lightbulb" aria-hidden="true" style={{ marginRight: '6px' }} />
+                Catatan: Beberapa jawaban terisi cukup cepat atau berpola seragam. Jika merasa hasil kurang sesuai, kamu bisa mengulang tes lebih santai ya!
               </p>
             </div>
           )}
@@ -140,7 +142,8 @@ export default function InterestTestPage() {
           {/* Top RIASEC Types */}
           <section className="panel" style={{ marginBottom: 'var(--space-lg)' }}>
             <h2 style={{ fontSize: '0.7rem', color: 'var(--color-accent-cyan)', marginBottom: 'var(--space-md)' }}>
-              🌟 Kecenderungan Minat Terbesarmu
+              <i className="fa-solid fa-star" aria-hidden="true" style={{ marginRight: '6px' }} />
+              Kecenderungan Minat Terbesarmu
             </h2>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
@@ -177,7 +180,8 @@ export default function InterestTestPage() {
           {/* Building recommendations */}
           <section className="panel" style={{ marginBottom: 'var(--space-lg)' }}>
             <h2 style={{ fontSize: '0.65rem', color: 'var(--color-accent-yellow)', marginBottom: 'var(--space-md)' }}>
-              🏙️ Gedung yang Direkomendasikan
+              <i className="fa-solid fa-city" aria-hidden="true" style={{ marginRight: '6px' }} />
+              Gedung yang Direkomendasikan
             </h2>
             <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-md)' }}>
               Gedung-gedung ini memiliki lingkungan kerja yang paling relevan dengan kecenderunganmu:
@@ -220,10 +224,12 @@ export default function InterestTestPage() {
           {/* Action buttons */}
           <div style={{ display: 'flex', gap: 'var(--space-sm)', flexWrap: 'wrap', justifyContent: 'center' }}>
             <Link to="/" className="btn btn--primary">
-              🏙️ Jelajahi Kota Sekarang
+              <i className="fa-solid fa-city" aria-hidden="true" style={{ marginRight: '6px' }} />
+              Jelajahi Kota Sekarang
             </Link>
             <button onClick={handleStart} className="btn">
-              🔄 Ulangi Tes
+              <i className="fa-solid fa-rotate-right" aria-hidden="true" style={{ marginRight: '6px' }} />
+              Ulangi Tes
             </button>
             <Link to="/hasil" className="btn btn--ghost">
               Lihat Ringkasan Hasil
@@ -258,7 +264,9 @@ export default function InterestTestPage() {
 
         <main className="container" style={{ paddingTop: 'var(--space-lg)', paddingBottom: 'var(--space-2xl)' }}>
           <div className="panel" style={{ textAlign: 'center', padding: 'var(--space-xl)', marginBottom: 'var(--space-lg)' }}>
-            <div style={{ fontSize: '3rem', marginBottom: 'var(--space-md)' }}>🧭</div>
+            <div style={{ fontSize: '2.5rem', marginBottom: 'var(--space-md)', color: 'var(--color-accent-cyan)' }}>
+              <i className="fa-solid fa-compass" aria-hidden="true" />
+            </div>
             <h2 className="pixel-text" style={{ fontSize: '0.75rem', color: 'var(--color-accent-cyan)', marginBottom: 'var(--space-sm)' }}>
               Tes Minat & Gaya Kerja
             </h2>
@@ -278,14 +286,24 @@ export default function InterestTestPage() {
                 marginBottom: 'var(--space-lg)',
               }}
             >
-              <span>⏱️ ~5-7 menit</span>
-              <span>📝 18 skenario nyata</span>
-              <span>🔒 100% di HP-mu</span>
+              <span>
+                <i className="fa-solid fa-stopwatch" aria-hidden="true" style={{ marginRight: '6px' }} />
+                ~5-7 menit
+              </span>
+              <span>
+                <i className="fa-solid fa-pen-to-square" aria-hidden="true" style={{ marginRight: '6px' }} />
+                18 skenario nyata
+              </span>
+              <span>
+                <i className="fa-solid fa-lock" aria-hidden="true" style={{ marginRight: '6px' }} />
+                100% di HP-mu
+              </span>
             </div>
 
             <div style={{ marginBottom: 'var(--space-lg)' }}>
               <button onClick={handleStart} className="btn btn--primary" style={{ padding: '12px 24px', fontSize: '0.75rem' }}>
-                🚀 Mulai Eksplorasi
+                <i className="fa-solid fa-rocket" aria-hidden="true" style={{ marginRight: '8px' }} />
+                Mulai Eksplorasi
               </button>
             </div>
 
@@ -354,7 +372,8 @@ export default function InterestTestPage() {
               color: 'var(--color-accent-yellow)',
             }}
           >
-            ☕ Santai aja ya, baca skenarionya pelan-pelan agar rekomendasinya lebih tepat.
+            <i className="fa-solid fa-mug-hot" aria-hidden="true" style={{ marginRight: '6px' }} />
+            Santai aja ya, baca skenarionya pelan-pelan agar rekomendasinya lebih tepat.
           </div>
         )}
 

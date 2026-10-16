@@ -87,7 +87,7 @@ export function NavbarAuth() {
           letterSpacing: '0.5px',
         }}
       >
-        <span aria-hidden="true">⏳</span>
+        <span aria-hidden="true"><i className="fa-solid fa-hourglass-half" /></span>
         <span>CHECKING...</span>
       </div>
     );
@@ -106,16 +106,16 @@ export function NavbarAuth() {
     const avatarUrl = (user.user_metadata?.avatar_url || user.user_metadata?.picture) as string | undefined;
 
     let syncText = 'Synced';
-    let syncIcon = '✓';
+    let syncIcon: React.ReactNode = <i className="fa-solid fa-check" />;
     let syncColor = '#4ade80';
 
     if (syncStatus === 'syncing') {
       syncText = 'Syncing...';
-      syncIcon = '↻';
+      syncIcon = <i className="fa-solid fa-rotate fa-spin" />;
       syncColor = 'var(--color-accent-cyan)';
     } else if (syncStatus === 'error') {
       syncText = 'Sync failed, retrying';
-      syncIcon = '⚠';
+      syncIcon = <i className="fa-solid fa-triangle-exclamation" />;
       syncColor = 'var(--color-accent-yellow)';
     }
 
@@ -285,7 +285,7 @@ export function NavbarAuth() {
                 cursor: 'pointer',
               }}
             >
-              <span aria-hidden="true">🚪</span> Logout
+              <span aria-hidden="true"><i className="fa-solid fa-arrow-right-from-bracket" /></span> Logout
             </button>
           </div>
         )}
@@ -318,7 +318,7 @@ export function NavbarAuth() {
           cursor: 'help',
         }}
       >
-        <span aria-hidden="true">👤</span>
+        <span aria-hidden="true"><i className="fa-solid fa-user" /></span>
         <span>GUEST</span>
       </div>
 
@@ -348,7 +348,7 @@ export function NavbarAuth() {
           style={{ fontSize: '0.6rem', filter: 'drop-shadow(0 0 4px var(--color-accent-cyan))' }}
           aria-hidden="true"
         >
-          ⚡
+          <i className="fa-solid fa-bolt" />
         </span>
         {isSigningIn ? '...' : 'LOGIN'}
       </button>
@@ -376,7 +376,10 @@ export function NavbarAuth() {
           }}
           role="alert"
         >
-          <span>⚠️ {displayError}</span>
+          <span>
+            <i className="fa-solid fa-triangle-exclamation" aria-hidden="true" style={{ marginRight: '6px' }} />
+            {displayError}
+          </span>
           <button
             type="button"
             onClick={handleDismissError}

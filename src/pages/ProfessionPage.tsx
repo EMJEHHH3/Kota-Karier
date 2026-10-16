@@ -144,7 +144,17 @@ export default function ProfessionPage() {
           className={`btn ${isSavedCandidate ? 'btn--primary' : 'btn--ghost'}`}
           style={{ fontSize: '0.5rem', padding: '4px 10px' }}
         >
-          {isSavedCandidate ? '⭐ Disimpan' : '☆ Simpan'}
+          {isSavedCandidate ? (
+            <>
+              <i className="fa-solid fa-star" aria-hidden="true" style={{ marginRight: '4px' }} />
+              Disimpan
+            </>
+          ) : (
+            <>
+              <i className="fa-regular fa-star" aria-hidden="true" style={{ marginRight: '4px' }} />
+              Simpan
+            </>
+          )}
         </button>
       </header>
 
@@ -162,7 +172,8 @@ export default function ProfessionPage() {
                 color: 'var(--color-accent-purple)',
               }}
             >
-              🏷️ {type}
+              <i className="fa-solid fa-tag" aria-hidden="true" style={{ marginRight: '4px' }} />
+              {type}
             </span>
           ))}
           {profession.butuhGelar ? (
@@ -175,7 +186,8 @@ export default function ProfessionPage() {
                 color: 'var(--color-accent-purple)',
               }}
             >
-              🎓 Butuh Pendidikan Khusus
+              <i className="fa-solid fa-graduation-cap" aria-hidden="true" style={{ marginRight: '4px' }} />
+              Butuh Pendidikan Khusus
             </span>
           ) : profession.hasSimulation ? (
             <span
@@ -187,7 +199,8 @@ export default function ProfessionPage() {
                 color: 'var(--color-accent-green)',
               }}
             >
-              🎮 Simulasi Sehari Tersedia
+              <i className="fa-solid fa-gamepad" aria-hidden="true" style={{ marginRight: '4px' }} />
+              Simulasi Sehari Tersedia
             </span>
           ) : null}
         </div>
@@ -213,7 +226,17 @@ export default function ProfessionPage() {
                     marginBottom: 'var(--space-sm)',
                   }}
                 >
-                  {profession.butuhGelar ? `🎓 Simulasi: ${profession.nama}` : `🎮 ${simulasi?.judul}`}
+                  {profession.butuhGelar ? (
+                    <>
+                      <i className="fa-solid fa-graduation-cap" aria-hidden="true" style={{ marginRight: '6px' }} />
+                      Simulasi: {profession.nama}
+                    </>
+                  ) : (
+                    <>
+                      <i className="fa-solid fa-gamepad" aria-hidden="true" style={{ marginRight: '6px' }} />
+                      {simulasi?.judul}
+                    </>
+                  )}
                 </h2>
                 <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.8rem', marginBottom: 'var(--space-md)', lineHeight: 1.5 }}>
                   {simulasi?.intro ||
@@ -278,16 +301,27 @@ export default function ProfessionPage() {
                       }}
                       aria-haspopup="dialog"
                     >
-                      <span>🔒</span>
+                      <span><i className="fa-solid fa-lock" aria-hidden="true" /></span>
                       <span>SIMULASI TIDAK TERSEDIA</span>
                     </button>
                   ) : (
                     <button onClick={handleStartSim} className="btn btn--primary">
-                      {displayResult
-                        ? '🔄 Coba Simulasi Lagi'
-                        : isNurseSim
-                        ? '🚀 Mulai Simulasi (07.00 - 14.00)'
-                        : '🚀 Mulai Simulasi (08.00 - 16.00)'}
+                      {displayResult ? (
+                        <>
+                          <i className="fa-solid fa-rotate-right" aria-hidden="true" style={{ marginRight: '6px' }} />
+                          Coba Simulasi Lagi
+                        </>
+                      ) : isNurseSim ? (
+                        <>
+                          <i className="fa-solid fa-rocket" aria-hidden="true" style={{ marginRight: '6px' }} />
+                          Mulai Simulasi (07.00 - 14.00)
+                        </>
+                      ) : (
+                        <>
+                          <i className="fa-solid fa-rocket" aria-hidden="true" style={{ marginRight: '6px' }} />
+                          Mulai Simulasi (08.00 - 16.00)
+                        </>
+                      )}
                     </button>
                   )}
                 </div>
@@ -323,7 +357,8 @@ export default function ProfessionPage() {
                 {/* Header with Clock & Step */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-md)' }}>
                   <span className="pixel-text" style={{ fontSize: '0.65rem', color: 'var(--color-accent-yellow)' }}>
-                    ⏰ {simulasi.langkah[simStep].jam} WIB
+                    <i className="fa-solid fa-clock" aria-hidden="true" style={{ marginRight: '6px' }} />
+                    {simulasi.langkah[simStep].jam} WIB
                   </span>
                   <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)' }}>
                     Langkah {simStep + 1} dari {simulasi.langkah.length}
@@ -344,7 +379,8 @@ export default function ProfessionPage() {
                       display: 'inline-block',
                     }}
                   >
-                    ⚠️ Sisi Realita yang Menantang
+                    <i className="fa-solid fa-triangle-exclamation" aria-hidden="true" style={{ marginRight: '4px' }} />
+                    Sisi Realita yang Menantang
                   </div>
                 )}
 
@@ -361,7 +397,8 @@ export default function ProfessionPage() {
                       display: 'inline-block',
                     }}
                   >
-                    🧩 Mini Task Praktik
+                    <i className="fa-solid fa-puzzle-piece" aria-hidden="true" style={{ marginRight: '4px' }} />
+                    Mini Task Praktik
                   </div>
                 )}
 
@@ -430,7 +467,8 @@ export default function ProfessionPage() {
                     }}
                   >
                     <p style={{ fontSize: '0.75rem', color: 'var(--color-accent-cyan)', marginBottom: '8px' }}>
-                      💬 Dampak Pilihanmu:
+                      <i className="fa-solid fa-comment-dots" aria-hidden="true" style={{ marginRight: '6px' }} />
+                      Dampak Pilihanmu:
                     </p>
                     <p style={{ fontSize: '0.8rem', color: 'var(--color-text-primary)', marginBottom: 'var(--space-md)' }}>
                       {simulasi.langkah[simStep].pilihan[chosenOptionIndex].umpanBalik || 'Keputusanmu memengaruhi ritme hari kerja ini.'}
@@ -447,7 +485,8 @@ export default function ProfessionPage() {
             {!isNurseSim && !terminalSim && simStatus === 'evaluation' && (
               <div className="panel" style={{ borderColor: 'var(--color-accent-yellow)', padding: 'var(--space-lg)' }}>
                 <h2 style={{ fontSize: '0.75rem', color: 'var(--color-accent-yellow)', marginBottom: 'var(--space-md)' }}>
-                  📊 Evaluasi "Ekspektasi vs Realita"
+                  <i className="fa-solid fa-chart-simple" aria-hidden="true" style={{ marginRight: '6px' }} />
+                  Evaluasi "Ekspektasi vs Realita"
                 </h2>
                 <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-lg)' }}>
                   Shift kerjamu telah selesai! Mari bandingkan apa yang kamu rasakan dengan ekspektasi awalmu:
@@ -514,7 +553,8 @@ export default function ProfessionPage() {
                 </div>
 
                 <button onClick={handleFinishEvaluation} className="btn btn--primary" style={{ width: '100%' }}>
-                  💾 Simpan Hasil & Buka Reality Check
+                  <i className="fa-solid fa-floppy-disk" aria-hidden="true" style={{ marginRight: '6px' }} />
+                  Simpan Hasil & Buka Reality Check
                 </button>
               </div>
             )}
@@ -523,16 +563,21 @@ export default function ProfessionPage() {
             {!isNurseSim && !terminalSim && simStatus === 'done' && (
               <div className="panel" style={{ borderColor: 'var(--color-accent-green)', padding: 'var(--space-lg)' }}>
                 <h2 style={{ fontSize: '0.75rem', color: 'var(--color-accent-green)', marginBottom: 'var(--space-sm)' }}>
-                  🎉 Simulasi Selesai Tersimpan!
+                  <i className="fa-solid fa-award" aria-hidden="true" style={{ marginRight: '6px' }} />
+                  Simulasi Selesai Tersimpan!
                 </h2>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: 'var(--space-md)' }}>
                   <div style={{ padding: '8px', background: 'var(--color-bg-dark)', borderRadius: '4px' }}>
                     <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)' }}>Ekspektasi Awal</div>
-                    <div style={{ fontSize: '0.85rem', fontWeight: 600 }}>{preInterest} / 5 ⭐</div>
+                    <div style={{ fontSize: '0.85rem', fontWeight: 600 }}>
+                      {preInterest} / 5 <i className="fa-solid fa-star" aria-hidden="true" style={{ color: 'var(--color-accent-yellow)', marginLeft: '2px' }} />
+                    </div>
                   </div>
                   <div style={{ padding: '8px', background: 'var(--color-bg-dark)', borderRadius: '4px' }}>
                     <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)' }}>Kenyataan Setelah Coba</div>
-                    <div style={{ fontSize: '0.85rem', fontWeight: 600 }}>{postEnjoyment} / 5 ⭐</div>
+                    <div style={{ fontSize: '0.85rem', fontWeight: 600 }}>
+                      {postEnjoyment} / 5 <i className="fa-solid fa-star" aria-hidden="true" style={{ color: 'var(--color-accent-yellow)', marginLeft: '2px' }} />
+                    </div>
                   </div>
                 </div>
 
@@ -555,7 +600,8 @@ export default function ProfessionPage() {
         <section className="panel" style={{ borderColor: 'var(--color-border-cyan)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-md)' }}>
             <h2 style={{ fontSize: '0.75rem', color: 'var(--color-accent-cyan)' }}>
-              📋 Reality Check: {profession.nama}
+              <i className="fa-solid fa-clipboard-check" aria-hidden="true" style={{ marginRight: '6px' }} />
+              Reality Check: {profession.nama}
             </h2>
             <span style={{ fontSize: '0.6rem', color: 'var(--color-text-muted)' }}>
               Ditinjau: {profession.terakhirDitinjau}
@@ -577,7 +623,8 @@ export default function ProfessionPage() {
           {/* 2. Sisi Tidak Enak */}
           <div style={{ marginBottom: 'var(--space-lg)' }}>
             <h3 style={{ fontSize: '0.6rem', color: 'var(--color-accent-red)', marginBottom: '8px' }}>
-              ⚠️ Sisi Tidak Enak (Jujur & Nyata)
+              <i className="fa-solid fa-triangle-exclamation" aria-hidden="true" style={{ marginRight: '6px' }} />
+              Sisi Tidak Enak (Jujur & Nyata)
             </h3>
             <ul style={{ paddingLeft: 'var(--space-md)', fontSize: '0.8rem', color: 'var(--color-text-secondary)' }}>
               {profession.realityCheck.sisiTidakEnak.map((item, i) => (
@@ -589,7 +636,8 @@ export default function ProfessionPage() {
           {/* 3. Keterampilan yang Dibutuhkan */}
           <div style={{ marginBottom: 'var(--space-lg)' }}>
             <h3 style={{ fontSize: '0.6rem', color: 'var(--color-accent-purple)', marginBottom: '8px' }}>
-              🛠️ Keterampilan yang Dibutuhkan
+              <i className="fa-solid fa-wrench" aria-hidden="true" style={{ marginRight: '6px' }} />
+              Keterampilan yang Dibutuhkan
             </h3>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
               {profession.realityCheck.keterampilan.map((skill, i) => (
@@ -606,7 +654,17 @@ export default function ProfessionPage() {
                 >
                   {skill.nama}{' '}
                   <span style={{ fontSize: '0.55rem', opacity: 0.8 }}>
-                    ({skill.kategori === 'wajib sejak awal' ? '⚠️ wajib awal' : '🌱 bisa dipelajari'})
+                    ({skill.kategori === 'wajib sejak awal' ? (
+                      <>
+                        <i className="fa-solid fa-triangle-exclamation" aria-hidden="true" style={{ marginRight: '2px' }} />
+                        wajib awal
+                      </>
+                    ) : (
+                      <>
+                        <i className="fa-solid fa-seedling" aria-hidden="true" style={{ marginRight: '2px' }} />
+                        bisa dipelajari
+                      </>
+                    )})
                   </span>
                 </span>
               ))}
@@ -616,7 +674,8 @@ export default function ProfessionPage() {
           {/* 4. Jurusan Kuliah */}
           <div style={{ marginBottom: 'var(--space-lg)' }}>
             <h3 style={{ fontSize: '0.6rem', color: 'var(--color-accent-cyan)', marginBottom: '8px' }}>
-              🎓 Jurusan Kuliah yang Sesuai
+              <i className="fa-solid fa-graduation-cap" aria-hidden="true" style={{ marginRight: '6px' }} />
+              Jurusan Kuliah yang Sesuai
             </h3>
             <p style={{ fontSize: '0.8rem', color: 'var(--color-text-primary)', marginBottom: '4px' }}>
               <strong>Utama:</strong> {profession.realityCheck.jurusanKuliah.utama.join(', ')}
@@ -632,7 +691,8 @@ export default function ProfessionPage() {
           {/* 5. Jalur Selain S1 */}
           <div style={{ marginBottom: 'var(--space-lg)' }}>
             <h3 style={{ fontSize: '0.6rem', color: 'var(--color-accent-orange)', marginBottom: '8px' }}>
-              ⚡ Jalur Selain S1
+              <i className="fa-solid fa-bolt" aria-hidden="true" style={{ marginRight: '6px' }} />
+              Jalur Selain S1
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               {profession.realityCheck.jalurAlternatif.map((jalur, i) => (
@@ -646,7 +706,8 @@ export default function ProfessionPage() {
           {/* 6. Prospek & Gaji (Faktual) */}
           <div style={{ marginBottom: 'var(--space-lg)' }}>
             <h3 style={{ fontSize: '0.6rem', color: 'var(--color-accent-yellow)', marginBottom: '8px' }}>
-              💰 Prospek Karier & Gaji
+              <i className="fa-solid fa-money-bill-wave" aria-hidden="true" style={{ marginRight: '6px' }} />
+              Prospek Karier & Gaji
             </h3>
             <p style={{ fontSize: '0.85rem', color: 'var(--color-text-primary)', fontWeight: 600 }}>
               {profession.realityCheck.prospek.rentangGaji}
@@ -655,7 +716,8 @@ export default function ProfessionPage() {
               Sumber: {profession.realityCheck.prospek.sumber} ({profession.realityCheck.prospek.tahun})
             </p>
             <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginTop: '4px' }}>
-              📈 {profession.realityCheck.prospek.permintaan}
+              <i className="fa-solid fa-arrow-trend-up" aria-hidden="true" style={{ marginRight: '6px' }} />
+              {profession.realityCheck.prospek.permintaan}
             </p>
           </div>
 
@@ -665,10 +727,21 @@ export default function ProfessionPage() {
               onClick={() => toggleCandidate(profession.id)}
               className={`btn ${isSavedCandidate ? 'btn--primary' : ''}`}
             >
-              {isSavedCandidate ? '⭐ Tersimpan di Kandidat' : '☆ Simpan ke Kandidat'}
+              {isSavedCandidate ? (
+                <>
+                  <i className="fa-solid fa-star" aria-hidden="true" style={{ marginRight: '4px' }} />
+                  Tersimpan di Kandidat
+                </>
+              ) : (
+                <>
+                  <i className="fa-regular fa-star" aria-hidden="true" style={{ marginRight: '4px' }} />
+                  Simpan ke Kandidat
+                </>
+              )}
             </button>
             <Link to={`/bandingkan?p1=${profession.id}`} className="btn">
-              ⚖️ Bandingkan
+              <i className="fa-solid fa-scale-balanced" aria-hidden="true" style={{ marginRight: '6px' }} />
+              Bandingkan
             </Link>
             <Link to={`/gedung/${profession.gedung}`} className="btn btn--ghost">
               ← Kembali ke Gedung

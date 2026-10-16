@@ -114,7 +114,7 @@ export const SpecializedEducationModal: React.FC<SpecializedEducationModalProps>
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ fontSize: '1.1rem' }}>🎓</span>
+            <span style={{ fontSize: '1.1rem', color: 'var(--color-accent-cyan)' }}><i className="fa-solid fa-graduation-cap" /></span>
             <span
               style={{
                 fontFamily: 'var(--font-pixel)',
@@ -184,7 +184,7 @@ export const SpecializedEducationModal: React.FC<SpecializedEducationModalProps>
             color: 'var(--color-accent-yellow)',
           }}
         >
-          <span>⏱️</span>
+          <span><i className="fa-solid fa-stopwatch" /></span>
           <span>{generalDuration}</span>
         </div>
 
@@ -326,7 +326,7 @@ export const SpecializedEducationModal: React.FC<SpecializedEducationModalProps>
               gap: '6px',
             }}
           >
-            <span>🩺</span>
+            <span><i className="fa-solid fa-stethoscope" /></span>
             <span>{altLabel}</span>
             <span>→</span>
           </button>

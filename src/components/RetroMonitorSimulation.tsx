@@ -252,7 +252,7 @@ export default function RetroMonitorSimulation({
         id: `err-${idRef.current++}`,
         type: 'error',
         text: `[ERROR] ${errorMessage}${
-          newWrongCount >= 2 ? `\n💡 Tombol PETUNJUK siap digunakan di bawah!` : ''
+          newWrongCount >= 2 ? `\n[PETUNJUK] Tombol petunjuk siap digunakan di bawah!` : ''
         }`,
       },
     ]);
@@ -650,7 +650,8 @@ export default function RetroMonitorSimulation({
                       letterSpacing: '1px',
                     }}
                   >
-                    ⏰ {currentTime} WIB
+                    <i className="fa-solid fa-clock" aria-hidden="true" style={{ marginRight: '6px' }} />
+                    {currentTime} WIB
                   </span>
                   <button
                     type="button"
@@ -668,7 +669,11 @@ export default function RetroMonitorSimulation({
                       fontSize: '0.75rem',
                     }}
                   >
-                    {isMuted ? '🔇' : '🔊'}
+                    {isMuted ? (
+                      <i className="fa-solid fa-volume-xmark" aria-hidden="true" />
+                    ) : (
+                      <i className="fa-solid fa-volume-high" aria-hidden="true" />
+                    )}
                   </button>
                 </div>
               </header>
@@ -720,7 +725,8 @@ export default function RetroMonitorSimulation({
                       className="terminal-glow-green"
                       style={{ fontSize: '0.65rem', fontWeight: 600, marginBottom: '6px' }}
                     >
-                      📊 Skor Penilaian Kerja:
+                      <i className="fa-solid fa-chart-simple" aria-hidden="true" style={{ marginRight: '6px' }} />
+                      Skor Penilaian Kerja:
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px', fontSize: '0.7rem' }}>
                       <div>
@@ -759,7 +765,8 @@ export default function RetroMonitorSimulation({
                         fontWeight: 600,
                       }}
                     >
-                      Seberapa seru pengalaman kerja ini dibanding bayanganmu? (1 - 5 ⭐)
+                      Seberapa seru pengalaman kerja ini dibanding bayanganmu? (1 - 5{' '}
+                      <i className="fa-solid fa-star" aria-hidden="true" style={{ color: '#fbbf24' }} />)
                     </label>
                     <div style={{ display: 'flex', gap: '6px', marginBottom: '8px' }}>
                       {[1, 2, 3, 4, 5].map((star) => (
@@ -847,7 +854,14 @@ export default function RetroMonitorSimulation({
                       className="btn btn--primary"
                       style={{ flex: 1, minWidth: '160px', fontSize: '0.6rem' }}
                     >
-                      {isSaved ? '✓ Tersimpan di HASILKU' : '💾 Simpan ke HASILKU'}
+                      {isSaved ? (
+                        '✓ Tersimpan di HASILKU'
+                      ) : (
+                        <>
+                          <i className="fa-solid fa-floppy-disk" aria-hidden="true" style={{ marginRight: '6px' }} />
+                          Simpan ke HASILKU
+                        </>
+                      )}
                     </button>
                     <button
                       type="button"
@@ -858,7 +872,8 @@ export default function RetroMonitorSimulation({
                       className="btn btn--ghost"
                       style={{ fontSize: '0.6rem' }}
                     >
-                      🔄 Ulangi
+                      <i className="fa-solid fa-rotate-right" aria-hidden="true" style={{ marginRight: '6px' }} />
+                      Ulangi
                     </button>
                     <button
                       type="button"
@@ -869,7 +884,8 @@ export default function RetroMonitorSimulation({
                       className="btn btn--ghost"
                       style={{ fontSize: '0.6rem' }}
                     >
-                      🏢 Kembali ke Gedung
+                      <i className="fa-solid fa-building" aria-hidden="true" style={{ marginRight: '6px' }} />
+                      Kembali ke Gedung
                     </button>
                   </div>
                 </div>
@@ -1078,7 +1094,8 @@ export default function RetroMonitorSimulation({
                               : 'transparent',
                         }}
                       >
-                        {wrongAttempts >= 2 ? '💡 PETUNJUK' : '💡 Petunjuk'}
+                        <i className="fa-solid fa-lightbulb" aria-hidden="true" style={{ marginRight: '4px' }} />
+                        {wrongAttempts >= 2 ? 'PETUNJUK' : 'Petunjuk'}
                       </button>
 
                       <button
@@ -1095,7 +1112,8 @@ export default function RetroMonitorSimulation({
                           color: '#64748b',
                         }}
                       >
-                        ⏭️ Lewati
+                        <i className="fa-solid fa-forward-step" aria-hidden="true" style={{ marginRight: '4px' }} />
+                        Lewati
                       </button>
                     </div>
                   </footer>
@@ -1120,7 +1138,8 @@ export default function RetroMonitorSimulation({
                     {/* Titlebar */}
                     <div className="retro-modal-titlebar">
                       <span id="event-dialog-title">
-                        🚨 WORLD EVENT: {activeEvent.jam} WIB
+                        <i className="fa-solid fa-bell" aria-hidden="true" style={{ marginRight: '6px' }} />
+                        WORLD EVENT: {activeEvent.jam} WIB
                       </span>
                       <span style={{ fontSize: '0.5rem', opacity: 0.8 }}>[POPUP-OS]</span>
                     </div>
@@ -1253,7 +1272,10 @@ export default function RetroMonitorSimulation({
                     onClick={(e) => e.stopPropagation()}
                   >
                     <div className="retro-modal-titlebar">
-                      <span>💡 PETUNJUK KODE</span>
+                      <span>
+                        <i className="fa-solid fa-lightbulb" aria-hidden="true" style={{ marginRight: '6px' }} />
+                        PETUNJUK KODE
+                      </span>
                       <button
                         type="button"
                         onClick={() => {
@@ -1314,7 +1336,9 @@ export default function RetroMonitorSimulation({
               ============================================================ */}
           <div className="retro-bottom-bezel">
             <div className="retro-monitor-brand">
-              <span>📺</span>
+              <span>
+                <i className="fa-solid fa-tv" aria-hidden="true" />
+              </span>
               <span>KOTA-VISION 1994 CRT</span>
             </div>
 
