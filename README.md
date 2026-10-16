@@ -15,15 +15,6 @@ Banyak siswa SMA di Indonesia merasa bingung dan cemas saat memilih jurusan kuli
 
 ---
 
-## 🎯 Nilai Hackathon (Kriteria Penilaian)
-- **Technical Implementation (30%)**: Arsitektur modular TypeScript ketat, fungsi skoring murni (*pure & deterministic*), 100% *offline first* dengan `localStorage` fail-safe, vitest unit tests dengan cakupan penuh, dan performa tinggi tanpa dependensi runtime berat.
-- **Innovation (25%)**: Menggabungkan konsep RPG visual 2D dengan kerangka psikometrik RIASEC (Holland), sistem deteksi jawaban terburu-buru (*suspicious speed detection*), evaluasi delta "Ekspektasi vs Realita", dan kode hasil 8 karakter (*Base32 offline hash*) untuk guru BK.
-- **Functionality & Design (20%)**: Retro pixel aesthetic terkurasi (cyan borders, retro palette, responsive layout mobile-first 360px+, toggles aksesibilitas anti-scanline & prefers-reduced-motion).
-- **Impact & Feasibility (15%)**: Nol biaya server runtime (static site tanpa API/LLM mahal), data 100% aman di perangkat siswa, dan format laporan PDF ramah cetak untuk orang tua dan guru BK.
-- **Presentation/Demo (10%)**: Satu alur lengkap yang berjalan mulus tanpa bug: **Kota ➔ Tes Minat ➔ Rekomendasi Gedung ➔ Simulasi Kerja ➔ Reality Check ➔ Laporan Hasil & PDF**.
-
----
-
 ## 🧱 Arsitektur & Struktur Direktori
 
 ```text
