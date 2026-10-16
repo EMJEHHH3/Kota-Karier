@@ -1958,3 +1958,56 @@ html.no-animations .mug-steam {
     transform: none !important;
   }
 }
+
+/* ============================================================
+   BUILDING INTERIOR — COLUMN VIEW
+   ============================================================ */
+
+.interior-column-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 560px;
+}
+
+.interior-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 20px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  border-radius: 12px;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  position: relative;
+  font-family: var(--font-body);
+}
+
+.interior-card:hover {
+  background: rgba(24, 34, 56, 0.95);
+  border-color: var(--color-accent-cyan);
+  box-shadow: 0 6px 24px rgba(34, 211, 238, 0.18), 0 0 12px rgba(34, 211, 238, 0.1);
+  transform: translateY(-2px);
+}
+
+.interior-card:hover .interior-card-arrow {
+  transform: translate(2px, -2px);
+  color: #38bdf8;
+}
+
+.interior-card:active {
+  transform: translateY(0);
+}
+
+.interior-card--tried {
+  border-color: rgba(74, 222, 128, 0.35);
+}
+
+.interior-card--tried:hover {
+  border-color: var(--color-accent-green);
+  box-shadow: 0 6px 24px rgba(74, 222, 128, 0.18), 0 0 12px rgba(74, 222, 128, 0.1);
+}
