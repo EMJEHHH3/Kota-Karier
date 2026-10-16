@@ -342,6 +342,14 @@ const softwareEngineer: Profession = {
     },
   },
   terakhirDitinjau: '2024-12-01',
+  gajiMin: 5000000,
+  gajiMax: 20000000,
+  gajiRingkas: 'Rp 5 - 20 jt',
+  prospekRingkas: 'Sangat tinggi',
+  jurusanUtama: 'Teknik Informatika',
+  jalurTercepat: 'Bootcamp intensif, 3-6 bulan',
+  tantanganUtama: 'Duduk lama di layar dan debugging',
+  seruUtama: 'Membangun sistem dan aplikasi bermanfaat',
 };
 
 export default softwareEngineer;

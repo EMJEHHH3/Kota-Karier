@@ -79,6 +79,14 @@ const akuntan: Profession = {
     },
   },
   terakhirDitinjau: '2024-12-01',
+  gajiMin: 4000000,
+  gajiMax: 12000000,
+  gajiRingkas: 'Rp 4 - 12 jt',
+  prospekRingkas: 'Stabil',
+  jurusanUtama: 'Akuntansi',
+  jalurTercepat: 'SMK Akuntansi / D3, 3 tahun',
+  tantanganUtama: 'Pekerjaan repetitif dan tekanan tutup buku',
+  seruUtama: 'Menganalisis efisiensi dan kesehatan finansial perusahaan',
 };
 
 export default akuntan;

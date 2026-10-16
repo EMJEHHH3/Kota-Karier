@@ -104,6 +104,14 @@ const dataAnalyst: Profession = {
     },
   },
   terakhirDitinjau: '2025-01-15',
+  gajiMin: 6000000,
+  gajiMax: 15000000,
+  gajiRingkas: 'Rp 6 - 15 jt',
+  prospekRingkas: 'Sangat tinggi',
+  jurusanUtama: 'Sains Data',
+  jalurTercepat: 'Bootcamp intensif, 3-6 bulan',
+  tantanganUtama: 'Membersihkan data mentah berantakan berulang kali',
+  seruUtama: 'Menemukan pola rahasia pengambil keputusan bisnis',
 };
 
 export default dataAnalyst;

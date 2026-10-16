@@ -14,6 +14,7 @@ import { getTerminalSimulation } from '../data/terminalSimulations';
 import RetroMonitorSimulation from '../components/RetroMonitorSimulation';
 import NurseWardSimulation from '../components/NurseWardSimulation';
 import SpecializedEducationModal from '../components/SpecializedEducationModal';
+import RealityCheckCard from '../components/RealityCheckCard';
 import type { ScoreImpact, SimulationResult } from '../types';
 
 export default function ProfessionPage() {
@@ -597,157 +598,11 @@ export default function ProfessionPage() {
         {/* ============================================================
             REALITY CHECK CARD
             ============================================================ */}
-        <section className="panel" style={{ borderColor: 'var(--color-border-cyan)' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-md)' }}>
-            <h2 style={{ fontSize: '0.75rem', color: 'var(--color-accent-cyan)' }}>
-              <i className="fa-solid fa-clipboard-check" aria-hidden="true" style={{ marginRight: '6px' }} />
-              Reality Check: {profession.nama}
-            </h2>
-            <span style={{ fontSize: '0.6rem', color: 'var(--color-text-muted)' }}>
-              Ditinjau: {profession.terakhirDitinjau}
-            </span>
-          </div>
-
-          {/* 1. Tugas Sehari-hari */}
-          <div style={{ marginBottom: 'var(--space-lg)' }}>
-            <h3 style={{ fontSize: '0.6rem', color: 'var(--color-accent-green)', marginBottom: '8px' }}>
-              ✓ Tugas Sehari-hari
-            </h3>
-            <ul style={{ paddingLeft: 'var(--space-md)', fontSize: '0.8rem', color: 'var(--color-text-secondary)' }}>
-              {profession.realityCheck.tugasHarian.map((task, i) => (
-                <li key={i} style={{ marginBottom: '4px' }}>{task}</li>
-              ))}
-            </ul>
-          </div>
-
-          {/* 2. Sisi Tidak Enak */}
-          <div style={{ marginBottom: 'var(--space-lg)' }}>
-            <h3 style={{ fontSize: '0.6rem', color: 'var(--color-accent-red)', marginBottom: '8px' }}>
-              <i className="fa-solid fa-triangle-exclamation" aria-hidden="true" style={{ marginRight: '6px' }} />
-              Sisi Tidak Enak (Jujur & Nyata)
-            </h3>
-            <ul style={{ paddingLeft: 'var(--space-md)', fontSize: '0.8rem', color: 'var(--color-text-secondary)' }}>
-              {profession.realityCheck.sisiTidakEnak.map((item, i) => (
-                <li key={i} style={{ marginBottom: '4px' }}>{item}</li>
-              ))}
-            </ul>
-          </div>
-
-          {/* 3. Keterampilan yang Dibutuhkan */}
-          <div style={{ marginBottom: 'var(--space-lg)' }}>
-            <h3 style={{ fontSize: '0.6rem', color: 'var(--color-accent-purple)', marginBottom: '8px' }}>
-              <i className="fa-solid fa-wrench" aria-hidden="true" style={{ marginRight: '6px' }} />
-              Keterampilan yang Dibutuhkan
-            </h3>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-              {profession.realityCheck.keterampilan.map((skill, i) => (
-                <span
-                  key={i}
-                  style={{
-                    fontSize: '0.7rem',
-                    padding: '4px 8px',
-                    border: `1px solid ${skill.kategori === 'wajib sejak awal' ? 'var(--color-accent-red)' : 'var(--color-accent-green)'}`,
-                    borderRadius: '4px',
-                    color: skill.kategori === 'wajib sejak awal' ? 'var(--color-accent-red)' : 'var(--color-accent-green)',
-                    background: 'rgba(0,0,0,0.2)',
-                  }}
-                >
-                  {skill.nama}{' '}
-                  <span style={{ fontSize: '0.55rem', opacity: 0.8 }}>
-                    ({skill.kategori === 'wajib sejak awal' ? (
-                      <>
-                        <i className="fa-solid fa-triangle-exclamation" aria-hidden="true" style={{ marginRight: '2px' }} />
-                        wajib awal
-                      </>
-                    ) : (
-                      <>
-                        <i className="fa-solid fa-seedling" aria-hidden="true" style={{ marginRight: '2px' }} />
-                        bisa dipelajari
-                      </>
-                    )})
-                  </span>
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* 4. Jurusan Kuliah */}
-          <div style={{ marginBottom: 'var(--space-lg)' }}>
-            <h3 style={{ fontSize: '0.6rem', color: 'var(--color-accent-cyan)', marginBottom: '8px' }}>
-              <i className="fa-solid fa-graduation-cap" aria-hidden="true" style={{ marginRight: '6px' }} />
-              Jurusan Kuliah yang Sesuai
-            </h3>
-            <p style={{ fontSize: '0.8rem', color: 'var(--color-text-primary)', marginBottom: '4px' }}>
-              <strong>Utama:</strong> {profession.realityCheck.jurusanKuliah.utama.join(', ')}
-            </p>
-            <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginBottom: '4px' }}>
-              <strong>Alternatif:</strong> {profession.realityCheck.jurusanKuliah.alternatif.join(', ')}
-            </p>
-            <p style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>
-              Mata kuliah inti: {profession.realityCheck.jurusanKuliah.mataKuliahInti.join(', ')}
-            </p>
-          </div>
-
-          {/* 5. Jalur Selain S1 */}
-          <div style={{ marginBottom: 'var(--space-lg)' }}>
-            <h3 style={{ fontSize: '0.6rem', color: 'var(--color-accent-orange)', marginBottom: '8px' }}>
-              <i className="fa-solid fa-bolt" aria-hidden="true" style={{ marginRight: '6px' }} />
-              Jalur Selain S1
-            </h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              {profession.realityCheck.jalurAlternatif.map((jalur, i) => (
-                <div key={i} style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>
-                  <strong style={{ color: 'var(--color-accent-orange)' }}>{jalur.jenis}:</strong> {jalur.deskripsi}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* 6. Prospek & Gaji (Faktual) */}
-          <div style={{ marginBottom: 'var(--space-lg)' }}>
-            <h3 style={{ fontSize: '0.6rem', color: 'var(--color-accent-yellow)', marginBottom: '8px' }}>
-              <i className="fa-solid fa-money-bill-wave" aria-hidden="true" style={{ marginRight: '6px' }} />
-              Prospek Karier & Gaji
-            </h3>
-            <p style={{ fontSize: '0.85rem', color: 'var(--color-text-primary)', fontWeight: 600 }}>
-              {profession.realityCheck.prospek.rentangGaji}
-            </p>
-            <p style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)' }}>
-              Sumber: {profession.realityCheck.prospek.sumber} ({profession.realityCheck.prospek.tahun})
-            </p>
-            <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginTop: '4px' }}>
-              <i className="fa-solid fa-arrow-trend-up" aria-hidden="true" style={{ marginRight: '6px' }} />
-              {profession.realityCheck.prospek.permintaan}
-            </p>
-          </div>
-
-          {/* Action buttons */}
-          <div style={{ display: 'flex', gap: 'var(--space-sm)', flexWrap: 'wrap', marginTop: 'var(--space-lg)' }}>
-            <button
-              onClick={() => toggleCandidate(profession.id)}
-              className={`btn ${isSavedCandidate ? 'btn--primary' : ''}`}
-            >
-              {isSavedCandidate ? (
-                <>
-                  <i className="fa-solid fa-star" aria-hidden="true" style={{ marginRight: '4px' }} />
-                  Tersimpan di Kandidat
-                </>
-              ) : (
-                <>
-                  <i className="fa-regular fa-star" aria-hidden="true" style={{ marginRight: '4px' }} />
-                  Simpan ke Kandidat
-                </>
-              )}
-            </button>
-            <Link to={`/bandingkan?p1=${profession.id}`} className="btn">
-              <i className="fa-solid fa-scale-balanced" aria-hidden="true" style={{ marginRight: '6px' }} />
-              Bandingkan
-            </Link>
-            <Link to={`/gedung/${profession.gedung}`} className="btn btn--ghost">
-              ← Kembali ke Gedung
-            </Link>
-          </div>
-        </section>
+        <RealityCheckCard
+          profession={profession}
+          isSavedCandidate={isSavedCandidate}
+          onToggleCandidate={() => toggleCandidate(profession.id)}
+        />
       </main>
 
       {/* Specialized Degree / Education Path Modal */}

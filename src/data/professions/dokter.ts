@@ -366,6 +366,14 @@ const dokter: Profession = {
     },
   },
   terakhirDitinjau: '2024-12-01',
+  gajiMin: 5000000,
+  gajiMax: 15000000,
+  gajiRingkas: 'Rp 5 - 15 jt',
+  prospekRingkas: 'Tinggi',
+  jurusanUtama: 'Kedokteran',
+  jalurTercepat: 'D3 Keperawatan/Vokasi, 3 tahun',
+  tantanganUtama: 'Jam kerja panjang dan beban emosional',
+  seruUtama: 'Mendiagnosis dan menolong kesembuhan pasien',
 };
 
 export default dokter;

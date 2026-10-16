@@ -195,6 +195,15 @@ export interface Profession {
   butuhGelar?: boolean;
   /** Structured educational pathway information for professions requiring degrees */
   pendidikanKhusus?: PendidikanKhususInfo;
+  /** Field ringkas untuk perbandingan cepat */
+  gajiMin?: number;
+  gajiMax?: number;
+  gajiRingkas?: string;
+  prospekRingkas?: string;
+  jurusanUtama?: string;
+  jalurTercepat?: string;
+  tantanganUtama?: string;
+  seruUtama?: string;
 }
 
 

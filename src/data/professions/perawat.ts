@@ -78,6 +78,14 @@ const perawat: Profession = {
     },
   },
   terakhirDitinjau: '2024-12-01',
+  gajiMin: 3500000,
+  gajiMax: 8000000,
+  gajiRingkas: 'Rp 3,5 - 8 jt',
+  prospekRingkas: 'Tinggi',
+  jurusanUtama: 'Ilmu Keperawatan',
+  jalurTercepat: 'D3 Keperawatan, 3 tahun',
+  tantanganUtama: 'Shift malam dan beban fisik mengangkat pasien',
+  seruUtama: 'Dukungan emosional dan mendampingi kesembuhan pasien',
 };
 
 export default perawat;
